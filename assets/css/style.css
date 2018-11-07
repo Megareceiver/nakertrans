@@ -1,0 +1,57 @@
+th, td { white-space: nowrap; }
+    div.dataTables_wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+.bglogin {
+    background-image: url('../img/bg1.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: -webkit-fill-available;
+    width: auto;
+
+}
+
+.imglogin{
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+    margin: 0 50px 40px;
+}
+
+
+/* responsive */
+@media (max-width: 330px){
+    .imglogin {
+        margin: 0 7% 40px;
+    }
+}
+
+@media (max-width: 400px) {
+    .imglogin {
+        margin: 0 15% 40px;
+    }
+}
+
+@media (max-width: 500px) {
+    .imglogin {
+        margin: 0 20% 40px;
+    }
+}
+
+@media (max-width: 800px){
+    .imglogin{
+        margin: 0 5% 40px;
+    }
+
+    [class*='uk-width'] {
+        box-sizing: border-box;
+        width: auto;
+        max-width: 100%;
+    }
+}

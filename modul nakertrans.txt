@@ -1,0 +1,26 @@
+MODUL Nakertrans
+
+Front End
+    Dashboard
+    Detail Berita
+    Silder
+
+Back End
+    SUMBER DATA
+        -menu action
+            import
+            export
+            sortir
+            hapus
+            filter
+        -
+
+    DATA SPASIAL
+
+    PROGRAM (KERJA)
+
+    QUERY
+
+    BERITA
+
+    PENGATURAN

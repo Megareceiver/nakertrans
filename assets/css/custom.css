@@ -1,0 +1,208 @@
+/* frontend */
+.naker-title{
+    font-size: 70px;
+    background-color: #ed3c6d;
+    color: white;
+    width: fit-content;
+    height: 70px;
+    line-height: 60px;
+    margin-top: 32px;
+}
+
+.naker-title2{
+    font-size: 70px;
+    margin-bottom: 0;
+}
+
+.naker-title3{
+    background-color: #ed3c6d;
+    color: white;
+    width: fit-content;
+    height: 20px;
+}
+
+.naker-title2-3{
+    position: relative;
+    text-align: center;
+    top: 26%;
+    height: fit-content;
+    margin-top: 0
+}
+
+.naker-d{
+    font-size: 70px;
+    margin: 0px
+}
+
+.naker-l{
+    font-size: 45px;
+    margin-bottom: -4px;
+    margin-top: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.naker-y{
+    font-size: 23px;
+    line-height: 21px;
+    margin-bottom: 0;
+    margin-top: 13px;
+}
+
+.naker-d2{
+    font-size: 12px;
+    line-height: 12px;
+    margin-bottom: 0;
+    margin-top: 17px;
+    margin-right: -5px;
+}
+
+.naker-y2{
+    font-size: 50px;
+    margin: 0px
+}
+
+.naker-l2{
+    margin-top: 0px;
+    font-size: 12px;
+}
+
+.naker-progress{
+    padding-left:30%;
+    padding-right:30%;
+}
+
+.btn-act{
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+/* responsive */
+@media (max-width: 500px) {
+    .naker-title{
+        font-size: 30px;
+        background-color: #ed3c6d;
+        color: white;
+        width: fit-content;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 20px;
+        margin-top: 0px;
+    }
+    .naker-title2{
+        font-size: 30px;
+        margin-bottom: 0;
+        margin-top: 0px;
+    }
+
+    .naker-y {
+        font-size: 10px;
+        line-height: 10px;
+        margin-bottom: 0;
+        margin-top: 8px;
+    }
+
+    .naker-l {
+        font-size: 20px;
+        margin-bottom: 0;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .naker-d {
+        font-size: 30px;
+        margin: 0px;
+    }
+    
+    .uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle{
+        padding: 0;
+    }
+
+    .naker-d2 {
+        font-size: 10px;
+        line-height: 8px;
+        margin-bottom: 0;
+        margin-top: -3px;
+        margin-right: -5px;
+    }
+
+    .naker-y2 {
+        font-size: 30px;
+        margin: 0 0 10px 0;
+    }
+
+    .naker-l2 {
+        margin-top: 0px;
+        font-size: 7px;
+    }
+
+    .naker-action{
+        padding: 5px;
+        margin-top: -20px;
+    }
+
+    .naker-breadcumbs{
+        display: none;
+    }
+
+    .naker-progress{
+        padding-left:10%;
+        padding-right:10%;
+    }
+}
+
+@media (max-width: 800px){
+    .naker-title{
+        font-size: 30px;
+        background-color: #ed3c6d;
+        color: white;
+        width: fit-content;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 20px;
+        margin-top: 0px;
+    }
+    .naker-title2{
+        font-size: 30px;
+        margin-bottom: 0;
+        margin-top: 0px;
+    }
+
+    .naker-y {
+        font-size: 10px;
+        line-height: 10px;
+        margin-bottom: 0;
+        margin-top: 8px;
+    }
+
+    .naker-l {
+        font-size: 20px;
+        margin-bottom: 0;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .naker-d {
+        font-size: 30px;
+        margin: 0px;
+    }
+    
+    .uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle{
+        padding: 0;
+    }
+
+    .naker-action{
+        padding: 5px;
+        margin-top: -20px;
+    }
+}
+
+@media (min-width: 960px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
