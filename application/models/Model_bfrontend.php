@@ -12,7 +12,7 @@ class Model_bfrontend extends CI_Model
 
     public function get_berita_terkini()
     {
-        return $this->db->query("SELECT id, judul_berita, gambar_utama, tanggal AS history FROM master_berita WHERE tanggal >= DATE(NOW()) - INTERVAL 7 DAY")->result();
+        return $this->db->query("SELECT id, judul_berita, gambar_utama, tanggal AS history FROM master_berita")->result();
     }
 
     public function get_all_detail_berita($id)

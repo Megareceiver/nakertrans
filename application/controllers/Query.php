@@ -40,7 +40,9 @@ class Query extends CI_Controller {
 
     public function hasil_query()
     {
-        echo json_encode($this->Model_query->lihat());
+		$valquery = $_REQUEST['valq'];
+		$data = $this->Model_query->lihat($valquery);
+		echo json_encode($data);
     }
 }
 ?>

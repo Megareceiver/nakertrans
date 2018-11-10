@@ -24,7 +24,7 @@
                     <div class="uk-width-1-2@m" style="width:70%">
                         <select class="uk-select" name="jenis_kelamin" id="jenis_kelamin">
                             <option value="">Jenis kelamin</option>
-                            <option value="laki - laki">Laki - laki</option>
+                            <option value="laki-laki">Laki-laki</option>
                             <option value="perempuan">Perempuan</option>
                         </select>
                     </div>
@@ -118,7 +118,7 @@
     <hr>
     <div id="kriteria" class="uk-animation-slide-right-medium">
         <h5 style="margin:0;">Kriteria</h5>
-        <div class="uk-grid-small uk-child-width-1-6@s uk-flex-left uk-text-center" uk-grid id="result" style="font-size:10px">
+        <div class="uk-grid-small uk-child-width-1-6@s uk-flex-left uk-text-center" uk-grid id="result" style="font-size:10px; margin-bottom:5px;">
             
         </div>
     </div>
@@ -145,7 +145,9 @@
                 $('#result').append('<div>'+
                                         '<div class="uk-alert-success" uk-alert style="border-radius: 40px;">'+
                                             '<p>Tempat lahir > '+$('#tempat_lahir').val()+'</p>'+
+                                            
                                         '</div>'+
+                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#tempat_lahir').val()+'" /></div>'+
                                     '</div>');
                 $('#tempat_lahir').val('');
 
@@ -156,7 +158,9 @@
                 $('#result').append('<div>'+
                                         '<div class="uk-alert-success" uk-alert style="border-radius: 40px;">'+
                                             '<p>Jenis kelamin > '+$('#jenis_kelamin').val()+'</p>'+
+                                            
                                         '</div>'+
+                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#jenis_kelamin').val()+'" /></div>'+
                                     '</div>');
                 $('#jenis_kelamin').val('');
             }
@@ -166,7 +170,9 @@
                 $('#result').append('<div>'+
                                         '<div class="uk-alert-success" uk-alert style="border-radius: 40px;">'+
                                             '<p>Status > '+$('#status').val()+'</p>'+
+                                            
                                         '</div>'+
+                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#status').val()+'" /></div>'+
                                     '</div>');
                 $('#status').val('');
             }
@@ -176,7 +182,9 @@
                 $('#result').append('<div>'+
                                         '<div class="uk-alert-success" uk-alert style="border-radius: 40px;">'+
                                             '<p>Usia > '+$('#usia').val()+'</p>'+
+                                            
                                         '</div>'+
+                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#usia').val()+'" /></div>'+
                                     '</div>');
                 $('#usia').val('');
             }
@@ -186,7 +194,9 @@
                 $('#result').append('<div>'+
                                         '<div class="uk-alert-success" uk-alert style="border-radius: 40px;">'+
                                             '<p>Agama > '+$('#agama').val()+'</p>'+
+                                            
                                         '</div>'+
+                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#agama').val()+'" /></div>'+
                                     '</div>');
                 $('#agama').val('');
             }
@@ -196,7 +206,9 @@
                 $('#result').append('<div>'+
                                         '<div class="uk-alert-success" uk-alert style="border-radius: 40px;">'+
                                             '<p>Pekerjaan > '+$('#pekerjaan').val()+'</p>'+
+                                            
                                         '</div>'+
+                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#pekerjaan').val()+'" /></div>'+
                                     '</div>');
                 $('#pekerjaan').val('');
 
@@ -205,14 +217,24 @@
     }
 
     function hasil_query() {
-        $.ajax({
-            url: "<?php echo site_url('Query/hasil_query/');?>",
-            dataType: "json",
-            success: function( data ) {
-                for (i = 0; i < data.length; i++) {
-                    $('#hasil_query').append(JSON.stringify(data[i], undefined, 2));
+        var valquery = $('input[name^=valquery]').map(function(idx, elem) {
+            return $(elem).val();
+        }).get();
+
+        if(valquery != ''){
+            $.ajax({
+                url: "<?php echo site_url('Query/hasil_query/');?>",
+                dataType: "json",
+                data : {valq : valquery},
+                success: function( data ) {
+                    
+                    for (i = 0; i < data.length; i++) {
+                        $('#hasil_query').append(JSON.stringify(data[i], undefined, 2));
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            alert('Agregat kosong, silahkan masukin agregat terlebih dahulu!');
+        }
     }
 </script>

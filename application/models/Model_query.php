@@ -10,9 +10,31 @@ class Model_query extends CI_Model
 		$this->load->database();
     }
 
-    public function lihat()
+
+    // sementara sebelum ada api
+    public function lihat($valquery)
     {
-        return $this->db->query('SELECT * FROM data_TKI')->result_array();
+        $sql1 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'nakertrans' AND TABLE_NAME = 'data_TKI2'";
+        $dataheader = $this->db->query($sql1)->result_array();
+        
+        $where = '';
+        $val = '';
+        
+		for ($j=0; $j < count($valquery); $j++) { 
+			$val .= "'".$valquery[$j]."',";
+		}
+		$varfinal =substr_replace($val ,"", -1);
+
+        for ($i=0; $i < count($dataheader); $i++) { 
+			$where .= $dataheader[$i]['COLUMN_NAME']." IN (".$varfinal.") OR ";
+		}
+
+        $wherefinal =substr_replace($where ,"", -3);
+        $sql = "SELECT * FROM data_TKI2 WHERE ".$wherefinal;
+
+        $datavalue = $this->db->query($sql)->result_array();
+
+        return $datavalue;
     }
 }
 ?>
