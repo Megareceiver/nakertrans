@@ -1,11 +1,11 @@
 <table id="detail" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column uk-animation-slide-bottom-small" style="width:100%;">
     <thead>
-    <tr>
-        <th>Judul (<?php echo json_encode($sum_spasial);?>)</th>
-        <th>Tipe</th>
-        <th>Sumber Data</th>
-        <th>Group</th>
-        <th></th>
+        <tr>
+            <th class="uk-table-expand">Judul (<?php echo json_encode($sum_spasial);?>)</th>
+            <th class="">Tipe</th>
+            <th class="uk-width-small">Sumber Data</th>
+            <th class="uk-widt">Group</th>
+            <th class="uk-table-shrink"></th>
         </tr>
     </thead>
     <tbody>

@@ -36,86 +36,112 @@
 									    </form>
 									</div>
 
-						            <div class="uk-grid-small uk-child-width-1-3@s uk-flex-left uk-text-center" uk-grid>
-										<div style="padding: 15px;">
+						            <div class="uk-grid-small uk-child-width-1-4@s uk-flex-left uk-text-center" uk-grid>
+										<div>
+											<div class="uk-card">
+												<a href="<?php echo site_url('Dbackend')?>" style="font-size:12px;text-decoration:none;color:grey">
+													<span class="uk-text-muted" uk-icon="icon: home; ratio: 3"></span>
+													<p>Dashboard</p>
+												</a>
+											</div>
+										</div>
+
+										<div>
 											<div class="uk-card">
 												<a href="<?php echo site_url('Sumberdata')?>" style="font-size:12px;text-decoration:none;color:grey">
-													<div style="width: auto; height: 80px; ">
+													<!-- <div style="width: auto; height: 80px; ">
 														<img data-src="<?php echo base_url('assets/img/storage.png')?>" alt="" uk-img>
-													</div>
-													Sumber Data
+													</div> -->
+													<span class="uk-text-danger" uk-icon="icon: database; ratio: 3"></span>
+													<p>Sumber Data</p>
 												</a>
 											</div>
 										</div>
 
-										<div style="padding: 15px;">
+										<div>
 											<div class="uk-card">
 												<a href="<?php echo site_url('Data_spasial')?>" style="font-size:12px;text-decoration:none;color:grey">
-													<div style="width: 100%; height: 80px; ">
+													<!-- <div style="width: 100%; height: 80px; ">
 													<img data-src="<?php echo base_url('assets/img/analysis.png')?>" alt="" uk-img>
-													</div>
-													Data Spasial
+													</div> -->
+													<span class="uk-text-warning" uk-icon="icon: image; ratio: 3"></span>
+													<p>Diagram</p>
 												</a>
 											</div>
 										</div>
 
-										<div style="padding: 15px;">
+										<div>
 											<div class="uk-card">
 												<a href="<?php echo site_url('Program')?>" style="font-size:12px;text-decoration:none;color:grey">
-													<div style="width: 100%; height: 80px; ">
+													<!-- <div style="width: 100%; height: 80px; ">
 														<img data-src="<?php echo base_url('assets/img/program.png')?>" alt="" uk-img>
-													</div>
-													Program
+													</div> -->
+													<span class="uk-text-primary" uk-icon="icon: calendar; ratio: 3"></span>
+													<p>Program</p>
 												</a>
 											</div>
 										</div>
 
-										<div style="padding: 15px;">
+										<div>
 											<div class="uk-card">
 												<a href="<?php echo site_url('Query')?>" style="font-size:12px;text-decoration:none;color:grey">
-													<div style="width: 100%; height: 80px; ">
+													<!-- <div style="width: 100%; height: 80px; ">
 														<img data-src="<?php echo base_url('assets/img/query.png')?>" alt="" uk-img>
-													</div>
-													Query
+													</div> -->
+													<span class="uk-text-warning" uk-icon="icon: bolt; ratio: 3"></span>
+													<p>Query</p>
 												</a>
 											</div>
 										</div>
 
-										<div style="padding: 15px;">
+										<div>
 											<div class="uk-card">
 												<a href="<?php echo site_url('Berita')?>" style="font-size:12px;text-decoration:none;color:grey">
-													<div style="width: 100%; height: 80px; ">
+													<!-- <div style="width: 100%; height: 80px; ">
 														<img data-src="<?php echo base_url('assets/img/newsletter.png')?>" alt="" uk-img>
-													</div>
-													Berita
+													</div> -->
+													<span class="uk-text-success" uk-icon="icon: file-text; ratio: 3"></span>
+													<p>Berita</p>
 												</a>
 											</div>
 										</div>
 
-										<div style="padding: 15px;">
+										<div>
 											<div class="uk-card">
 												<a href="<?php echo site_url('Pengaturan')?>" style="font-size:12px;text-decoration:none;color:grey">
-													<div style="width: 100%; height: 80px; ">
+													<!-- <div style="width: 100%; height: 80px; ">
 														<img data-src="<?php echo base_url('assets/img/settings.png')?>" alt="" uk-img>
-													</div>
-													Pengaturan
+													</div> -->
+													<span class="uk-text-danger" uk-icon="icon: info; ratio: 3"></span>
+													<p>Profil</p>
 												</a>
 											</div>
 										</div>
 
+										<div>
+											<div class="uk-card">
+												<a href="<?php echo site_url('Pengaturan')?>" style="font-size:12px;text-decoration:none;color:grey">
+													<!-- <div style="width: 100%; height: 80px; ">
+														<img data-src="<?php echo base_url('assets/img/settings.png')?>" alt="" uk-img>
+													</div> -->
+													<span class="uk-text-emphasis" uk-icon="icon: cog; ratio: 3"></span>
+													<p>Pengaturan</p>
+												</a>
+											</div>
+										</div>
 
 									</div>
 						            <hr>
 									
-									<div class="uk-grid-small uk-child-width-1-2@s uk-flex-left" uk-grid style="padding: 15px;">
+									<div class="uk-grid-small uk-child-width-1-2@s uk-flex-left" uk-grid>
 										<div class="uk-width-expand">
 											<div class="uk-card uk-text-left">
-											<a style="text-decoration:none;color:grey; font-size:12px; cursor: auto;">Selamat datang, <b style="color: #ed3c6d;"><?php echo $this->session->userdata('nama');?>!</b></a>
+											<a style="text-decoration:none;color:grey; font-size:12px; cursor: auto;">Selamat datang, <b class="text-main"><?php echo $this->session->userdata('nama');?>!</b></a>
 											</div>
 										</div>
 										<div class="uk-width-auto">
 											<div class="uk-card uk-text-center">
-											<a href="<?php echo site_url('Auth/Logout'); ?>" uk-icon="icon: sign-out" style="text-decoration:none;color:grey; font-size:12px"> Logout </a>
+											<a href="<?php echo site_url('Auth/Logout'); ?>" uk-icon="icon: arrow-right" style="text-decoration:none;color:grey; font-size:12px"> LOG OUT </a>
 											</div>
 										</div>
 									</div>

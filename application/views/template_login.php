@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-gb" dir="ltr" class="uk-height-1-1">
 <head>
 	<title>Nakertrans</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,20 +11,18 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css')?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/custom.css')?>">
 	
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/DataTables/datatables.css')?>"/>
 </head>
-<body class="bglogin">
+<body class="uk-height-1-1 bglogin">
+    
 	<div class="uk-inline uk-animation-scale-up" style="height: -webkit-fill-available;width: 100%;">
-		<!-- LOGIN FORM -->
-
         
         <div class="uk-position-center uk-overlay uk-text-center">
-            <div style="margin-bottom:50px;">
-                <p> <b style="font-size: 70px;background-color: #ed3c6d;color: white;height: inherit;width: fit-content;">N</b> </p>
+            <div>
+                <p> <b class="naker-n large">N</b> </p>
             </div>
 
-            <div style="display: inline-flex; margin-bottom:-10px">
-                <p style="background-color: #ed3c6d;color:white;width: fit-content;height:fit-content"><b>N</b></p> <p style="margin: 0px;font-weight: bold;padding-left: 2px;">akertrans Jabar</p>
+            <div>
+                <p><b class="naker-n">N</b>akertrans Jabar</p>
             </div>
             <form class="">
 

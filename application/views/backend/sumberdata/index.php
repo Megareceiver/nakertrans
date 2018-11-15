@@ -1,9 +1,9 @@
 <table id="detail" class="uk-table uk-table-divider stripe row-border order-column uk-animation-slide-bottom-small" style="width:100%;">
     <thead>
         <tr>
-        	<th width="50px"></th>
-            <th>Nama Folder</th>
-            <th></th>
+        	<th class="uk-table-shrink"></th>
+            <th class="uk-table-expand">Nama Folder</th>
+            <th class="uk-width-small"></th>
         </tr>
     </thead>
     <tbody>
@@ -13,8 +13,8 @@
 				<td><?php echo str_replace("_"," ",$data['TABLE_NAME']);?> <?php echo !empty($data['SUMDATA']) ? "- ( ".$data['SUMDATA']." )" : ''; ?></td>
 				<td class="uk-text-center">
 					<a class="btn-act" href="<?php echo site_url('Sumberdata/detail_data/'.$data['TABLE_NAME'])?>" uk-icon="icon: search" title="lihat"></a>
-					<a class="btn-act" href="<?php echo site_url('Sumberdata/exportdata/'.$data['TABLE_NAME'])?>" uk-icon="icon: cloud-upload" title="export"></a>
-					<a class="btn-act" href="#modal-full" uk-toggle uk-icon="icon: cloud-download" title="validasi" onclick="validasidata('<?php echo $data['TABLE_NAME']?>')"></a>
+					<a class="btn-act" href="<?php echo site_url('Sumberdata/exportdata/'.$data['TABLE_NAME'])?>" uk-icon="icon: download" title="export"></a>
+					<a class="btn-act" href="#modal-full" uk-toggle uk-icon="icon: refresh" title="validasi" onclick="validasidata('<?php echo $data['TABLE_NAME']?>')"></a>
 					<a class="btn-act" href="<?php echo site_url('Sumberdata/droptable/'.$data['TABLE_NAME'])?>" uk-icon="icon: trash" title="hapus"></a>
 				</td>
 			</tr>	
