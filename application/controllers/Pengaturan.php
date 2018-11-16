@@ -50,7 +50,7 @@ class Pengaturan extends CI_Controller {
     public function tambah_slide()
     {
         $path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_github/upload/slide/";
-
+        $heading_slide = $_POST["heading_slide"];
 		$caption_slide = $_POST["caption_slide"];
 		$temp = explode(".", $_FILES["slide"]["name"]);
 		$ext1 = end($temp);
@@ -64,6 +64,7 @@ class Pengaturan extends CI_Controller {
             if (move_uploaded_file($_FILES["slide"]["tmp_name"], $path . $filename1)) {
 				echo json_encode("has been add");
 				$data = array(
+                    'heading_slide' => $heading_slide,
                     'caption_slide' => $caption_slide,
 					'slide' => $filename1,
 				);

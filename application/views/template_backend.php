@@ -165,38 +165,58 @@
 											</div>
 											</li>
 											<li style="padding-bottom: 10px;">
+												<a href="<?php echo site_url('Dbackend')?>" style="font-size:15px;text-decoration:none;color:grey">
+													
+													<span class="uk-text-muted" uk-icon="icon: home; ratio: 2" style="color:#999 !important"></span>
+													Dashboard
+												</a>
+											</li>
+											<li style="padding-bottom: 10px;">
 												<a href="<?php echo site_url('Sumberdata')?>" style="font-size:15px;text-decoration:none;color:grey">
-													<img data-src="<?php echo base_url('assets/img/storage.png')?>" alt="" uk-img style="width:25px; margin-right:10px;">
+													
+													<span class="uk-text-danger" uk-icon="icon: database; ratio: 2"></span>
 													Sumber Data
 												</a>
 											</li>
 											<li style="padding-bottom: 10px;">
 												<a href="<?php echo site_url('Data_spasial')?>" style="font-size:15px;text-decoration:none;color:grey">
-													<img data-src="<?php echo base_url('assets/img/analysis.png')?>" alt="" uk-img style="width:25px; margin-right:10px;">
-													Data Spasial
+													
+													<span class="uk-text-warning" uk-icon="icon: image; ratio: 2"></span>
+													Diagram
 												</a>
 											</li>
 											<li style="padding-bottom: 10px;">
 												<a href="<?php echo site_url('Program')?>" style="font-size:15px;text-decoration:none;color:grey">
-													<img data-src="<?php echo base_url('assets/img/program.png')?>" alt="" uk-img style="width:25px; margin-right:10px;">
+													
+													<span class="uk-text-primary" uk-icon="icon: calendar; ratio: 2" style="color: #1e87f0 !important;"></span>
 													Program
 												</a>
 											</li>
 											<li style="padding-bottom: 10px;">
 												<a href="<?php echo site_url('Query')?>" style="font-size:15px;text-decoration:none;color:grey">
-													<img data-src="<?php echo base_url('assets/img/query.png')?>" alt="" uk-img style="width:25px; margin-right:10px;">
+													
+													<span class="uk-text-warning" uk-icon="icon: bolt; ratio: 2"></span>
 													Query
 												</a>
 											</li>
 											<li style="padding-bottom: 10px;">
 												<a href="<?php echo site_url('Berita')?>" style="font-size:15px;text-decoration:none;color:grey">
-													<img data-src="<?php echo base_url('assets/img/newsletter.png')?>" alt="" uk-img style="width:25px; margin-right:10px;">
+													
+													<span class="uk-text-success" uk-icon="icon: file-text; ratio: 2"></span>
 													Berita
 												</a>
 											</li>
 											<li style="padding-bottom: 10px;">
 												<a href="<?php echo site_url('Pengaturan')?>" style="font-size:15px;text-decoration:none;color:grey">
-													<img data-src="<?php echo base_url('assets/img/settings.png')?>" alt="" uk-img style="width:25px; margin-right:10px;">
+													
+													<span class="uk-text-emphasis" uk-icon="icon: cog; ratio: 2"></span>
+													Profil
+												</a>
+											</li>
+											<li style="padding-bottom: 10px;">
+												<a href="<?php echo site_url('Pengaturan')?>" style="font-size:15px;text-decoration:none;color:grey">
+													
+													<span class="uk-text-danger" uk-icon="icon: info; ratio: 2"></span>
 													Pengaturan
 												</a>
 											</li>

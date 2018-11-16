@@ -73,6 +73,9 @@
 		<?php echo form_open_multipart(site_url("Pengaturan/tambah_slide/"), array("class" => "formValidate")) ?>
         <fieldset class="uk-fieldset">
             <div class="uk-margin">
+                <input class="uk-input" type="text" placeholder="Ketik heading..." name="heading_slide">
+            </div>
+            <div class="uk-margin">
                 <input class="uk-input" type="text" placeholder="Ketik caption..." name="caption_slide">
             </div>
             <div class="uk-margin">
