@@ -11,8 +11,8 @@
             <?php if (count($data) > 0) { ?>
                 <?php foreach ($data as $detail) { ?>
                     <div>
-                        <div class="uk-background-cover uk-height-small" style="background-image: url(<?php echo base_url('assets/img/'.$detail->gambar)?>);"></div>
-                        <p><?=$detail->caption?></p>
+                        <div class="uk-background-cover uk-height-small" style="background-image: url(<?php echo base_url('upload/profile/galeri/'.$detail->file)?>);"></div>
+                        <p><?=$detail->text?></p>
                     </diV>
                 <?php } ?>
             <?php } ?>

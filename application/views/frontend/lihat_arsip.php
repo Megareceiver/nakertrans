@@ -12,9 +12,9 @@
                 <ul class="uk-list uk-list-divider">
                 <?php foreach ($data as $detail) { ?>
                     <li class="">
-                        <a class="uk-button-link" target="_blank" href="<?php echo base_url('assets/'.$detail->file); ?>">
+                        <a class="uk-button-link" target="_blank" href="<?php echo base_url('upload/profile/dapub/'.$detail->file); ?>">
                             <span uk-icon="cloud-download"></span> &nbsp;
-                            <?php echo $detail->judul; ?>
+                            <?php echo $detail->text; ?>
                         </a>
                     </li>
                 <?php } ?>

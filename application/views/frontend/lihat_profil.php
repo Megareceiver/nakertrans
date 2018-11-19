@@ -8,16 +8,49 @@
         </div>
         <hr>
         <div class="uk-margin">
-            <?php if (count($isi_profil) > 0) { ?>
-                <?php foreach ($isi_profil as $detail) { ?>
-                    <div>
-                        
-                        <p class=""><?php echo $detail; ?></p>
-                           
-                    </div>
+            <?php if ($judul_profil == "Visi dan Misi"){ ?><!-- visi dan misi -->
+                <p>Visi :</p>
+                <?php foreach ($isi_visi as $detail) { ?>
+                    <p class=""><?php echo $detail->text; ?></p>
+                <?php } ?>
+                <br>
+
+                <p>Misi :</p>
+                <?php foreach ($isi_misi as $detail) { ?>
+                    <p class=""><?php echo $detail->text; ?></p>
                 <?php } ?>
 
+            <?php }else if($judul_profil == "Tupoksi"){ ?> <!-- tupoksi -->
+                <p>Kepala Bagian :</p>
+                <?php foreach ($isi_kepbag as $detail) { ?>
+                    <p class=""><?php echo $detail->text; ?></p>
+                <?php } ?>
+                <br>
+
+                <p>Sub Bagian :</p>
+                <?php foreach ($isi_subbag as $detail) { ?>
+                    <p class=""><?php echo $detail->text; ?></p>
+                <?php } ?>
+                <br>
+
+                <p>Seksi - Seksi :</p>
+                <?php foreach ($isi_seksi as $detail) { ?>
+                    <p class=""><?php echo $detail->text; ?></p>
+                <?php } ?>
+
+            <?php }else{ ?> <!-- sejarah -->
+                <?php if (count($isi_profil) > 0) { ?>
+                    <?php foreach ($isi_profil as $detail) { ?>
+                        <div>
+                            
+                            <p class=""><?php echo $detail->text; ?></p>
+                            
+                        </div>
+                    <?php } ?>
+
+                <?php } ?>
             <?php } ?>
+
         </div>
         <hr>
 

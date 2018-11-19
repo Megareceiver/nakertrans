@@ -1,4 +1,4 @@
-<table id="detail" class="stripe row-border order-column uk-animation-slide-bottom-small uk-table uk-table-divider" style="width:100%;">
+<table id="detail" class="row-border order-column uk-animation-slide-bottom-small uk-table uk-table-divider uk-table-hover" style="width:100%;">
     <thead>
     <tr>
         <?php foreach ($header as $h) { ?>
