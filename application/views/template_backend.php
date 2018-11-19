@@ -108,7 +108,7 @@
 
 										<div>
 											<div class="uk-card">
-												<a href="<?php echo site_url('Pengaturan')?>" style="font-size:12px;text-decoration:none;color:grey">
+												<a href="<?php echo site_url('Profile')?>" style="font-size:12px;text-decoration:none;color:grey">
 													<!-- <div style="width: 100%; height: 80px; ">
 														<img data-src="<?php echo base_url('assets/img/settings.png')?>" alt="" uk-img>
 													</div> -->
@@ -207,7 +207,7 @@
 												</a>
 											</li>
 											<li style="padding-bottom: 10px;">
-												<a href="<?php echo site_url('Pengaturan')?>" style="font-size:15px;text-decoration:none;color:grey">
+												<a href="<?php echo site_url('Profile')?>" style="font-size:15px;text-decoration:none;color:grey">
 													
 													<span class="uk-text-emphasis" uk-icon="icon: cog; ratio: 2"></span>
 													Profil
@@ -226,7 +226,7 @@
 												<a style="text-decoration:none;color:grey; font-size:12px; cursor: auto;">Selamat datang, <b style="color: #ed3c6d;"><?php echo $this->session->userdata('nama');?>!</b></a>
 											</li>
 											<li style="padding-bottom: 10px;">
-												<a href="<?php echo site_url('Auth/Logout'); ?>" uk-icon="icon: sign-out" style="text-decoration:none;color:grey; font-size:12px"> Logout </a>
+											<a href="<?php echo site_url('Auth/Logout'); ?>" uk-icon="icon: arrow-right" style="text-decoration:none;color:grey; font-size:12px"> LOG OUT </a>
 											</li>
 										</ul>
 
