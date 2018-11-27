@@ -49,7 +49,7 @@ class Pengaturan extends CI_Controller {
 
     public function tambah_slide()
     {
-        $path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_github/upload/slide/";
+        $path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_git/upload/slide/";
         $heading_slide = $_POST["heading_slide"];
 		$caption_slide = $_POST["caption_slide"];
 		$temp = explode(".", $_FILES["slide"]["name"]);
@@ -78,7 +78,7 @@ class Pengaturan extends CI_Controller {
 
     public function hapus_slide($id)
     {
-        $path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_github/upload/slide/";
+        $path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_git/upload/slide/";
 		$data = $this->Model_pengaturan->get_slide_($id);
 
 		unlink($path . $data->slide);

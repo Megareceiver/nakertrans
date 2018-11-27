@@ -67,7 +67,7 @@ class Berita extends CI_Controller {
 	
 	public function add_()
 	{
-		$path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_github/upload/berita/";
+		$path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_git/upload/berita/";
 
 		$judul_berita = $_POST["judul_berita"];
 		$temp = explode(".", $_FILES["gambar_utama"]["name"]);
@@ -96,7 +96,7 @@ class Berita extends CI_Controller {
 
 	public function edit_($id)
 	{
-		$path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_github/upload/berita/";
+		$path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_git/upload/berita/";
 
 		$judul_berita = $_POST["judul_berita"];
 		$temp = explode(".", $_FILES["gambar_utama"]["name"]);
@@ -166,7 +166,7 @@ class Berita extends CI_Controller {
 
 	public function tambah_det2($id)
 	{
-		$path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_github/upload/berita/";
+		$path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_git/upload/berita/";
 		$temp = explode(".", $_FILES["file"]["name"]);
 		$ext1 = end($temp);
 		$filename = $filename = md5(date("Y-m-d H:i:s"));
@@ -192,7 +192,7 @@ class Berita extends CI_Controller {
 
 	public function hapus_($id)
 	{
-		$path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_github/upload/berita/";
+		$path = $_SERVER['DOCUMENT_ROOT']."/nakertrans_git/upload/berita/";
 		$data = $this->Model_berita->get_data($id)[0];
 
 		unlink($path . $data->gambar_utama);
