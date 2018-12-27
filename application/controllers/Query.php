@@ -23,13 +23,15 @@ class Query extends CI_Controller {
 	     parent::__construct();
 	     $this->load->helper('url');
          $this->load->library('session');
-         $this->load->model('Model_query');
+		 $this->load->model('Model_query');
+		 $this->load->model('Model_sumberdata');
   	 }
 
 	public function index()
 	{
         if ($this->session->userdata("status_login") == 1){
 			$data['menuaction'] ='';
+			$data['sumberdata'] = $this->Model_sumberdata->datasource();
             $data['breadcumbs'] ='<li class="naker-breadcumbs"><a href='. site_url("Query").'>Query</a></li>';
             
 			$this->template->load('template_backend', 'backend/query/index', $data);
@@ -41,7 +43,8 @@ class Query extends CI_Controller {
     public function hasil_query()
     {
 		$valquery = $_REQUEST['valq'];
-		$data = $this->Model_query->lihat($valquery);
+		$sumberdata = $_REQUEST['sdata'];
+		$data = $this->Model_query->lihat($valquery, $sumberdata);
 		echo json_encode($data);
     }
 }

@@ -22,7 +22,7 @@
 
 	        	<nav class="uk-navbar uk-navbar-container" uk-navbar="mode:click" style="background-color: white;position: relative; z-index: 980;">
 				    <div class="uk-navbar-left">
-				        <ul class="uk-navbar-nav uk-animation-slide-right-medium" style="z-index: 9">
+				        <ul class="uk-navbar-nav" style="z-index: 9">
 				            <li>
 								
 								<!-- menu dekstop -->
@@ -253,7 +253,7 @@
 				    </div>
 				    <div class="uk-navbar-right ">
 
-				        <ul class="uk-navbar-nav uk-animation-slide-left-medium">
+				        <ul class="uk-navbar-nav ">
 				            
 				                <?php echo $menuaction?>
 				            

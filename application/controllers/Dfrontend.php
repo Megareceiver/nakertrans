@@ -25,6 +25,7 @@ class Dfrontend extends CI_Controller {
 		 $this->load->library('session');
 		 $this->load->model('Model_bfrontend');
 		 $this->load->model('Model_profile');
+		 $this->load->model('Model_sumberdata');
   	 }
 
 	public function index()
@@ -109,6 +110,12 @@ class Dfrontend extends CI_Controller {
 		} elseif($data['section'] == "galeri"){
 			$this->template->load('template_frontend', 'frontend/lihat_galeri', $data);
 		}
+	}
+
+	public function data_spasial()
+	{
+		$data['sumberdata'] = $this->Model_sumberdata->datasource();
+		$this->template->load('template_frontend', 'frontend/data_spasial', $data);
 	}
 }
 ?>

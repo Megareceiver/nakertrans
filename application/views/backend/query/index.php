@@ -1,13 +1,22 @@
-<div class="uk-animation-scale-up">
+<div class="">
+    <h5 style="margin:0;">List Sumber Data</h5>
+    <div class="naker-listdata">
+        <ul class="uk-list uk-list-striped">
+            <?php foreach ($sumberdata as $sdata) { ?>
+                <li> <label><input class="uk-radio" type="radio" name="radio2" value="<?php echo $sdata['TABLE_NAME']?>"> <?php echo str_replace("_", " ", $sdata['TABLE_NAME']); ?> </label> </li>        
+            <?php } ?>
+        </ul>
+    </div>
+
     <h5 style="margin:0;">Agregat</h5>
     <hr>
     <div class="uk-grid-small uk-child-width-1-3@s uk-flex-left uk-text-center" uk-grid>
 
-        <div id="section1" class="uk-animation-slide-right-medium">
+        <div id="section1" class="">
             <div class="uk-card">
                 <div class="uk-grid-small" uk-grid>
                     <div class="uk-width-1-2@m" style="width:70%">
-                        <input class="uk-input" type="text" name="tempat_lahir" id="tempat_lahir" placeholder="Ketik tempat lahir...">
+                        <input class="uk-input" type="text" name="tempat_lahir" id="tempat_lahir" placeholder="Ketik tempat lahir..." disabled>
                     </div>
                     <div class="uk-width-1-4@s">
                         <div style="border:1px solid grey; border-radius:100%; width: 40px;">
@@ -18,11 +27,11 @@
             </div>
         </div>
 
-        <div id="section2" class="uk-animation-slide-right-medium">
+        <div id="section2" class="">
             <div class="uk-card">
                 <div class="uk-grid-small" uk-grid>
                     <div class="uk-width-1-2@m" style="width:70%">
-                        <select class="uk-select" name="jenis_kelamin" id="jenis_kelamin">
+                        <select class="uk-select" name="jenis_kelamin" id="jenis_kelamin" disabled>
                             <option value="">Jenis kelamin</option>
                             <option value="laki-laki">Laki-laki</option>
                             <option value="perempuan">Perempuan</option>
@@ -37,17 +46,17 @@
             </div>
         </div>
 
-        <div id="section3" class="uk-animation-slide-right-medium">
+        <div id="section3" class="">
             <div class="uk-card">
                 <div class="uk-grid-small" uk-grid>
                     <div class="uk-width-1-2@m" style="width:70%">
-                        <select class="uk-select" name="status" id="status">
+                        <select class="uk-select" name="status" id="status" disabled>
                             <option value="">Status perkawinan</option>
                             <option value="belum menikah">Belum menikah</option>
                             <option value="menikah">Menikah</option>
                         </select>
                     </div>
-                    <div class="uk-width-1-4@s" class="uk-animation-slide-right-medium">
+                    <div class="uk-width-1-4@s" class="">
                         <div style="border:1px solid grey; border-radius:100%; width: 40px;">
                             <a uk-icon="icon: arrow-right; ratio: 2" href="#" id="3" onclick="section(3)"></a>
                         </div>
@@ -56,11 +65,11 @@
             </div>
         </div>
 
-        <div id="section4" class="uk-animation-slide-right-medium">
+        <div id="section4" class="">
             <div class="uk-card">
                 <div class="uk-grid-small" uk-grid>
                     <div class="uk-width-1-2@m" style="width:70%">
-                        <input class="uk-input" type="number" placeholder="Ketik usia..." name="usia" id="usia">
+                        <input class="uk-input" type="number" placeholder="Ketik usia..." name="usia" id="usia" disabled>
                     </div>
                     <div class="uk-width-1-4@s">
                         <div style="border:1px solid grey; border-radius:100%; width: 40px;">
@@ -71,11 +80,11 @@
             </div>
         </div>
 
-        <div id="section5" class="uk-animation-slide-right-medium">
+        <div id="section5" class="">
             <div class="uk-card">
                 <div class="uk-grid-small" uk-grid>
                     <div class="uk-width-1-2@m" style="width:70%">
-                        <select class="uk-select" name="agama" id="agama">
+                        <select class="uk-select" name="agama" id="agama" disabled>
                             <option value="">Agama</option>
                             <option value="Islam">Islam</option>
                             <option value="Protestan">Protestan</option>
@@ -94,11 +103,11 @@
             </div>
         </div>
 
-        <div id="section6" class="uk-animation-slide-right-medium">
+        <div id="section6" class="">
             <div class="uk-card">
                 <div class="uk-grid-small" uk-grid>
                     <div class="uk-width-1-2@m" style="width:70%">
-                        <select class="uk-select" name="pekerjaan" id="pekerjaan">
+                        <select class="uk-select" name="pekerjaan" id="pekerjaan" disabled>
                             <option value="">Pekerjaan</option>
                             <option value="Bekerja">Bekerja</option>
                             <option value="Belum bekerja">Belum bekerja</option>
@@ -116,7 +125,7 @@
     </div>
 
     <hr>
-    <div id="kriteria" class="uk-animation-slide-right-medium">
+    <div id="kriteria" class="">
         <h5 style="margin:0;">Kriteria</h5>
         <div class="uk-grid-small uk-child-width-1-6@s uk-flex-left uk-text-center" uk-grid id="result" style="font-size:10px; margin-bottom:5px;">
             
@@ -127,17 +136,87 @@
     <button class="uk-button uk-button-default" onclick="hasil_query()">Jalankan query</button>
     <br>
     <br>
-    <div id="hasil" class="uk-animation-slide-right-medium">
+    <div id="hasil" class="">
         <h5 style="margin:0;">Hasil query</h5>
         <br>
-        <div>
+        <div class="naker-listdata">
             <pre id="hasil_query"></pre>
         </div>
     </div>
 </div>
 
+<script rel="javascript" type="text/javascript" src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
 <script>
-    function section(params) {
+    $(document).ready(function()
+    {
+        $("input[name='radio2']").on("change", function(){
+
+            let sumberdata = $("input[name='radio2']:checked").val();
+            $.ajax({
+                url: "<?php echo site_url('Data_spasial/get_cloumn_data_source/');?>"+sumberdata,
+                dataType: "json",
+                success: function( data ) {
+
+                    value = [];
+                    for (let i = 0; i < data.length; i++) {
+                        value.push(data[i]['COLUMN_NAME']);
+                    }
+
+                    // tempat tanggal lahir
+                    if ( (value.indexOf('tempat') > -1) == true ){
+                        $('#tempat_lahir').prop('disabled', false);
+                    }else if ( (value.indexOf('tempat/tanggal_lahir') > -1) == true ){
+                        $('#tempat_lahir').prop('disabled', false);
+                    }else{
+                        $('#tempat_lahir').prop('disabled', true);
+                    }
+                    
+                    // jenis kelamin
+                    if ( (value.indexOf('jenis_kelamin') > -1) == true ){
+                        $('#jenis_kelamin').prop('disabled', false);
+                    }else {
+                        $('#jenis_kelamin').prop('disabled', true);
+                    }
+                    
+                    // status kawin
+                    if ( (value.indexOf('status') > -1) == true ){
+                        $('#status').prop('disabled', false);
+                    }else if ( (value.indexOf('status_perkawinan') > -1) == true ){
+                        $('#status').prop('disabled', false);
+                    }else {
+                        $('#status').prop('disabled', true);
+                    }
+                    
+                    // usia
+                    if ( (value.indexOf('usia') > -1) == true ){
+                        $('#usia').prop('disabled', false);
+                    }else {
+                        $('#usia').prop('disabled', true);
+                    }
+                    
+                    // agama
+                    if ( (value.indexOf('agama') > -1) == true ){
+                        $('#agama').prop('disabled', false);
+                    }else {
+                        $('#agama').prop('disabled', true);
+                    }
+                    
+                    // pekerjaan
+                    if ( (value.indexOf('pekerjaan') > -1) == true ){
+                        $('#pekerjaan').prop('disabled', false);
+
+                    }else{
+                        $('#pekerjaan').prop('disabled', true);
+                    }
+                }
+            });
+            // ---------inputradio
+        });
+        // --------document
+    });
+    
+    function section(params) 
+    {
         if (params == 1){
             if($('#tempat_lahir').val() != ""){
 
@@ -216,18 +295,21 @@
         }
     }
 
-    function hasil_query() {
+    function hasil_query() 
+    {
         var valquery = $('input[name^=valquery]').map(function(idx, elem) {
             return $(elem).val();
         }).get();
 
+        var sumberdata = $("input[name='radio2']:checked").val();
         if(valquery != ''){
             $.ajax({
                 url: "<?php echo site_url('Query/hasil_query/');?>",
                 dataType: "json",
-                data : {valq : valquery},
+                data : {valq : valquery, sdata : sumberdata},
                 success: function( data ) {
-                    
+                    // console.log(data);
+
                     for (i = 0; i < data.length; i++) {
                         $('#hasil_query').append(JSON.stringify(data[i], undefined, 2));
                     }

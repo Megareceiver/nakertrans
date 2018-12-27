@@ -2,7 +2,7 @@
     <div uk-grid>
         
         <div class="uk-width-1-5@m">
-            <ul class="uk-tab-left" uk-tab="connect: #component-tab-left; animation: uk-animation-slide-right">
+            <ul class="uk-tab-left" uk-tab="connect: #component-tab-left; animation: uk-animation-slide-bottom-small">
                 <li <?php if ($this->session->userdata('active_profile') == "sejarah"){ echo 'class="uk-active"'; }else{ echo 'class='; }?> ><a href="#">Sejarah</a></li>
                 <li <?php if ($this->session->userdata('active_profile') == "visimisi"){ echo 'class="uk-active"'; }else{ echo 'class='; }?> ><a href="#">Visi & misi</a></li>
                 <li <?php if ($this->session->userdata('active_profile') == "tupoksi"){ echo 'class="uk-active"'; }else{ echo 'class='; }?> ><a href="#">Tupoksi</a></li>

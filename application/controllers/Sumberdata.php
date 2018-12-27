@@ -79,9 +79,11 @@ class Sumberdata extends CI_Controller {
 		$this->template->load('template_backend', 'backend/sumberdata/index', $data);
 	}
 
-	public function importdata(){
+	public function importdata()
+	{
 		$nametable = $_POST['nametable'];
 		$tmp = $_FILES['file']['tmp_name'];
+		$publikasi = $_POST['publikasi'];
 
 		$nametable = str_replace(" ","_",$nametable);
 
@@ -104,6 +106,7 @@ class Sumberdata extends CI_Controller {
 
 			foreach($maxCol as $key => $coloumn){
 				$field[$key]    = $_sheet->getCell($coloumn.'1')->getCalculatedValue();//Kolom pertama sebagai field list pada table
+				$col[$key]	= $coloumn.'1';
 			}
 
 			for($i = 2; $i <= $maxRow; $i++){
@@ -112,19 +115,77 @@ class Sumberdata extends CI_Controller {
 				}
 				array_push($value, $sql);
 			}
-			
 		}
+
+		$data['nametable'] = $nametable;
+		$data['header'] = $field;
+		$data['header_column'] = $col;
+		$data['values'] = $value;
+		$data['publikasi'] = $publikasi;
+
+		echo json_encode($data);
+		// $this->Model_sumberdata->importdata($nametable, $data);
+		
+		// redirect(site_url('Sumberdata'));
+	}
+
+	public function submitimport()
+	{
+		$nametable = $_POST['nametable'];
+		$tmp = $_FILES['file']['tmp_name'];
+		$publikasi = $_POST['publikasi'];
+
+		$nametable = str_replace(" ","_",$nametable);
+
+		$this->load->library('excel');
+		
+		$read   = PHPExcel_IOFactory::createReaderForFile($tmp);
+		$read->setReadDataOnly(true);
+		$excel  = $read->load($tmp);
+		$sheets = $read->listWorksheetNames($tmp);
+
+		foreach($sheets as $sheet){
+
+			$_sheet = $excel->setActiveSheetIndexByName($sheet);//Kunci sheet
+			$maxRow = $_sheet->getHighestRow();
+			$maxCol = $_sheet->getHighestColumn();
+			$field  = array();
+			$sql    = array();
+			$value  = array();
+			$maxCol = range('A',$maxCol);
+
+			foreach($maxCol as $key => $coloumn){
+				$field[$key]    = $_sheet->getCell($coloumn.'1')->getCalculatedValue();//Kolom pertama sebagai field list pada table
+			}
+
+			for($i = 2; $i <= $maxRow; $i++){
+				foreach($maxCol as $k => $coloumn){
+					$sql[$field[$k]]  = $_sheet->getCell($coloumn.$i)->getCalculatedValue();
+				}
+				array_push($value, $sql);
+			}
+		}
+
+		sort($field);
 
 		$data['header'] = $field;
 		$data['values'] = $value;
 
-		$this->Model_sumberdata->importdata($nametable, $data);
-		
-		redirect(site_url('Sumberdata'));
-	 }
+		$data_publikasi = array(
+			"data_source" => "data_".$nametable,
+			"publikasi" => $publikasi,
+			"dibuat" => date('Y-m-d'),
+		);
 
-	 public function import_fapi($nametable)
-	 {
+		$this->Model_sumberdata->importdata($nametable, $data);
+		$this->Model_sumberdata->publikasi($data_publikasi);
+		
+		echo json_encode("true");
+		// echo json_encode($data);
+	}
+
+	public function import_fapi($nametable)
+	{
 		$header = $_REQUEST['header'];
 		$value = $_REQUEST['value'];
 
@@ -134,22 +195,22 @@ class Sumberdata extends CI_Controller {
 
 		$return = $this->Model_sumberdata->importdata_api($nametable, $data);
 		echo json_encode($return);
-	 }
+	}
 	 
-	 public function droptable($namesource)
-	 {
+	public function droptable($namesource)
+	{
 		$this->Model_sumberdata->dropdata($namesource);
 		redirect(site_url('Sumberdata'));
-	 }
+	}
 
-	 public function drop_multipe($namesource)
-	 {
+	public function drop_multipe($namesource)
+	{
 		$this->Model_sumberdata->dropdata($namesource);
 		// echo json_encode($namesource);
-	 }
+	}
 
-	 public function exportdata_multiple()
-	 {
+	public function exportdata_multiple()
+	{
 
 		$name_table = $_POST['table_name'];
 
@@ -158,7 +219,7 @@ class Sumberdata extends CI_Controller {
 			$query[$i] = $this->db->get($name_table[$i]);
 
 			// if(!$query[$i])
-            // return false;
+			// return false;
 			// Starting the PHPExcel library
 			
 			//load our new PHPExcel library
@@ -194,7 +255,7 @@ class Sumberdata extends CI_Controller {
 			header('Cache-Control: max-age=0');
 			$objWriter->save('php://output');
 		}
-	redirect(site_url('Sumberdata'));
+		redirect(site_url('Sumberdata'));
 	}
 
 	public function exportdata($table_name)

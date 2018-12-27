@@ -1,4 +1,4 @@
-<table id="detail" class="uk-table uk-table-divider stripe row-border order-column uk-animation-slide-bottom-small" style="width:100%;">
+<table id="detail" class="uk-table uk-table-divider stripe row-border order-column" style="width:100%;">
     <thead>
         <tr>
         	<th class="uk-table-shrink"></th>
@@ -30,7 +30,7 @@
         <div class="uk-modal-header">
             <h4 class="uk-modal-title">Import</h4>
         </div>
-        <ul class="uk-subnav uk-subnav-pill" uk-switcher="animation: uk-animation-scale-up , uk-animation-scale-up ">
+        <ul class="uk-subnav uk-subnav-pill" uk-switcher="animation: uk-animation-slide-bottom-small , uk-animation-slide-bottom-small">
 		    <li><a href="#">API</a></li>
 		    <li><a href="#">File</a></li>
 		</ul>
@@ -46,6 +46,13 @@
 		    		<div class="uk-margin">
 			            <input class="uk-input" type="text" placeholder="url API..." id="url_api" name="url_api">
 			        </div>
+					<div class="uk-margin">
+						<div class="uk-form-label">Publikasi data</div>
+						<div class="uk-form-controls uk-form-controls-text">
+							<label><input class="uk-radio" type="radio" name="radio1"> Ya</label><br>
+							<label><input class="uk-radio" type="radio" name="radio1"> Tidak</label>
+						</div>
+					</div>
 			        <div class="uk-margin">
 			        	<button type="submit" class="uk-button uk-button-default" onclick="requestapi()">Request</button>
 			        </div>
@@ -53,26 +60,51 @@
                 
 		    </li>
 		    <li>
-                <?php echo form_open_multipart(site_url("Sumberdata/importdata/"), array("class" => "formValidate")) ?>
+                <?php //echo form_open_multipart(site_url("Sumberdata/importdata/"), array("class" => "formValidate")) ?>
 		    	<fieldset class="uk-fieldset">
 		    		<div class="uk-margin">
-			            <input class="uk-input" type="text" placeholder="Nama Folder" name="nametable">
+			            <input class="uk-input" type="text" placeholder="Nama Folder" id="nametable">
 			        </div>
 			        <div class="uk-margin">
 			        	<div uk-form-custom="target: true" style="width: 100%">
-				            <input type="file" name="file">
-				            <input class="uk-input" type="text" placeholder="Select file" name="file">
+				            <input type="file" id="file">
+				            <input class="uk-input" type="text" placeholder="Select file" id="file">
 				        </div>
 			        </div>	
+					<div class="uk-margin">
+						<div class="uk-form-label">Publikasi data</div>
+						<div class="uk-form-controls uk-form-controls-text">
+							<label><input class="uk-radio" type="radio" name="radio2" value="Ya"> Ya</label><br>
+							<label><input class="uk-radio" type="radio" name="radio2" value="Tidak"> Tidak</label>
+						</div>
+					</div>
 			        <div class="uk-margin">
-			        	<button class="uk-button uk-button-default">Upload</button>
+			        	<button class="uk-button uk-button-default" onclick="requestfile()">Upload</button>
 			        </div>
 			        <p style="font-size: 10px">(*)Sumber data hanya berasal dari file berformat .xlsx</p>
 		    	</fieldset>
-                <?php echo form_close() ?>
+                <?php //echo form_close() ?>
 		    </li>
 		</ul>
 
+    </div>
+</div>
+
+<div id="modal-result-import" class="uk-flex-top" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-width-1-3">
+
+		<!-- <button class="uk-modal-close-default" type="button" uk-close></button> -->
+        <div class="uk-modal-header">
+            <h5 class="uk-modal-title">Import <br>
+			(Header Field)</h5>
+        </div>
+		
+		<fieldset class="uk-fieldset" id="resultform">
+		</fieldset>
+		<div class="uk-margin">
+			<button class="uk-button uk-button-default" onclick="submitrequest()">Submit</button>
+			<button class="uk-button uk-button-default" onclick="cancel()">Cancel</button>
+		</div>
     </div>
 </div>
 
@@ -130,7 +162,7 @@
 
 <div id="modal-full" class="uk-modal-full" uk-modal style="font-size:12px;">
     <div class="uk-modal-dialog" style="height: -webkit-fill-available;">
-		<div class="uk-inline uk-animation-scale-up" style="height: -webkit-fill-available;width: 100%;">
+		<div class="uk-inline uk-animation-slide-bottom-small" style="height: -webkit-fill-available;width: 100%;">
 			
 			<div class="uk-position-center uk-overlay uk-text-center">
 				<div class="uk-inline" style="width: 100%;">
@@ -162,7 +194,8 @@
 
 <script rel="javascript" type="text/javascript" src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
 <script>
-	function gettable() {
+	function gettable()
+	{
 		$('#table_').replaceWith('<div class="uk-margin" id="table_"></div>');
 		var checkboxes = document.getElementsByName('check_[]');
 		var vals = "";
@@ -178,7 +211,8 @@
 		
 	}
 
-	function requestapi() {
+	function requestapi()
+	{
 		var url_api = $('#url_api').val();
 		
 		$.ajax({
@@ -211,7 +245,68 @@
 		});
 	}
 
-	function hapus() {
+	function requestfile()
+	{
+		var datasend = new FormData();
+
+		datasend.append('nametable', $("#nametable").val());
+		datasend.append('file', $("#file")[0].files[0]);
+		datasend.append('publikasi', $("input[name='radio2']:checked").val());
+		$.ajax({
+          url: "<?php echo site_url()?>" + "Sumberdata/importdata",
+          type: "POST",
+		  dataType: 'json',
+          data: datasend,
+          processData: false,
+          contentType: false,
+          cache:false,
+		}).done(function (data) {
+			console.log(data);
+			
+			for (let i = 0; i < data['header'].length; i++) {
+				$('#resultform').append('<div class="uk-margin">'+
+					'<label class="uk-form-label" for="form-horizontal-text">'+data['header'][i]+'</label>'+
+					'<div class="uk-form-controls">'+
+						'<input class="uk-input" id="form-horizontal-text" type="text" value="'+data['header_column'][i]+'" disabled>'+
+					'</div>'+
+				'</div>');
+			}
+
+			$('#modal-result-import').addClass('uk-open');
+			$('#modal-result-import').attr('style','display:block; z-index:9999;');
+		});
+		return false;
+	}
+
+	function submitrequest()
+	{
+		var datasend = new FormData();
+
+		datasend.append('nametable', $("#nametable").val());
+		datasend.append('file', $("#file")[0].files[0]);
+		datasend.append('publikasi', $("input[name='radio2']:checked").val());
+
+		$.ajax({
+          url: "<?php echo site_url()?>" + "Sumberdata/submitimport",
+          type: "POST",
+		  dataType: 'json',
+          data: datasend,
+          processData: false,
+          contentType: false,
+          cache:false,
+		}).done(function (data) {
+			console.log(data);
+			if (data == 'true'){
+				location.reload();
+			}else{
+				alert('file gagal di upload, silahkan cek kembali file yang anda upload');
+			}
+		});
+		return false;
+	}
+
+	function hapus()
+	{
 		var checkboxes = document.getElementsByName('check_[]');
 		var vals = "";
 		for (var i=0, n=checkboxes.length;i<n;i++) 
@@ -234,9 +329,15 @@
 			window.location.reload();
 		}, 1000);
 	}
+
+	function cancel()
+	{
+		location.reload();
+	}
 </script>
 <script>
-  $( function() {
+  $( function()
+  {
 	var availableTags = [];
 	$.ajax({
 		url: "<?php echo site_url('Sumberdata/datasource/');?>",
@@ -255,7 +356,8 @@
   } );
   </script>
 <script>
-$(document).ready(function() {
+$(document).ready(function()
+{
 	setTimeout(() => {
         $('#detail_info').hide();
         $('#detail_length').hide();
@@ -271,7 +373,8 @@ $(document).ready(function() {
 	} );
 });
 
-function validasidata(table_name) {
+function validasidata(table_name)
+{
 	var bar = document.getElementById('js-progressbar');
 	$.ajax({
 		url: 'http://dplega.syncardtech.com/slim-api/public/list/lembaga/2',
@@ -344,7 +447,8 @@ function validasidata(table_name) {
 	
 }
 
-$('#stopvalidasi').click(function(){
+$('#stopvalidasi').click(function()
+{
 	$('#stopvalidasi').attr('tes', 'stop');
 });
 </script>

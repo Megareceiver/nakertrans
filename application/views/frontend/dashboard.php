@@ -60,6 +60,12 @@
                     <p>Galeri.</p>
                 </a>
             </div>
+            <div class="uk-text-center">
+                <a href="<?php echo site_url('Dfrontend/data_spasial/')?>">
+                    <p><span uk-icon="icon: world; ratio: 3" class="uk-text-primary"></span></p>
+                    <p>Data Spasial.</p>
+                </a>
+            </div>
         </div>
         <p class="uk-text-center">Copyright © 2018 Pemerintah Provinsi Jawa Barat.</p>
     </div>

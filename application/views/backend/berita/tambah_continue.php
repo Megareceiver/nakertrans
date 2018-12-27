@@ -41,7 +41,7 @@
     <div>
         <div class="uk-card">
             <h5 style="color:grey">Body</h5>
-            <ul class="uk-subnav uk-tab uk-subnav-pill" uk-switcher="animation: uk-animation-scale-up , uk-animation-scale-up ">
+            <ul class="uk-subnav uk-tab uk-subnav-pill" uk-switcher="animation: uk-animation-slide-bottom-small , uk-animation-slide-bottom-small">
                 <li><a href="#">Teks</a></li>
                 <li><a href="#">Gambar</a></li>
             </ul>
@@ -77,7 +77,7 @@
                 </li>
             </ul>
 
-            <table id="detail1" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column uk-animation-slide-bottom-small" style="width:100%;">
+            <table id="detail1" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column" style="width:100%;">
                 <thead>
                     <th style="width: 20px;"></th>
                     <th></th>

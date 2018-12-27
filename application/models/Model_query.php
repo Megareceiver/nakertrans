@@ -12,9 +12,9 @@ class Model_query extends CI_Model
 
 
     // sementara sebelum ada api
-    public function lihat($valquery)
+    public function lihat($valquery, $sumberdata)
     {
-        $sql1 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'nakertrans' AND TABLE_NAME = 'data_TKI2'";
+        $sql1 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'nakertrans' AND TABLE_NAME = '$sumberdata'";
         $dataheader = $this->db->query($sql1)->result_array();
         
         $where = '';
@@ -25,12 +25,18 @@ class Model_query extends CI_Model
 		}
 		$varfinal =substr_replace($val ,"", -1);
 
-        for ($i=0; $i < count($dataheader); $i++) { 
-			$where .= $dataheader[$i]['COLUMN_NAME']." IN (".$varfinal.") OR ";
-		}
+        if(count($valquery) > 1){
+            for ($i=0; $i < count($dataheader); $i++) { 
+                $where .= "`".$dataheader[$i]['COLUMN_NAME']."` IN (".$varfinal.") OR ";
+            }
+        }else{
+            for ($i=0; $i < count($dataheader); $i++) { 
+                $where .= "`".$dataheader[$i]['COLUMN_NAME']."` = ".$varfinal." OR ";
+            }
+        }
 
         $wherefinal =substr_replace($where ,"", -3);
-        $sql = "SELECT * FROM data_TKI2 WHERE ".$wherefinal;
+        $sql = "SELECT * FROM $sumberdata WHERE ".$wherefinal;
 
         $datavalue = $this->db->query($sql)->result_array();
 

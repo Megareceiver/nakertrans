@@ -40,21 +40,35 @@ class Model_sumberdata extends CI_Model
 	}
 
 	public function importdata($nametable, $data) {
-
+		$head = str_replace(" ","_",$data['header']);
 		$sql1 = "CREATE TABLE data_".$nametable." (
 		id INT (11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-		".implode(' TEXT ,', str_replace(" ","_",$data['header']))." TEXT
+		`".implode('` TEXT ,`', $head)."` TEXT
 		)";
 
 		$this->db->query($sql1);
-
+		
+		$tes = array();
 		for ($i=0; $i < count($data['values']); $i++) { 
-			$sql2 = "INSERT INTO data_".$nametable." VALUES (NULL,"."'".implode("','", $data['values'][$i])."'".")";
+			// $sql2 = "INSERT INTO data_".$nametable." VALUES (NULL,"."'".implode("','", $data['values'][$i])."'".")";
+			for ($j=0; $j < count($data['header']); $j++) { 
+				array_push($tes, $data['values'][$i][$data['header'][$j]]);
+			}
+
+			$sql2 = "INSERT INTO data_".$nametable." VALUES (NULL,"."'".implode("','", $tes)."'".")";
 			$this->db->query($sql2);
+			// $this->db->query($sql2);
+			unset($tes);
+			$tes = array();
 		}
 
 		$sql3 = "ALTER TABLE data_".$nametable." ADD `validasi` VARCHAR(255) NOT NULL DEFAULT 'belum', ADD `tercapai` VARCHAR(255) NOT NULL,  ADD `referensi` VARCHAR(255) NOT NULL";
-		$this->db->query($sql3);
+		return $this->db->query($sql3);
+	}
+
+	public function publikasi($data_publikasi)
+	{
+		return $this->db->insert('master_sumberdata', $data_publikasi);
 	}
 
 	public function importdata_api($nametable, $data) {
@@ -79,6 +93,7 @@ class Model_sumberdata extends CI_Model
 	public function dropdata($nametable){
 		$sql1 = "DROP TABLE ".$nametable;
 		$this->db->query($sql1);
+		$this->db->where('data_source', $nametable)->delete('master_sumberdata');
 	}
 
 	public function headerdata($nametable)

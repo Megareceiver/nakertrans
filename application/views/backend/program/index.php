@@ -1,4 +1,4 @@
-<table id="detail" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column uk-animation-slide-bottom-small" style="width:100%;">
+<table id="detail" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column " style="width:100%;">
     <thead>
     <tr>
         <th></th>

@@ -1,4 +1,4 @@
-<div class="uk-animation-slide-bottom-small">
+<div class="">
     <p style="margin:0;color:grey;font-size:12px;"><b> Slider (<?php echo count($slide)?>)</b></p>
     <hr>
     <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
@@ -34,7 +34,7 @@
     <p style="margin:0;color:grey;font-size:12px"><b> User akses (<?php echo count($user)?>) </b><br>
     Aplikasi memiliki 2 (dua) tipe akses yaitu “Admin” dan “External” dengan maksud Admin sebagai pengelola aplikasi sedangkan External adalah pihak luar yang terkait dengan program tertentu.</p>
 
-    <table id="detail" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column uk-animation-slide-bottom-small" style="width:100%;">
+    <table id="detail" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column " style="width:100%;">
         <thead>
             
                 <th>Nama</th>
@@ -135,7 +135,7 @@
             <div class="uk-margin">
                 <input class="uk-input" type="password" placeholder="Ketik ulang password..." name="password2" id="password2" required>
             </div>
-            <div class="uk-alert-primary uk-animation-slide-right" uk-alert id="falert1" style="display:none;">
+            <div class="uk-alert-primary uk-animation-slide-bottom-small" uk-alert id="falert1" style="display:none;">
                 <a class="uk-alert-close" uk-close onclick="hidealert()"></a>
                 <p>Password tidak sama!</p>
             </div>
@@ -195,7 +195,7 @@
             <div class="uk-margin">
                 <input class="uk-input" type="password" placeholder="Ketik ulang password..." name="password2_" id="password2_" required>
             </div>
-            <div class="uk-alert-primary uk-animation-slide-right" uk-alert id="falert1_" style="display:none;">
+            <div class="uk-alert-primary uk-animation-bottom-small" uk-alert id="falert1_" style="display:none;">
                 <a class="uk-alert-close" uk-close onclick="hidealert()"></a>
                 <p>Password tidak sama!</p>
             </div>
@@ -253,7 +253,7 @@ function check_password() {
             $('#falert1').css("display", "block");
       }else{
         $('#btnbuat').css("display", "block");
-        $('#falert1').replaceWith('<div class="uk-alert-primary uk-animation-slide-right" uk-alert id="falert1" style="display:none;"><a class="uk-alert-close" uk-close onclick="hidealert()"></a><p>Password tidak sama!</p></div>');
+        $('#falert1').replaceWith('<div class="uk-alert-primary uk-animation-bottom-small" uk-alert id="falert1" style="display:none;"><a class="uk-alert-close" uk-close onclick="hidealert()"></a><p>Password tidak sama!</p></div>');
       }
     });
 }
@@ -265,12 +265,12 @@ function check_password2() {
             $('#btnubah').css("display", "none");
       }else{
         $('#btnubah').css("display", "block");
-        $('#falert1_').replaceWith('<div class="uk-alert-primary uk-animation-slide-right" uk-alert id="falert1" style="display:none;"><a class="uk-alert-close" uk-close onclick="hidealert()"></a><p>Password tidak sama!</p></div>');
+        $('#falert1_').replaceWith('<div class="uk-alert-primary uk-animation-bottom-small" uk-alert id="falert1" style="display:none;"><a class="uk-alert-close" uk-close onclick="hidealert()"></a><p>Password tidak sama!</p></div>');
       }
     });
 }
 
 function hidealert(){
-    $('#falert1').replaceWith('<div class="uk-alert-primary uk-animation-slide-right" uk-alert id="falert1" style="display:none;"><a class="uk-alert-close" uk-close onclick="hidealert()"></a><p>Password tidak sama!</p></div>');
+    $('#falert1').replaceWith('<div class="uk-alert-primary uk-animation-bottom-small" uk-alert id="falert1" style="display:none;"><a class="uk-alert-close" uk-close onclick="hidealert()"></a><p>Password tidak sama!</p></div>');
 }
 </script>

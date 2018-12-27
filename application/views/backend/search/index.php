@@ -2,7 +2,7 @@
 <?php echo "<b>Pencarian untuk kata : '".$search."' di semua sumber data.</b><hr><br>";?>
 <?php for ($i=0; $i < count($table); $i++) { ?>
 <b style="text-transform:capitalize;"><?php echo str_replace("_"," ",$table[$i]['TABLE_NAME']);?></b>
-<table id="detail<?php echo $i;?>" class="uk-table uk-table-divider stripe row-border order-column uk-animation-slide-bottom-small" style="width:100%;">
+<table id="detail<?php echo $i;?>" class="uk-table uk-table-divider stripe row-border order-column" style="width:100%;">
     <thead>
         <tr>
         
