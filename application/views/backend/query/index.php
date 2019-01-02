@@ -150,6 +150,13 @@
     $(document).ready(function()
     {
         $("input[name='radio2']").on("change", function(){
+            $('#tempat_lahir').prop('disabled', true);
+            $('#jenis_kelamin').prop('disabled', true);
+            $('#jenis_kelamin').prop('disabled', true);
+            $('#status').prop('disabled', true);
+            $('#usia').prop('disabled', true);
+            $('#agama').prop('disabled', true);
+            $('#pekerjaan').prop('disabled', true);
 
             let sumberdata = $("input[name='radio2']:checked").val();
             $.ajax({
@@ -162,51 +169,29 @@
                         value.push(data[i]['COLUMN_NAME']);
                     }
 
-                    // tempat tanggal lahir
-                    if ( (value.indexOf('tempat') > -1) == true ){
-                        $('#tempat_lahir').prop('disabled', false);
-                    }else if ( (value.indexOf('tempat/tanggal_lahir') > -1) == true ){
-                        $('#tempat_lahir').prop('disabled', false);
-                    }else{
-                        $('#tempat_lahir').prop('disabled', true);
-                    }
-                    
-                    // jenis kelamin
-                    if ( (value.indexOf('jenis_kelamin') > -1) == true ){
-                        $('#jenis_kelamin').prop('disabled', false);
-                    }else {
-                        $('#jenis_kelamin').prop('disabled', true);
-                    }
-                    
-                    // status kawin
-                    if ( (value.indexOf('status') > -1) == true ){
-                        $('#status').prop('disabled', false);
-                    }else if ( (value.indexOf('status_perkawinan') > -1) == true ){
-                        $('#status').prop('disabled', false);
-                    }else {
-                        $('#status').prop('disabled', true);
-                    }
-                    
-                    // usia
-                    if ( (value.indexOf('usia') > -1) == true ){
-                        $('#usia').prop('disabled', false);
-                    }else {
-                        $('#usia').prop('disabled', true);
-                    }
-                    
-                    // agama
-                    if ( (value.indexOf('agama') > -1) == true ){
-                        $('#agama').prop('disabled', false);
-                    }else {
-                        $('#agama').prop('disabled', true);
-                    }
-                    
-                    // pekerjaan
-                    if ( (value.indexOf('pekerjaan') > -1) == true ){
-                        $('#pekerjaan').prop('disabled', false);
+                    console.log(value);
 
-                    }else{
-                        $('#pekerjaan').prop('disabled', true);
+                    for(var i = 0; i < value.length; i++)
+                    {
+                        if(value[i].indexOf('tempat') != -1 || value[i].indexOf('Tempat') != -1 || value[i].indexOf('lahir') != -1){
+                            $('#tempat_lahir').removeAttr('disabled');
+
+                        }else if(value[i].indexOf('jenis') != -1 || value[i].indexOf('kelamin') != -1 || value[i].indexOf('jk') != -1 || value[i].indexOf('JK') != -1){
+                            $('#jenis_kelamin').removeAttr('disabled');
+
+                        }else if(value[i].indexOf('status') != -1 || value[i].indexOf('kawin') != -1){
+                            $('#status').removeAttr('disabled');
+
+                        }else if(value[i].indexOf('usia') != -1 || value[i].indexOf('Usia') != -1 ){
+                            $('#usia').removeAttr('disabled');
+
+                        }else if(value[i].indexOf('Agama') != -1 || value[i].indexOf('agama') != -1 || value[i].indexOf('gama') != -1){
+                            $('#agama').removeAttr('disabled');
+
+                        }else if(value[i].indexOf('Peker') != -1 || value[i].indexOf('jaan') != -1 || value[i].indexOf('kerja') != -1 || value[i].indexOf('kerjaan') != -1){
+                            $('#pekerjaan').removeAttr('disabled');
+                            
+                        }
                     }
                 }
             });
@@ -308,7 +293,7 @@
                 dataType: "json",
                 data : {valq : valquery, sdata : sumberdata},
                 success: function( data ) {
-                    console.log(data['value']);
+                    console.log(data);
 
                     for (i = 0; i < data['value'].length; i++) {
                         $('#hasil_query').append(JSON.stringify(data['value'][i], undefined, 2));

@@ -55,7 +55,7 @@ class Model_sumberdata extends CI_Model
 				array_push($tes, $data['values'][$i][$data['header'][$j]]);
 			}
 
-			$sql2 = "INSERT INTO data_".$nametable." VALUES (NULL,"."'".implode("','", $tes)."'".")";
+			$sql2 = 'INSERT INTO data_'.$nametable.' VALUES (NULL,'.'"'.implode('","', $tes).'"'.')';
 			$this->db->query($sql2);
 			// $this->db->query($sql2);
 			unset($tes);
@@ -81,7 +81,7 @@ class Model_sumberdata extends CI_Model
 		$this->db->query($sql1);
 
 		for ($i=0; $i < count($data['values']); $i++) { 
-			$sql2 = "INSERT INTO data_".$nametable." VALUES (NULL,"."'".implode("','", $data['values'][$i])."'".")";
+			$sql2 = 'INSERT INTO data_'.$nametable.' VALUES (NULL,'.'"'.implode('","', $data['values'][$i]).'"'.')';
 			$this->db->query($sql2);
 		}
 
@@ -93,7 +93,7 @@ class Model_sumberdata extends CI_Model
 	public function dropdata($nametable){
 		$sql1 = "DROP TABLE ".$nametable;
 		$this->db->query($sql1);
-		$this->db->where('data_source', $nametable)->delete('master_sumberdata');
+		// $this->db->where('data_source', $nametable)->delete('master_sumberdata');
 	}
 
 	public function headerdata($nametable)

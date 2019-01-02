@@ -157,19 +157,22 @@
             </div>
         </div>
                         
-        <div id="resultmaps" class="uk-overflow-auto uk-card uk-card-default uk-animation-fade" style="display:none;">
-            <table class="uk-table uk-table-striped uk-table-hover" style="font-size:12px;">
-                <thead>
-                    <tr id="headertable">
-                        
-                    </tr>
-                </thead>
-                <tbody id="valuedata">
-                    
-                </tbody>
-            </table>
+        <div id="resultmaps" class="uk-card uk-card-default uk-animation-fade" style="display:none;">
             <div>
                 <button class="uk-button uk-button-default">Export Data</button>
+            </div>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped uk-table-hover" style="font-size:12px;" id="detail">
+                    <thead>
+                        <tr id="headertable">
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="valuedata">
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -182,6 +185,13 @@
     $(document).ready(function()
     {
         $("input[name='radio2']").on("change", function(){
+            $('#tempat_lahir').prop('disabled', true);
+            $('#jenis_kelamin').prop('disabled', true);
+            $('#jenis_kelamin').prop('disabled', true);
+            $('#status').prop('disabled', true);
+            $('#usia').prop('disabled', true);
+            $('#agama').prop('disabled', true);
+            $('#pekerjaan').prop('disabled', true);
 
             let sumberdata = $("input[name='radio2']:checked").val();
             $.ajax({
@@ -194,57 +204,38 @@
                         value.push(data[i]['COLUMN_NAME']);
                     }
 
-                    // tempat tanggal lahir
-                    if ( (value.indexOf('tempat') > -1) == true ){
-                        $('#tempat_lahir').prop('disabled', false);
-                    }else if ( (value.indexOf('tempat/tanggal_lahir') > -1) == true ){
-                        $('#tempat_lahir').prop('disabled', false);
-                    }else{
-                        $('#tempat_lahir').prop('disabled', true);
-                    }
-                    
-                    // jenis kelamin
-                    if ( (value.indexOf('jenis_kelamin') > -1) == true ){
-                        $('#jenis_kelamin').prop('disabled', false);
-                    }else {
-                        $('#jenis_kelamin').prop('disabled', true);
-                    }
-                    
-                    // status kawin
-                    if ( (value.indexOf('status') > -1) == true ){
-                        $('#status').prop('disabled', false);
-                    }else if ( (value.indexOf('status_perkawinan') > -1) == true ){
-                        $('#status').prop('disabled', false);
-                    }else {
-                        $('#status').prop('disabled', true);
-                    }
-                    
-                    // usia
-                    if ( (value.indexOf('usia') > -1) == true ){
-                        $('#usia').prop('disabled', false);
-                    }else {
-                        $('#usia').prop('disabled', true);
-                    }
-                    
-                    // agama
-                    if ( (value.indexOf('agama') > -1) == true ){
-                        $('#agama').prop('disabled', false);
-                    }else {
-                        $('#agama').prop('disabled', true);
-                    }
-                    
-                    // pekerjaan
-                    if ( (value.indexOf('pekerjaan') > -1) == true ){
-                        $('#pekerjaan').prop('disabled', false);
+                    for(var i = 0; i < value.length; i++)
+                    {
+                        if(value[i].indexOf('tempat') != -1 || value[i].indexOf('Tempat') != -1 || value[i].indexOf('lahir') != -1){
+                            $('#tempat_lahir').removeAttr('disabled');
 
-                    }else{
-                        $('#pekerjaan').prop('disabled', true);
+                        }else if(value[i].indexOf('jenis') != -1 || value[i].indexOf('kelamin') != -1 || value[i].indexOf('jk') != -1 || value[i].indexOf('JK') != -1){
+                            $('#jenis_kelamin').removeAttr('disabled');
+
+                        }else if(value[i].indexOf('status') != -1 || value[i].indexOf('kawin') != -1){
+                            $('#status').removeAttr('disabled');
+
+                        }else if(value[i].indexOf('usia') != -1 || value[i].indexOf('Usia') != -1 ){
+                            $('#usia').removeAttr('disabled');
+
+                        }else if(value[i].indexOf('Agama') != -1 || value[i].indexOf('agama') != -1 || value[i].indexOf('gama') != -1){
+                            $('#agama').removeAttr('disabled');
+
+                        }else if(value[i].indexOf('Peker') != -1 || value[i].indexOf('jaan') != -1 || value[i].indexOf('kerja') != -1 || value[i].indexOf('kerjaan') != -1){
+                            $('#pekerjaan').removeAttr('disabled');
+                            
+                        }
                     }
                 }
             });
             // ---------inputradio
         });
         // --------document
+
+        $('body').on('click', $('svg'), function () {
+            $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
+        });
+
     });
     
     function section(params) 
@@ -340,7 +331,6 @@
                 dataType: "json",
                 data : {valq : valquery, sdata : sumberdata},
                 success: function( data ) {
-                    console.log(data);
 
                     // retrive data array
                     header = JSON.stringify(data['header']);
@@ -354,23 +344,6 @@
                     $('#buttonmap').attr('style','display:block'); // show button navigation map
 
                     $('#mapsjabar').load(url+'/../mapjabar/JABAR.html'); //load map
-                    setTimeout(() => { // loag function js
-
-                        $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>', function () {
-
-                            $('svg').find('path').on('click', function(){
-
-                                setTimeout(() => {
-
-                                    $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
-
-                                }, 1000);
-
-                            });
-
-                        });
-                        
-                    }, 1000);
 
                     $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;'); // load tabel
                     for (let i = 0; i < data['header'].length; i++) {
@@ -405,23 +378,23 @@
     function currentmap() {
 
         $('#mapsjabar').load(url+'/../mapjabar/JABAR.html');
-            setTimeout(() => {
+            // setTimeout(() => {
 
-                $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>', function () {
+            //     $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>', function () {
 
-                    $('svg').find('path').on('click', function(){
+            //         $('svg').find('path').on('click', function(){
 
-                        setTimeout(() => {
+            //             setTimeout(() => {
 
-                            $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
+            //                 $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
 
-                        }, 1000);
+            //             }, 1000);
 
-                    });
+            //         });
 
-                });
+            //     });
                 
-            }, 1000);
+            // }, 1000);
     }
 
     function setCookie(cname, cvalue, exdays) {
