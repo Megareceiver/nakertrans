@@ -44,7 +44,8 @@ class Query extends CI_Controller {
     {
 		$valquery = $_REQUEST['valq'];
 		$sumberdata = $_REQUEST['sdata'];
-		$data = $this->Model_query->lihat($valquery, $sumberdata);
+		$data['header'] = $this->Model_query->headerdata($sumberdata);
+		$data['value'] = $this->Model_query->valuedata($valquery, $sumberdata);
 		echo json_encode($data);
     }
 }

@@ -12,7 +12,15 @@ class Model_query extends CI_Model
 
 
     // sementara sebelum ada api
-    public function lihat($valquery, $sumberdata)
+    public function headerdata($sumberdata)
+    {
+        $sql1 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'nakertrans' AND TABLE_NAME = '$sumberdata'";
+        $dataheader = $this->db->query($sql1)->result_array();
+
+        return $dataheader;
+    }
+
+    public function valuedata($valquery, $sumberdata)
     {
         $sql1 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'nakertrans' AND TABLE_NAME = '$sumberdata'";
         $dataheader = $this->db->query($sql1)->result_array();

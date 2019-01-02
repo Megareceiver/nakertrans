@@ -106,15 +106,17 @@
     height: 200px;
 }
 
-.svg-range1, .svg-range2, .svg-range3, .svg-range4, .svg-range5{
+svg g path{
     cursor: pointer;
     transition: all 0.25s ease-out;
+    stroke: whitesmoke;
+    stroke-width: 1px;
 }
 
-.svg-range1:hover, .svg-range2:hover, .svg-range3:hover, .svg-range4:hover, .svg-range5:hover{
-    fill: #14b1bb;
-    stroke: black;
-    stroke-width: 2px;
+svg g path:hover{
+    fill: #943030;
+    stroke: grey;
+    stroke-width: 1px;
 }
 
 /* responsive */

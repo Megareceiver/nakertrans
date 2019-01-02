@@ -308,10 +308,10 @@
                 dataType: "json",
                 data : {valq : valquery, sdata : sumberdata},
                 success: function( data ) {
-                    // console.log(data);
+                    console.log(data['value']);
 
-                    for (i = 0; i < data.length; i++) {
-                        $('#hasil_query').append(JSON.stringify(data[i], undefined, 2));
+                    for (i = 0; i < data['value'].length; i++) {
+                        $('#hasil_query').append(JSON.stringify(data['value'][i], undefined, 2));
                     }
                 }
             });

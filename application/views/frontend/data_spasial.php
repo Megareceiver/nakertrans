@@ -143,42 +143,29 @@
             <button class="uk-button uk-button-default" onclick="hasil_query()">Jalankan query</button>
         </div>
         <div id="mapsjabar" class="uk-card uk-card-default uk-animation-fade" style="display:none;">
-        
+            
+        </div>
+        <div class="uk-card uk-card-default uk-animation-fade" id="buttonmap" style="display:none;">
+            <div class="uk-grid-small uk-child-width-1-2@s uk-flex-left uk-text-left" uk-grid>
+                <div>
+                    <a class="uk-link" uk-icon="icon: arrow-left; ratio: 2;" onclick="currentmap()"></a>
+                    kembali
+                </div>
+                <div>
+                    Legend indikator
+                </div>
+            </div>
         </div>
                         
         <div id="resultmaps" class="uk-overflow-auto uk-card uk-card-default uk-animation-fade" style="display:none;">
-            <table class="uk-table uk-table-small uk-table-divider  uk-table-striped">
+            <table class="uk-table uk-table-striped uk-table-hover" style="font-size:12px;">
                 <thead>
-                    <tr>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
-                        <th>Table Heading</th>
+                    <tr id="headertable">
+                        
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                    </tr>
+                <tbody id="valuedata">
+                    
                 </tbody>
             </table>
             <div>
@@ -189,6 +176,7 @@
 </div>
 
 <script rel="javascript" type="text/javascript" src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
+
 <script>
     let url = "<?php echo site_url();?>";
     $(document).ready(function()
@@ -353,11 +341,58 @@
                 data : {valq : valquery, sdata : sumberdata},
                 success: function( data ) {
                     console.log(data);
-                    $('#pagequery').attr('style','display:none');
-                    $('#mapsjabar').attr('style','display:block');
-                    $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;');
 
-                    $('#mapsjabar').load(url+'/../mapjabar/JABAR.html');
+                    // retrive data array
+                    header = JSON.stringify(data['header']);
+                    value = JSON.stringify(data['value']);
+                    // set to cookie for map and table
+                    setCookie('headerdata', header, 365);
+                    setCookie('valuedata', value, 365);
+                    
+                    $('#pagequery').attr('style','display:none'); //remove query agregat
+                    $('#mapsjabar').attr('style','display:block'); // show map
+                    $('#buttonmap').attr('style','display:block'); // show button navigation map
+
+                    $('#mapsjabar').load(url+'/../mapjabar/JABAR.html'); //load map
+                    setTimeout(() => { // loag function js
+
+                        $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>', function () {
+
+                            $('svg').find('path').on('click', function(){
+
+                                setTimeout(() => {
+
+                                    $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
+
+                                }, 1000);
+
+                            });
+
+                        });
+                        
+                    }, 1000);
+
+                    $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;'); // load tabel
+                    for (let i = 0; i < data['header'].length; i++) {
+                        if (data['header'][i]['COLUMN_NAME'] != 'id' && data['header'][i]['COLUMN_NAME'] != 'tercapai' && data['header'][i]['COLUMN_NAME'] != 'validasi' && data['header'][i]['COLUMN_NAME'] != 'referensi') {
+                            $('#headertable').append('<th style="border-bottom: 1px solid;">'+data['header'][i]['COLUMN_NAME']+'</th>');   
+                        }
+                    }
+
+                    for (let j = 0; j < data['value'].length; j++) {
+                        $('#valuedata').append('<tr>');
+
+                            for (let k = 0; k < data['header'].length; k++) {
+                                if (data['header'][k]['COLUMN_NAME'] != 'id' && data['header'][k]['COLUMN_NAME'] != 'tercapai' && data['header'][k]['COLUMN_NAME'] != 'validasi' && data['header'][k]['COLUMN_NAME'] != 'referensi') {
+                                    valdata = data['value'][j][data['header'][k]['COLUMN_NAME']];
+                                    $('#valuedata').append('<td>'+valdata+'</td>');
+                                }
+
+                            }
+
+                        $('#valuedata').append('</tr>');
+                    }
+
                 }
             });
         }else{
@@ -365,5 +400,40 @@
         }
 
 
+    }
+
+    function currentmap() {
+
+        $('#mapsjabar').load(url+'/../mapjabar/JABAR.html');
+            setTimeout(() => {
+
+                $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>', function () {
+
+                    $('svg').find('path').on('click', function(){
+
+                        setTimeout(() => {
+
+                            $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
+
+                        }, 1000);
+
+                    });
+
+                });
+                
+            }, 1000);
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
     }
 </script>
