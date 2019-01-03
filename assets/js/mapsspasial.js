@@ -29,6 +29,19 @@ $(document).ready(function()
         console.log(getCookie('headerdata'));
 
     });
+
+    $description = $(".description");
+
+    $('svg').hover(function() {
+        
+        // $(this).attr("class", "enabled heyo");
+        // $description.addClass('active');
+        // $description.html($(this).attr('id'));
+        console.log('ada');
+    }, function() {
+        // $description.removeClass('active');
+        console.log('tdk');
+    });
     
 });
 
@@ -44,3 +57,12 @@ function getCookie(name) {
     var parts = value.split("; " + name + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
 }
+
+$(document).on('mousemove', function(e){
+  
+  $description.css({
+    left:  e.pageX,
+    top:   e.pageY - 70
+  });
+  
+});

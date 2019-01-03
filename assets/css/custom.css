@@ -119,6 +119,7 @@ svg g path:hover{
     stroke-width: 1px;
 }
 
+
 /* responsive */
 @media (max-width: 500px) {
     .naker-title{
