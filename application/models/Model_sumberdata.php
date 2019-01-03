@@ -93,7 +93,7 @@ class Model_sumberdata extends CI_Model
 	public function dropdata($nametable){
 		$sql1 = "DROP TABLE ".$nametable;
 		$this->db->query($sql1);
-		// $this->db->where('data_source', $nametable)->delete('master_sumberdata');
+		$this->db->where('data_source', $nametable)->delete('master_sumberdata');
 	}
 
 	public function headerdata($nametable)
@@ -198,6 +198,17 @@ class Model_sumberdata extends CI_Model
 	public function belum_valid($nametable)
 	{
 		return $this->db->query("UPDATE ".$nametable." SET validasi = 'tidak ditemukan' WHERE validasi = 'belum' OR validasi = '' ");
+	}
+
+	// for front end
+	public function datasource_spasial()
+	{
+		$tables = $this->db->select('*')
+						->where('publikasi', 'Ya')
+						->get('master_sumberdata')
+						->result();
+
+		return $tables;
 	}
 }
 ?>

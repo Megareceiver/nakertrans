@@ -110,7 +110,7 @@
                                 <select class="uk-select" name="pekerjaan" id="pekerjaan" disabled>
                                     <option value="">Pekerjaan</option>
                                     <option value="Bekerja">Bekerja</option>
-                                    <option value="Belum bekerja">Belum bekerja</option>
+                                    <option value="Belum">Belum bekerja</option>
                                 </select>
                             </div>
                             <div class="uk-width-1-4@s">
@@ -134,7 +134,7 @@
             <div class="naker-listdata">
                 <ul class="uk-list uk-list-striped">
                     <?php foreach ($sumberdata as $sdata) { ?>
-                        <li> <label><input class="uk-radio" type="radio" name="radio2" value="<?php echo $sdata['TABLE_NAME']?>"> <?php echo str_replace("_", " ", $sdata['TABLE_NAME']); ?> </label> </li>        
+                        <li> <label><input class="uk-radio" type="radio" name="radio2" value="<?php echo $sdata->data_source; ?>"> <?php echo str_replace("_", " ", $sdata->data_source); ?> </label> </li>        
                     <?php } ?>
                 </ul>
             </div>

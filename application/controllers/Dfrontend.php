@@ -114,7 +114,7 @@ class Dfrontend extends CI_Controller {
 
 	public function data_spasial()
 	{
-		$data['sumberdata'] = $this->Model_sumberdata->datasource();
+		$data['sumberdata'] = $this->Model_sumberdata->datasource_spasial();
 		$this->template->load('template_frontend', 'frontend/data_spasial', $data);
 	}
 }

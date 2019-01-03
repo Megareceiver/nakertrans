@@ -116,14 +116,11 @@ svg path{
     transition: all 0.25s ease-out;
 }
 
-svg path:hover{
-    fill: #943030;
+.heyo:hover{
+    transition: 0.3s;
+    fill: #e2dbdb;
     stroke: grey;
     stroke-width: 1px;
-}
-
-.heyo:hover{
-  transition: 0.3s;
 }
 
 .enabled{

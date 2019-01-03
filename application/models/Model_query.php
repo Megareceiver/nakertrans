@@ -60,8 +60,13 @@ class Model_query extends CI_Model
         $select = '';
         
 		for ($j=0; $j < count($valquery); $j++) { 
-			$val .= "'".$valquery[$j]."',";
-		}
+			if(count($valquery) > 1){
+                $val .= "'".$valquery[$j]."',";
+            }else{
+                $val .= "'%".$valquery[$j]."%',";
+            }
+        }
+        
 		$varfinal =substr_replace($val ,"", -1);
 
         if(count($valquery) > 1){
@@ -70,18 +75,18 @@ class Model_query extends CI_Model
             }
         }else{
             for ($i=0; $i < count($dataheader); $i++) { 
-                $where .= "`".$dataheader[$i]."` = ".$varfinal." OR ";
+                $where .= "`".$dataheader[$i]."` LIKE ".$varfinal." OR ";
             }
         }
         
-        for ($i=0; $i < count($dataheader); $i++) { 
-            $select .= "COUNT(".$dataheader[$i].") as ".$dataheader[$i].", ";
-        }
+        // for ($i=0; $i < count($dataheader); $i++) { 
+            $select .= "COUNT(".$dataheader[0].") as jumlah, ";
+        // }
 
         $wherefinal =substr_replace($where ,"", -3);
         $selectfinal =substr_replace($select ,"", -2);
 
-        $sql = "SELECT Tempat_lahir, ".$selectfinal." FROM $sumberdata WHERE ".$wherefinal." GROUP BY Tempat_lahir";
+        $sql = "SELECT Tempat_lahir as daerah, ".$selectfinal." FROM $sumberdata WHERE ".$wherefinal." GROUP BY Tempat_lahir";
 
         $datavalue = $this->db->query($sql)->result_array();
 
