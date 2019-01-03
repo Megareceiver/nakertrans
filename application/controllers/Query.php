@@ -47,6 +47,17 @@ class Query extends CI_Controller {
 		$data['header'] = $this->Model_query->headerdata($sumberdata);
 		$data['value'] = $this->Model_query->valuedata($valquery, $sumberdata);
 		echo json_encode($data);
+	}
+	
+	public function hasil_spasial()
+    {
+		$valquery = $_REQUEST['valq'];
+		$sumberdata = $_REQUEST['sdata'];
+		$field = $_REQUEST['sfield'];
+
+		$data['header'] = $field;
+		$data['value'] = $this->Model_query->valuedata_spasial($valquery, $sumberdata, $field);
+		echo json_encode($data);
     }
 }
 ?>

@@ -20,29 +20,38 @@ $(document).ready(function()
 
         if(svgf.match(/KOTA/g) || svgf.match(/KAB/g)){
             setCookie('first', svgf, 365);
-            $('#mapsjabar').load(url+'/../mapjabar/'+svgf+'/'+svgf+'.html');
+            $('#mapsjabar').load(url+'/../mapjabar/'+svgf+'/'+svgf+'.html', function(){
+                setTimeout(() => {
+                    readsvg();
+                }, 1000);
+            });
         }else{
             first = getCookie('first');
-            $('#mapsjabar').load(url+'/../mapjabar/'+first+'/kec/'+svgf+'.html');
+            $('#mapsjabar').load(url+'/../mapjabar/'+first+'/kec/'+svgf+'.html', function(){
+                setTimeout(() => {
+                    readsvg();
+                }, 1000);
+            });
         }
 
-        console.log(getCookie('headerdata'));
+        // console.log(getCookie('headerdata'));
 
     });
 
+    // hover path map - show title
     $description = $(".description");
-
-    $('svg').hover(function() {
+    $('path').hover(function() {
         
-        // $(this).attr("class", "enabled heyo");
-        // $description.addClass('active');
-        // $description.html($(this).attr('id'));
-        console.log('ada');
+        $(this).attr("class", "enabled heyo");
+        $description.addClass('active');
+        content = $(this).attr('data-original-title');
+        contentget = content.replace(/[0-9]/g, '');
+
+        $description.html(contentget);
     }, function() {
-        // $description.removeClass('active');
-        console.log('tdk');
+
+        $description.removeClass('active');
     });
-    
 });
 
 function setCookie(cname, cvalue, exdays) {
@@ -64,5 +73,41 @@ $(document).on('mousemove', function(e){
     left:  e.pageX,
     top:   e.pageY - 70
   });
-  
+
 });
+
+function readsvg() {
+    $('#valuedata').replaceWith('<tbody id="valuedata"></tbody>');
+
+    var svgpath = $('svg').find('path');
+    daerah = [];
+    for (let i = 0; i < svgpath.length; i++) { 
+        
+        if(daerah.indexOf(svgpath.eq(i).attr('data-original-title')) == -1){
+
+            svg = svgpath.eq(i).attr('data-original-title');
+            if(svg != undefined){ // replacing value
+
+                svg0 = svg.replace(/\<[^>]*>/g, '');
+                svg1 = svg0.trim();
+                svg2 = svg1.replace(/[0-9]/g, '');
+                svg3 = svg2.replace(" ", ' ');
+                svg4 = svg3.replace(".", '');
+                svgf = svg4.trim();
+
+                if (daerah.indexOf(svgf) == -1) { // delete duplicate data
+                    daerah.push(svgf);
+                }
+            }
+        }
+    }
+    daerah.sort();
+
+    $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;'); // load tabel
+
+    for (let j = 0; j < daerah.length; j++) {
+        $('#valuedata').append('<tr>'+
+            '<td>'+daerah[j]+'</td><td style="text-align: right;">1</td>'+
+        '</tr>');
+    }
+}

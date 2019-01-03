@@ -142,36 +142,77 @@
             <hr>
             <button class="uk-button uk-button-default" onclick="hasil_query()">Jalankan query</button>
         </div>
-        <div id="mapsjabar" class="uk-card uk-card-default uk-animation-fade" style="display:none;">
-            
+        <div class="description"></div>
+        <div id="section-maps" class="uk-card uk-card-default uk-animation-fade uk-text-center" style="display:none;">
+            <h5 style="padding:20px">Peta Rekap - Data Spasial</h5>
+            <div id="mapsjabar">
+
+            </div>
         </div>
-        <div class="uk-card uk-card-default uk-animation-fade" id="buttonmap" style="display:none;">
-            <div class="uk-grid-small uk-child-width-1-2@s uk-flex-left uk-text-left" uk-grid>
-                <div>
+        <div class="uk-card uk-card-default uk-animation-fade uk-padding-small" id="buttonmap" style="display:none;">
+        <hr>
+            <div class="uk-grid-small uk-flex-left uk-text-left uk-grid-divider" uk-grid>
+                <div class="uk-width-1-4@m">
                     <a class="uk-link" uk-icon="icon: arrow-left; ratio: 2;" onclick="currentmap()"></a>
                     kembali
                 </div>
-                <div>
-                    Legend indikator
+                
+                <div class="uk-width-expand@m">
+                    <h5>Legenda</h5>
+                    <div class="uk-grid-small uk-grid-match uk-child-width-1-5@s uk-flex-center uk-text-center" uk-grid style="color:black; font-size:12px;">
+                        <div>
+                            <div class="uk-card naker-legend1">
+                                <span id="legend1">< 22000</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uk-card naker-legend2">
+                                <span id="legend2">22000 - 44000</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uk-card naker-legend3">
+                                <span id="legend3">44000 - 66000</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uk-card naker-legend4">
+                                <span id="legend4">66000 - 88000</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uk-card naker-legend5">
+                                <span id="legend5">> 88000</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
                         
         <div id="resultmaps" class="uk-card uk-card-default uk-animation-fade" style="display:none;">
             <div>
-                <button class="uk-button uk-button-default">Export Data</button>
+                <button class="uk-button-small uk-button-default">Export Data</button>
             </div>
-
+            <h5>Peta Rekap - Data Spasial</h5>
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped uk-table-hover" style="font-size:12px;" id="detail">
-                    <thead>
+                    <thead style="border-bottom: 1px solid; background-color:lightgrey">
                         <tr id="headertable">
-                            
+                            <th><center><b>Nama Daerah</b></center></th>
+                            <th><center><b>Jumlah</b></center></th>
                         </tr>
                     </thead>
                     <tbody id="valuedata">
                         
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th style="text-align: right;"><b>Jumlah</b></th>
+                            <th style="text-align: right;"><b>Hasil jumlah</b></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -182,17 +223,28 @@
 
 <script>
     let url = "<?php echo site_url();?>";
+    let valuefield = [];
     $(document).ready(function()
     {
         $("input[name='radio2']").on("change", function(){
-            $('#tempat_lahir').prop('disabled', true);
-            $('#jenis_kelamin').prop('disabled', true);
-            $('#jenis_kelamin').prop('disabled', true);
-            $('#status').prop('disabled', true);
-            $('#usia').prop('disabled', true);
-            $('#agama').prop('disabled', true);
-            $('#pekerjaan').prop('disabled', true);
+            // remove and disable attr field
+                valuefield = [];
+                $('#result').replaceWith('<div class="uk-grid-small uk-child-width-1-3@s uk-flex-left uk-text-center" uk-grid id="result" style="font-size:10px; margin-bottom:5px;"></div>');
 
+                $('#tempat_lahir').prop('disabled', true);
+                $('#jenis_kelamin').prop('disabled', true);
+                $('#status').prop('disabled', true);
+                $('#usia').prop('disabled', true);
+                $('#agama').prop('disabled', true);
+                $('#pekerjaan').prop('disabled', true);
+                
+                $('#tempat_lahir').removeAttr('field');
+                $('#jenis_kelamin').removeAttr('field');
+                $('#status').removeAttr('field');
+                $('#usia').removeAttr('field');
+                $('#agama').removeAttr('field');
+                $('#pekerjaan').removeAttr('field');
+            // 
             let sumberdata = $("input[name='radio2']:checked").val();
             $.ajax({
                 url: "<?php echo site_url('Data_spasial/get_cloumn_data_source/');?>"+sumberdata,
@@ -208,21 +260,27 @@
                     {
                         if(value[i].indexOf('tempat') != -1 || value[i].indexOf('Tempat') != -1 || value[i].indexOf('lahir') != -1){
                             $('#tempat_lahir').removeAttr('disabled');
+                            $('#tempat_lahir').attr('field', value[i]);
 
                         }else if(value[i].indexOf('jenis') != -1 || value[i].indexOf('kelamin') != -1 || value[i].indexOf('jk') != -1 || value[i].indexOf('JK') != -1){
                             $('#jenis_kelamin').removeAttr('disabled');
+                            $('#jenis_kelamin').attr('field', value[i]);
 
                         }else if(value[i].indexOf('status') != -1 || value[i].indexOf('kawin') != -1){
                             $('#status').removeAttr('disabled');
+                            $('#status').attr('field', value[i]);
 
                         }else if(value[i].indexOf('usia') != -1 || value[i].indexOf('Usia') != -1 ){
                             $('#usia').removeAttr('disabled');
+                            $('#usia').attr('field', value[i]);
 
                         }else if(value[i].indexOf('Agama') != -1 || value[i].indexOf('agama') != -1 || value[i].indexOf('gama') != -1){
                             $('#agama').removeAttr('disabled');
+                            $('#agama').attr('field', value[i]);
 
                         }else if(value[i].indexOf('Peker') != -1 || value[i].indexOf('jaan') != -1 || value[i].indexOf('kerja') != -1 || value[i].indexOf('kerjaan') != -1){
                             $('#pekerjaan').removeAttr('disabled');
+                            $('#pekerjaan').attr('field', value[i]);
                             
                         }
                     }
@@ -235,84 +293,107 @@
         $('body').on('click', $('svg'), function () {
             $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
         });
-
     });
+
+    function fielddata(params){
+        if(valuefield.indexOf(params) == -1){
+            valuefield.push(params);
+        }
+
+        console.log(valuefield);
+    }
     
     function section(params) 
     {
         if (params == 1){
             if($('#tempat_lahir').val() != ""){
-
                 
                 $('#result').append('<div>'+
-                                        '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
-                                            '<p>Tempat lahir > '+$('#tempat_lahir').val()+'</p>'+
-                                            
-                                        '</div>'+
-                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#tempat_lahir').val()+'" /></div>'+
-                                    '</div>');
+                    '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
+                        '<p>Tempat lahir > '+$('#tempat_lahir').val()+'</p>'+
+                        
+                    '</div>'+
+                    '<div hidden="hidden"><input name="valquery[]" value="'+$('#tempat_lahir').val()+'" /></div>'+
+                '</div>');
                 $('#tempat_lahir').val('');
-
+                
+                field = $('#tempat_lahir').attr('field');
+                fielddata(field);
             }
         }else if(params == 2){
             if($('#jenis_kelamin').val() != ""){
 
                 $('#result').append('<div>'+
-                                        '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
-                                            '<p>Jenis kelamin > '+$('#jenis_kelamin').val()+'</p>'+
-                                            
-                                        '</div>'+
-                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#jenis_kelamin').val()+'" /></div>'+
-                                    '</div>');
+                    '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
+                        '<p>Jenis kelamin > '+$('#jenis_kelamin').val()+'</p>'+
+                        
+                    '</div>'+
+                    '<div hidden="hidden"><input name="valquery[]" value="'+$('#jenis_kelamin').val()+'" /></div>'+
+                '</div>');
                 $('#jenis_kelamin').val('');
+
+                field = $('#jenis_kelamin').attr('field');
+                fielddata(field);
             }
         }else if(params == 3){
             if($('#status').val() != ""){
 
                 $('#result').append('<div>'+
-                                        '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
-                                            '<p>Status > '+$('#status').val()+'</p>'+
-                                            
-                                        '</div>'+
-                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#status').val()+'" /></div>'+
-                                    '</div>');
+                    '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
+                        '<p>Status > '+$('#status').val()+'</p>'+
+                        
+                    '</div>'+
+                    '<div hidden="hidden"><input name="valquery[]" value="'+$('#status').val()+'" /></div>'+
+                '</div>');
                 $('#status').val('');
+
+                field = $('#status').attr('field');
+                fielddata(field);
             }
         }else if(params == 4){
             if($('#usia').val() != ""){
 
                 $('#result').append('<div>'+
-                                        '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
-                                            '<p>Usia > '+$('#usia').val()+'</p>'+
-                                            
-                                        '</div>'+
-                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#usia').val()+'" /></div>'+
-                                    '</div>');
+                    '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
+                        '<p>Usia > '+$('#usia').val()+'</p>'+
+                        
+                    '</div>'+
+                    '<div hidden="hidden"><input name="valquery[]" value="'+$('#usia').val()+'" /></div>'+
+                '</div>');
                 $('#usia').val('');
+
+                field = $('#usia').attr('field');
+                fielddata(field);
             }
         }else if(params == 5){
             if($('#agama').val() != ""){
             	
                 $('#result').append('<div>'+
-                                        '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
-                                            '<p>Agama > '+$('#agama').val()+'</p>'+
-                                            
-                                        '</div>'+
-                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#agama').val()+'" /></div>'+
-                                    '</div>');
+                    '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
+                        '<p>Agama > '+$('#agama').val()+'</p>'+
+                        
+                    '</div>'+
+                    '<div hidden="hidden"><input name="valquery[]" value="'+$('#agama').val()+'" /></div>'+
+                '</div>');
                 $('#agama').val('');
+
+                field = $('#agama').attr('field');
+                fielddata(field);
             }
         }else {
             if($('#pekerjaan').val() != ""){
             	
                 $('#result').append('<div>'+
-                                        '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
-                                            '<p>Pekerjaan > '+$('#pekerjaan').val()+'</p>'+
-                                            
-                                        '</div>'+
-                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#pekerjaan').val()+'" /></div>'+
-                                    '</div>');
+                    '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
+                        '<p>Pekerjaan > '+$('#pekerjaan').val()+'</p>'+
+                        
+                    '</div>'+
+                    '<div hidden="hidden"><input name="valquery[]" value="'+$('#pekerjaan').val()+'" /></div>'+
+                '</div>');
                 $('#pekerjaan').val('');
+
+                field = $('#pekerjaan').attr('field');
+                fielddata(field);
 
             }
         }
@@ -323,30 +404,35 @@
         var valquery = $('input[name^=valquery]').map(function(idx, elem) {
             return $(elem).val();
         }).get();
+
         var sumberdata = $("input[name='radio2']:checked").val();
         
         if(valquery != ''){
             $.ajax({
-                url: "<?php echo site_url('Query/hasil_query/');?>",
+                url: "<?php echo site_url('Query/hasil_spasial/');?>",
                 dataType: "json",
-                data : {valq : valquery, sdata : sumberdata},
+                data : {valq : valquery, sdata : sumberdata, sfield: valuefield},
                 success: function( data ) {
 
-                    // retrive data array
-                    header = JSON.stringify(data['header']);
-                    value = JSON.stringify(data['value']);
-                    // set to cookie for map and table
-                    setCookie('headerdata', header, 365);
-                    setCookie('valuedata', value, 365);
+                    console.log(data);
+                    // // retrive data array
+                    // header = JSON.stringify(data['header']);
+                    // value = JSON.stringify(data['value']);
+                    // // set to cookie for map and table
+                    // setCookie('headerdata', header, 365);
+                    // setCookie('valuedata', value, 365);
                     
-                    $('#pagequery').attr('style','display:none'); //remove query agregat
-                    $('#mapsjabar').attr('style','display:block'); // show map
-                    $('#buttonmap').attr('style','display:block'); // show button navigation map
+                    // $('#pagequery').attr('style','display:none'); //remove query agregat
+                    // $('#section-maps').attr('style','display:block'); // show map
+                    // $('#buttonmap').attr('style','display:block'); // show button navigation map
 
-                    $('#mapsjabar').load(url+'/../mapjabar/JABAR.html'); //load map
+                    // $('#mapsjabar').load(url+'/../mapjabar/JABAR.html', function(){
+                    //     setTimeout(() => {
+                    //         readsvg_first();
+                    //     }, 1000);
+                    // }); //load map
 
-                    $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;'); // load tabel
-                    for (let i = 0; i < data['header'].length; i++) {
+                    /* for (let i = 0; i < data['header'].length; i++) {
                         if (data['header'][i]['COLUMN_NAME'] != 'id' && data['header'][i]['COLUMN_NAME'] != 'tercapai' && data['header'][i]['COLUMN_NAME'] != 'validasi' && data['header'][i]['COLUMN_NAME'] != 'referensi') {
                             $('#headertable').append('<th style="border-bottom: 1px solid;">'+data['header'][i]['COLUMN_NAME']+'</th>');   
                         }
@@ -364,7 +450,7 @@
                             }
 
                         $('#valuedata').append('</tr>');
-                    }
+                    }*/
 
                 }
             });
@@ -376,24 +462,48 @@
     }
 
     function currentmap() {
+        $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
+        $('#mapsjabar').load(url+'/../mapjabar/JABAR.html', function(){
+            setTimeout(() => {
+                readsvg_first();
+            }, 1000);
+        }); //load map
+    }
 
-        $('#mapsjabar').load(url+'/../mapjabar/JABAR.html');
-            // setTimeout(() => {
+    function readsvg_first() { //read data svg
 
-            //     $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>', function () {
+        $('#valuedata').replaceWith('<tbody id="valuedata"></tbody>');
 
-            //         $('svg').find('path').on('click', function(){
+        var svgpath = $('svg').find('path');
+        daerah = [];
+        for (let i = 0; i < svgpath.length; i++) { 
+            
+            if(daerah.indexOf(svgpath.eq(i).attr('data-original-title')) == -1){
 
-            //             setTimeout(() => {
+                svg = svgpath.eq(i).attr('data-original-title');
+                if(svg != undefined){ // replacing value
 
-            //                 $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
+                    svg0 = svg.replace(/\<[^>]*>/g, '');
+                    svg1 = svg0.trim();
+                    svg2 = svg1.replace(/[0-9]/g, '');
+                    svg3 = svg2.replace(" ", ' ');
+                    svg4 = svg3.replace(".", '');
+                    svgf = svg4.trim();
 
-            //             }, 1000);
+                    if (daerah.indexOf(svgf) == -1) { // delete duplicate data
+                        daerah.push(svgf);
+                    }
+                }
+            }
+        }
+        daerah.sort();
 
-            //         });
+        $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;'); // load tabel
 
-            //     });
-                
-            // }, 1000);
+        for (let j = 0; j < daerah.length; j++) {
+            $('#valuedata').append('<tr>'+
+                '<td>'+daerah[j]+'</td><td style="text-align: right;">1</td>'+
+            '</tr>');
+        }
     }
 </script>
