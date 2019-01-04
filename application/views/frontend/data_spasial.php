@@ -33,7 +33,7 @@
                             <div class="uk-width-1-2@m" style="width:70%">
                                 <select class="uk-select" name="jenis_kelamin" id="jenis_kelamin" disabled>
                                     <option value="">Jenis kelamin</option>
-                                    <option value="laki-laki">Laki-laki</option>
+                                    <option value="laki - laki">Laki-laki</option>
                                     <option value="perempuan">Perempuan</option>
                                 </select>
                             </div>

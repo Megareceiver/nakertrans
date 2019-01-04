@@ -155,7 +155,7 @@ class Sumberdata extends CI_Controller {
 			$maxCol = range('A',$maxCol);
 
 			foreach($maxCol as $key => $coloumn){
-				$field[$key]    = $_sheet->getCell($coloumn.'1')->getCalculatedValue();//Kolom pertama sebagai field list pada table
+				$field[$key]    = strtolower($_sheet->getCell($coloumn.'1')->getCalculatedValue());//Kolom pertama sebagai field list pada table
 			}
 
 			for($i = 2; $i <= $maxRow; $i++){
@@ -179,9 +179,8 @@ class Sumberdata extends CI_Controller {
 
 		$this->Model_sumberdata->importdata($nametable, $data);
 		$this->Model_sumberdata->publikasi($data_publikasi);
-		
-		echo json_encode("true");
-		// echo json_encode($data);
+
+		echo json_encode('true');
 	}
 
 	public function import_fapi($nametable)

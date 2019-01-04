@@ -86,7 +86,7 @@ class Model_query extends CI_Model
         $wherefinal =substr_replace($where ,"", -3);
         $selectfinal =substr_replace($select ,"", -2);
 
-        $sql = "SELECT Tempat_lahir as daerah, ".$selectfinal." FROM $sumberdata WHERE ".$wherefinal." GROUP BY Tempat_lahir";
+        $sql = "SELECT tempat_lahir as daerah, ".$selectfinal." FROM $sumberdata WHERE ".$wherefinal." GROUP BY Tempat_lahir";
 
         $datavalue = $this->db->query($sql)->result_array();
 

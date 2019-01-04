@@ -101,9 +101,12 @@
 		
 		<fieldset class="uk-fieldset" id="resultform">
 		</fieldset>
-		<div class="uk-margin">
+		<div class="uk-margin" id="eksekusi">
 			<button class="uk-button uk-button-default" onclick="submitrequest()">Submit</button>
 			<button class="uk-button uk-button-default" onclick="cancel()">Cancel</button>
+		</div>
+		<div id="proses" style="display:none;">
+			<span class="uk-margin-small-right" uk-spinner="ratio: 0.5"> Import data sedang di proses</span>
 		</div>
     </div>
 </div>
@@ -280,6 +283,9 @@
 
 	function submitrequest()
 	{
+		$('#eksekusi').attr('style', 'display:none;');
+		$('#proses').attr('style', 'display:block;');
+
 		var datasend = new FormData();
 
 		datasend.append('nametable', $("#nametable").val());

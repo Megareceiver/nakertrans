@@ -118,7 +118,7 @@ svg path{
 
 .heyo:hover{
     transition: 0.3s;
-    fill: #e2dbdb;
+    fill: #943030;
     stroke: grey;
     stroke-width: 1px;
 }

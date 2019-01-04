@@ -40,24 +40,44 @@ class Model_sumberdata extends CI_Model
 	}
 
 	public function importdata($nametable, $data) {
-		$head = str_replace(" ","_",$data['header']);
+
+		$field_ = array('nik','nama', 'tempat lahir', 'tanggal lahir', 'jenis kelamin', 'alamat', 'rt/rw', 'kel/desa', 'kecamatan', 'agama', 'status perkawinan', 'pekerjaan', 'kewarganegaraan', 'gol darah');
+
+		$headfirst = array_merge($field_, $data['header']);
+		
+		$headsecond = array();
+		foreach ($headfirst as $h) {
+			if(!in_array($h, $headsecond)){
+				array_push($headsecond, $h);
+			}
+		}
+
+		$headexcel_t = str_replace(" ","_", $headsecond);
+
 		$sql1 = "CREATE TABLE data_".$nametable." (
 		id INT (11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-		`".implode('` TEXT ,`', $head)."` TEXT
+		`".implode('` TEXT ,`', $headexcel_t)."` TEXT
 		)";
 
 		$this->db->query($sql1);
-		
+
+
 		$tes = array();
 		for ($i=0; $i < count($data['values']); $i++) { 
-			// $sql2 = "INSERT INTO data_".$nametable." VALUES (NULL,"."'".implode("','", $data['values'][$i])."'".")";
-			for ($j=0; $j < count($data['header']); $j++) { 
-				array_push($tes, $data['values'][$i][$data['header'][$j]]);
+			
+			for ($j=0; $j < count($headsecond); $j++) { 
+
+				if( !empty($data['values'][$i][$headsecond[$j]]) ){
+					array_push($tes, $data['values'][$i][$headsecond[$j]]);
+				}else{
+					array_push($tes, "");
+				}
+
 			}
 
 			$sql2 = 'INSERT INTO data_'.$nametable.' VALUES (NULL,'.'"'.implode('","', $tes).'"'.')';
 			$this->db->query($sql2);
-			// $this->db->query($sql2);
+			
 			unset($tes);
 			$tes = array();
 		}
