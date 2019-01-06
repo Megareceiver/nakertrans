@@ -91,7 +91,30 @@ $(document).ready( function() {
 			return $(elem).val();
 		}).get();
 
-		var color = ['#b82c2c', '#f49f59', '#fffa8b', '#386b30', '#ec2d4a', '#ff0061', '#ebbcfc', '#ffbed1', '#ffee8c', '#fba44a', '#cc225e', '#513026', '#404e5c', '#4f6272', '#b7c3f3', '#dd7596', '#cf1259', '#fb4353', '#641363', '#fbbb8f'];
+		var color = ['#b82c2c', '#f49f59', '#fffa8b', '#386b30', '#ec2d4a', '#ff0061',
+					'#ebbcfc', '#ffbed1', '#ffee8c', '#fba44a', '#cc225e', '#513026',
+					'#404e5c', '#4f6272', '#b7c3f3', '#dd7596', '#cf1259', '#fb4353',
+					'#641363', '#fbbb8f', '#404e5c', '#4f6272', '#b7c3f3','#fb4353',
+					'#386b30', '#ec2d4a', '#ff0061', '#4f6272', '#b7c3f3', '#fba44a',
+					'#ec2d4a', '#ff0061', '#404e5c', '#4f6272', '#fffa8b', '#386b30',
+					'#b82c2c', '#f49f59', '#fffa8b', '#386b30', '#ec2d4a', '#ff0061',
+					'#ebbcfc', '#ffbed1', '#ffee8c', '#fba44a', '#cc225e', '#513026',
+					'#404e5c', '#4f6272', '#b7c3f3', '#dd7596', '#cf1259', '#fb4353',
+					'#641363', '#fbbb8f', '#404e5c', '#4f6272', '#b7c3f3','#fb4353',
+					'#386b30', '#ec2d4a', '#ff0061', '#4f6272', '#b7c3f3', '#fba44a',
+					'#ec2d4a', '#ff0061', '#404e5c', '#4f6272', '#fffa8b', '#386b30',
+					'#b82c2c', '#f49f59', '#fffa8b', '#386b30', '#ec2d4a', '#ff0061',
+					'#ebbcfc', '#ffbed1', '#ffee8c', '#fba44a', '#cc225e', '#513026',
+					'#404e5c', '#4f6272', '#b7c3f3', '#dd7596', '#cf1259', '#fb4353',
+					'#641363', '#fbbb8f', '#404e5c', '#4f6272', '#b7c3f3','#fb4353',
+					'#386b30', '#ec2d4a', '#ff0061', '#4f6272', '#b7c3f3', '#fba44a',
+					'#ec2d4a', '#ff0061', '#404e5c', '#4f6272', '#fffa8b', '#386b30',
+					'#b82c2c', '#f49f59', '#fffa8b', '#386b30', '#ec2d4a', '#ff0061',
+					'#ebbcfc', '#ffbed1', '#ffee8c', '#fba44a', '#cc225e', '#513026',
+					'#404e5c', '#4f6272', '#b7c3f3', '#dd7596', '#cf1259', '#fb4353',
+					'#641363', '#fbbb8f', '#404e5c', '#4f6272', '#b7c3f3','#fb4353',
+					'#386b30', '#ec2d4a', '#ff0061', '#4f6272', '#b7c3f3', '#fba44a',
+					'#ec2d4a', '#ff0061', '#404e5c', '#4f6272', '#fffa8b', '#386b30'];
 
 	// console.log(source);
 	console.log(group);
@@ -116,7 +139,7 @@ $(document).ready( function() {
 								datasets: [{
 									// label: source[k],
 									backgroundColor: color,
-									borderColor: '#fff',
+									// borderColor: '#fff',
 									data: res[i]['data'],
 								}]
 							},

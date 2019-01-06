@@ -258,7 +258,7 @@
 
                     for(var i = 0; i < value.length; i++)
                     {
-                        if(value[i].indexOf('tempat') != -1 || value[i].indexOf('Tempat') != -1 || value[i].indexOf('lahir') != -1){
+                        if(value[i].indexOf('tempat') != -1 || value[i].indexOf('Tempat') != -1 ){
                             $('#tempat_lahir').removeAttr('disabled');
                             $('#tempat_lahir').attr('field', value[i]);
 

@@ -33,7 +33,7 @@
                     <div class="uk-width-1-2@m" style="width:70%">
                         <select class="uk-select" name="jenis_kelamin" id="jenis_kelamin" disabled>
                             <option value="">Jenis kelamin</option>
-                            <option value="laki-laki">Laki-laki</option>
+                            <option value="laki - laki">Laki-laki</option>
                             <option value="perempuan">Perempuan</option>
                         </select>
                     </div>
@@ -150,6 +150,7 @@
     $(document).ready(function()
     {
         $("input[name='radio2']").on("change", function(){
+            $('#result').replaceWith('<div class="uk-grid-small uk-child-width-1-6@s uk-flex-left uk-text-center" uk-grid id="result" style="font-size:10px; margin-bottom:5px;"></div>');
             $('#tempat_lahir').prop('disabled', true);
             $('#jenis_kelamin').prop('disabled', true);
             $('#jenis_kelamin').prop('disabled', true);
@@ -168,8 +169,6 @@
                     for (let i = 0; i < data.length; i++) {
                         value.push(data[i]['COLUMN_NAME']);
                     }
-
-                    console.log(value);
 
                     for(var i = 0; i < value.length; i++)
                     {
@@ -282,6 +281,7 @@
 
     function hasil_query() 
     {
+        $('#hasil_query').replaceWith('<pre id="hasil_query"></pre>');
         var valquery = $('input[name^=valquery]').map(function(idx, elem) {
             return $(elem).val();
         }).get();
@@ -294,9 +294,12 @@
                 data : {valq : valquery, sdata : sumberdata},
                 success: function( data ) {
                     console.log(data);
-
-                    for (i = 0; i < data['value'].length; i++) {
-                        $('#hasil_query').append(JSON.stringify(data['value'][i], undefined, 2));
+                    if (data['value'] != ''){
+                        for (i = 0; i < data['value'].length; i++) {
+                            $('#hasil_query').append(JSON.stringify(data['value'][i], undefined, 2));
+                        }
+                    }else{
+                        $('#hasil_query').append('Hasil tidak ditemukan');
                     }
                 }
             });

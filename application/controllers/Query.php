@@ -44,8 +44,8 @@ class Query extends CI_Controller {
     {
 		$valquery = $_REQUEST['valq'];
 		$sumberdata = $_REQUEST['sdata'];
-		$data['header'] = $this->Model_query->headerdata($sumberdata);
-		$data['value'] = $this->Model_query->valuedata($valquery, $sumberdata);
+		$header = $this->Model_query->headerdata($sumberdata);
+		$data['value'] = $this->Model_query->valuedata($valquery, $sumberdata, $header);
 		echo json_encode($data);
 	}
 	
@@ -58,6 +58,12 @@ class Query extends CI_Controller {
 		$data['header'] = $field;
 		$data['value'] = $this->Model_query->valuedata_spasial($valquery, $sumberdata, $field);
 		echo json_encode($data);
-    }
+	}
+	
+	public function getwilayah()
+	{
+		$wilayah = $this->Model_query->getwilayah();
+		echo json_encode($wilayah);
+	}
 }
 ?>
