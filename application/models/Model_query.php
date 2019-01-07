@@ -51,72 +51,70 @@ class Model_query extends CI_Model
     public function valuedata_spasial($valquery, $sumberdata, $field)
     {
         $dataheader = $field;
-        
         $where = '';
         $val = '';
         $select = '';
         
-		for ($j=0; $j < count($valquery); $j++) { 
-			if(count($valquery) > 1){
-                $val .= "'".$valquery[$j]."',";
-            }else{
-                $val .= "'%".$valquery[$j]."%',";
-            }
+        for ($i=0; $i < count($dataheader); $i++) { 
+            $where .= "`".$dataheader[$i]."` LIKE '%".$valquery[$i]."%' AND ";
         }
-        
-		$varfinal =substr_replace($val ,"", -1);
 
-        if(count($valquery) > 1){
-            for ($i=0; $i < count($dataheader); $i++) { 
-                $where .= "`".$dataheader[$i]."` IN (".$varfinal.") OR ";
-            }
-        }else{
-            for ($i=0; $i < count($dataheader); $i++) { 
-                $where .= "`".$dataheader[$i]."` LIKE ".$varfinal." OR ";
-            }
-        }
-        
-        // for ($i=0; $i < count($dataheader); $i++) { 
-            $select .= "COUNT(".$dataheader[0].") as jumlah, ";
-        // }
+        $wherefinal =substr_replace($where ,"", -4);
+        $sql1 = "SELECT tempat_lahir as `kota/kab`, COUNT(tempat_lahir) as jumlah FROM $sumberdata WHERE ".$wherefinal." GROUP BY tempat_lahir";
+        $data1 = $this->db->query($sql1)->result_array();
 
-        $wherefinal =substr_replace($where ,"", -3);
-        $selectfinal =substr_replace($select ,"", -2);
+        $sql2 = "SELECT `kel/desa`, COUNT(`kel/desa`) as jumlah FROM $sumberdata WHERE ".$wherefinal." GROUP BY `kel/desa`";
+        $data2 = $this->db->query($sql2)->result_array();
 
-        $sql = "SELECT tempat_lahir as daerah, ".$selectfinal." FROM $sumberdata WHERE ".$wherefinal." GROUP BY Tempat_lahir";
+        $sql3 = "SELECT kecamatan, COUNT(kecamatan) as jumlah FROM $sumberdata WHERE ".$wherefinal." GROUP BY kecamatan";
+        $data3 = $this->db->query($sql3)->result_array();
 
-        $datavalue = $this->db->query($sql)->result_array();
+        $data = array(
+            "kota/kab" => $data1,
+            "kel/desa" => $data2,
+            "kecamatan" => $data3
+        );
 
-        return $datavalue;
+        return $data;
     }
 
-    public function getwilayah()
+    public function getprovinsi()
     {
-        $sql = "SELECT p.name as provinsi,
-                    r.name as `kota/kab`,
-                    d.name as `kel/kec`,
-                    v.name as desa
+        $sql = "SELECT 
+                    p.name as provinsi,
+                    r.id as idkab,
+                    r.name as `kota/kab`
                 FROM provinces p
                 JOIN regencies r
                     ON p.id = r.province_id
-                JOIN districts d
-                    ON r.id = d.regency_id
-                JOIN villages v
-                	ON d.id = v.district_id
                 WHERE p.name = 'JAWA BARAT'";
-        $wilayah = $this->db->query($sql)->result();
 
-        // $sqlprovinsi = "SELECT * FROM provinces p WHERE p.name='JAWA BARAT'";
-        // $provinsi = $this->db->query($sqlprovinsi)->row();
+        // $sql = "SELECT 
+        //             p.name as provinsi,
+        //             r.name as `kota/kab`,
+        //             d.name as `kel/desa`,
+        //             v.name as kecamatan
+        //         FROM provinces p
+        //         JOIN regencies r
+        //             ON p.id = r.province_id
+        //         JOIN districts d
+        //             ON r.id = d.regency_id
+        //         JOIN villages v
+        //         	ON d.id = v.district_id
+        //         WHERE p.name = 'JAWA BARAT'";
 
-        // $sqlkotakab = "SELECT r.name as `kota/kab` FROM regencies r WHERE r.province_id=".$provinsi->id;
-        // $kotakab = $this->db->query($sqlkotakab)->result();
-
-        // $wilayah = array(
-        //     'provinsi' => $provinsi
-        // );
+        $wilayah = $this->db->query($sql)->result_array();
 
         return $wilayah;
+    }
+
+    public function getkeldes($kotakab)
+    {
+        $sql = "SELECT 
+                    d.id as idkel,
+                    d.name as `kel/desa`
+                FROM provinces p
+                WHERE p.name = 'JAWA BARAT'";
     }
 }
 ?>

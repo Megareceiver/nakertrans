@@ -23,15 +23,17 @@ $(document).ready(function()
             $('#mapsjabar').load(url+'/../mapjabar/'+svgf+'/'+svgf+'.html', function(){
                 setTimeout(() => {
                     readsvg();
-                }, 1000);
+                }, 500);
             });
+
         }else{
             first = getCookie('first');
             $('#mapsjabar').load(url+'/../mapjabar/'+first+'/kec/'+svgf+'.html', function(){
                 setTimeout(() => {
                     readsvg();
-                }, 1000);
+                }, 500);
             });
+
         }
 
         // console.log(getCookie('headerdata'));
@@ -76,7 +78,7 @@ $(document).on('mousemove', function(e){
 
 });
 
-function readsvg() {
+function readssvg() {
     $('#valuedata').replaceWith('<tbody id="valuedata"></tbody>');
 
     var svgpath = $('svg').find('path');

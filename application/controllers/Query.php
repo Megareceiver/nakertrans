@@ -57,13 +57,15 @@ class Query extends CI_Controller {
 
 		$data['header'] = $field;
 		$data['value'] = $this->Model_query->valuedata_spasial($valquery, $sumberdata, $field);
+
 		echo json_encode($data);
 	}
 	
-	public function getwilayah()
+	public function getprovinsi()
 	{
-		$wilayah = $this->Model_query->getwilayah();
-		echo json_encode($wilayah);
+		// $kecamatan = $_REQUEST['val'];
+		$provinsi = $this->Model_query->getprovinsi();
+		echo json_encode($provinsi);
 	}
 }
 ?>

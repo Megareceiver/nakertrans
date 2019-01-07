@@ -8,6 +8,17 @@
         </div>
         <hr>
         <div id="pagequery" class="uk-card uk-card-default uk-card-body">
+            <h5 style="margin:0;">List Sumber Data</h5>
+            <div class="naker-listdata">
+                <ul class="uk-list uk-list-striped">
+                    <?php foreach ($sumberdata as $sdata) { ?>
+                        <li> <label><input class="uk-radio" type="radio" name="radio2" value="<?php echo $sdata->data_source; ?>"> <?php echo str_replace("_", " ", $sdata->data_source); ?> </label> </li>        
+                    <?php } ?>
+                </ul>
+            </div>
+
+            <hr>
+
             <h5 style="margin:0;">Query</h5>
             <hr>
             <div class="uk-grid-small uk-child-width-1-3@s uk-flex-left uk-text-center" uk-grid>
@@ -130,16 +141,7 @@
 
             <hr>
 
-            <h5 style="margin:0;">List Sumber Data</h5>
-            <div class="naker-listdata">
-                <ul class="uk-list uk-list-striped">
-                    <?php foreach ($sumberdata as $sdata) { ?>
-                        <li> <label><input class="uk-radio" type="radio" name="radio2" value="<?php echo $sdata->data_source; ?>"> <?php echo str_replace("_", " ", $sdata->data_source); ?> </label> </li>        
-                    <?php } ?>
-                </ul>
-            </div>
-
-            <hr>
+            
             <button class="uk-button uk-button-default" onclick="hasil_query()">Jalankan query</button>
         </div>
         <div class="description"></div>
@@ -295,15 +297,14 @@
         });
     });
 
-    function fielddata(params){
+    function fielddata(params) //for agregat
+    {
         if(valuefield.indexOf(params) == -1){
             valuefield.push(params);
         }
-
-        console.log(valuefield);
     }
     
-    function section(params) 
+    function section(params) //for section agregat field
     {
         if (params == 1){
             if($('#tempat_lahir').val() != ""){
@@ -399,69 +400,49 @@
         }
     }
 
-    function hasil_query() 
+    function hasil_query() // for get value data hasil query
     {
         var valquery = $('input[name^=valquery]').map(function(idx, elem) {
             return $(elem).val();
         }).get();
 
         var sumberdata = $("input[name='radio2']:checked").val();
-        
         if(valquery != ''){
             $.ajax({
                 url: "<?php echo site_url('Query/hasil_spasial/');?>",
                 dataType: "json",
                 data : {valq : valquery, sdata : sumberdata, sfield: valuefield},
                 success: function( data ) {
-
                     console.log(data);
-                    // // retrive data array
-                    // header = JSON.stringify(data['header']);
-                    // value = JSON.stringify(data['value']);
-                    // // set to cookie for map and table
-                    // setCookie('headerdata', header, 365);
-                    // setCookie('valuedata', value, 365);
                     
-                    // $('#pagequery').attr('style','display:none'); //remove query agregat
-                    // $('#section-maps').attr('style','display:block'); // show map
-                    // $('#buttonmap').attr('style','display:block'); // show button navigation map
+                    // retrive data array
+                    
+                    header = JSON.stringify(data['header']);
+                    value = JSON.stringify(data['value']);
+                    
+                    // set to cookie for map and table
+                    setCookie('headerdata', header, 365);
+                    setCookie('valuedata', value, 365);
+                    
+                    $('#pagequery').attr('style','display:none'); //remove query agregat
+                    $('#section-maps').attr('style','display:block'); // show map
+                    $('#buttonmap').attr('style','display:block'); // show button navigation map
 
-                    // $('#mapsjabar').load(url+'/../mapjabar/JABAR.html', function(){
-                    //     setTimeout(() => {
-                    //         readsvg_first();
-                    //     }, 1000);
-                    // }); //load map
-
-                    /* for (let i = 0; i < data['header'].length; i++) {
-                        if (data['header'][i]['COLUMN_NAME'] != 'id' && data['header'][i]['COLUMN_NAME'] != 'tercapai' && data['header'][i]['COLUMN_NAME'] != 'validasi' && data['header'][i]['COLUMN_NAME'] != 'referensi') {
-                            $('#headertable').append('<th style="border-bottom: 1px solid;">'+data['header'][i]['COLUMN_NAME']+'</th>');   
-                        }
-                    }
-
-                    for (let j = 0; j < data['value'].length; j++) {
-                        $('#valuedata').append('<tr>');
-
-                            for (let k = 0; k < data['header'].length; k++) {
-                                if (data['header'][k]['COLUMN_NAME'] != 'id' && data['header'][k]['COLUMN_NAME'] != 'tercapai' && data['header'][k]['COLUMN_NAME'] != 'validasi' && data['header'][k]['COLUMN_NAME'] != 'referensi') {
-                                    valdata = data['value'][j][data['header'][k]['COLUMN_NAME']];
-                                    $('#valuedata').append('<td>'+valdata+'</td>');
-                                }
-
-                            }
-
-                        $('#valuedata').append('</tr>');
-                    }*/
+                    $('#mapsjabar').load(url+'/../mapjabar/JABAR.html', function(){
+                        setTimeout(() => {
+                            readsvg_first();
+                        }, 1000);
+                    }); //load map
 
                 }
             });
         }else{
             alert('Agregat kosong, silahkan masukin agregat terlebih dahulu!');
         }
-
-
     }
 
-    function currentmap() {
+    function currentmap() // for navigation maps
+    {
         $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
         $('#mapsjabar').load(url+'/../mapjabar/JABAR.html', function(){
             setTimeout(() => {
@@ -470,40 +451,76 @@
         }); //load map
     }
 
-    function readsvg_first() { //read data svg
+    function readsvg_first() { //read data svg from maps 
+        headerdata = JSON.parse(getCookie('headerdata'));
+        valuedata = JSON.parse(getCookie('valuedata'));
+
+        console.log(valuedata);
+
+        for (let j = 0; j < valuedata['kel/desa'].length; j++) {
+            $.ajax({
+                url: "<?php echo site_url('Query/getkab/');?>",
+                dataType: "json",
+                success: function( data ) {
+
+                }
+            });
+        }
 
         $('#valuedata').replaceWith('<tbody id="valuedata"></tbody>');
-
-        var svgpath = $('svg').find('path');
-        daerah = [];
-        for (let i = 0; i < svgpath.length; i++) { 
-            
-            if(daerah.indexOf(svgpath.eq(i).attr('data-original-title')) == -1){
-
-                svg = svgpath.eq(i).attr('data-original-title');
-                if(svg != undefined){ // replacing value
-
-                    svg0 = svg.replace(/\<[^>]*>/g, '');
-                    svg1 = svg0.trim();
-                    svg2 = svg1.replace(/[0-9]/g, '');
-                    svg3 = svg2.replace(" ", ' ');
-                    svg4 = svg3.replace(".", '');
-                    svgf = svg4.trim();
-
-                    if (daerah.indexOf(svgf) == -1) { // delete duplicate data
-                        daerah.push(svgf);
-                    }
-                }
-            }
-        }
-        daerah.sort();
-
         $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;'); // load tabel
+        $.ajax({
+            url: "<?php echo site_url('Query/getprovinsi/');?>",
+            dataType: "json",
+            success: function( data ) {
 
-        for (let j = 0; j < daerah.length; j++) {
-            $('#valuedata').append('<tr>'+
-                '<td>'+daerah[j]+'</td><td style="text-align: right;">1</td>'+
-            '</tr>');
-        }
+                for (let i = 0; i < data.length; i++) {
+                    $('#32_id_kab__'+data[i]['idkab']+'_0').find('g').attr('fill', '#000');
+                }
+
+                data.sort();
+                for (let j = 0; j < data.length; j++) {
+                    $('#valuedata').append('<tr>'+
+                        '<td>'+data[j]['kota/kab']+'</td><td style="text-align: right;">1</td>'+
+                    '</tr>');
+                }
+
+            }
+
+        });
+        
+        // $('#valuedata').replaceWith('<tbody id="valuedata"></tbody>');
+
+        // var svgpath = $('svg').find('path');
+        // daerah = [];
+        // for (let i = 0; i < svgpath.length; i++) { 
+            
+        //     if(daerah.indexOf(svgpath.eq(i).attr('data-original-title')) == -1){
+
+        //         svg = svgpath.eq(i).attr('data-original-title');
+        //         if(svg != undefined){ // replacing value
+
+        //             svg0 = svg.replace(/\<[^>]*>/g, '');
+        //             svg1 = svg0.trim();
+        //             svg2 = svg1.replace(/[0-9]/g, '');
+        //             svg3 = svg2.replace(" ", ' ');
+        //             svg4 = svg3.replace(".", '');
+        //             svgf = svg4.trim();
+
+        //             if (daerah.indexOf(svgf) == -1) { // delete duplicate data
+        //                 daerah.push(svgf);
+        //             }
+        //         }
+        //     }
+        // }
+        // daerah.sort();
+
+        // $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;'); // load tabel
+
+        // for (let j = 0; j < daerah.length; j++) {
+        //     $('#valuedata').append('<tr>'+
+        //         '<td>'+daerah[j]+'</td><td style="text-align: right;">1</td>'+
+        //     '</tr>');
+        // }
     }
 </script>
