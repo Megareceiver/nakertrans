@@ -103,6 +103,18 @@ class Model_query extends CI_Model
         //         	ON d.id = v.district_id
         //         WHERE p.name = 'JAWA BARAT'";
 
+//         SELECT
+// 	df.tempat_lahir as `kota/kab`,
+//     COUNT(df.tempat_lahir) as jumlah,
+//     d.name
+// FROM data_jabar2 df
+// JOIN districts d
+// 	ON df.kecamatan = d.name
+// JOIN
+// WHERE 
+// 	df.jenis_kelamin LIKE '%laki - laki%'
+// GROUP BY d.name
+
         $wilayah = $this->db->query($sql)->result_array();
 
         return $wilayah;

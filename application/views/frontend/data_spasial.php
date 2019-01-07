@@ -462,7 +462,7 @@
                 url: "<?php echo site_url('Query/getkab/');?>",
                 dataType: "json",
                 success: function( data ) {
-
+                    
                 }
             });
         }

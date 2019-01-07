@@ -67,5 +67,10 @@ class Query extends CI_Controller {
 		$provinsi = $this->Model_query->getprovinsi();
 		echo json_encode($provinsi);
 	}
+
+	public function getkab()
+	{
+
+	}
 }
 ?>
