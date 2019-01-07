@@ -48,6 +48,22 @@ class Model_query extends CI_Model
         return $datavalue;
     }
 
+    public function getprovinsi()
+    {
+        $sql = "SELECT 
+                    p.name as provinsi,
+                    r.id as idkab,
+                    r.name as `kota/kab`
+                FROM provinces p
+                JOIN regencies r
+                    ON p.id = r.province_id
+                WHERE p.name = 'JAWA BARAT'";
+
+        $wilayah = $this->db->query($sql)->result_array();
+
+        return $wilayah;
+    }
+
     public function valuedata_spasial($valquery, $sumberdata, $field)
     {
         $dataheader = $field;
@@ -60,73 +76,110 @@ class Model_query extends CI_Model
         }
 
         $wherefinal =substr_replace($where ,"", -4);
-        $sql1 = "SELECT tempat_lahir as `kota/kab`, COUNT(tempat_lahir) as jumlah FROM $sumberdata WHERE ".$wherefinal." GROUP BY tempat_lahir";
-        $data1 = $this->db->query($sql1)->result_array();
+        $sql1 = "SELECT
+                    dm.tempat_lahir as kab,
+                    dm.kecamatan as kec,
+                    dm.`kel/desa` as kel,
+                    COUNT(*) as jumlah
+            
+                FROM data_jabar_dummy dm
+                WHERE
+                    ".$wherefinal."
+                GROUP BY
+                    dm.tempat_lahir
+        ";
+        $kab = $this->db->query($sql1)->result_array();
 
-        $sql2 = "SELECT `kel/desa`, COUNT(`kel/desa`) as jumlah FROM $sumberdata WHERE ".$wherefinal." GROUP BY `kel/desa`";
-        $data2 = $this->db->query($sql2)->result_array();
+        $sql2 = "SELECT
+                    dm.tempat_lahir as kab,
+                    dm.kecamatan as kec,
+                    dm.`kel/desa` as kel,
+                    COUNT(*) as jumlah
+            
+                FROM data_jabar_dummy dm
+                WHERE
+                    ".$wherefinal."
+                GROUP BY
+                    dm.tempat_lahir, dm.kecamatan";
+        $kec = $this->db->query($sql2)->result_array();
 
-        $sql3 = "SELECT kecamatan, COUNT(kecamatan) as jumlah FROM $sumberdata WHERE ".$wherefinal." GROUP BY kecamatan";
-        $data3 = $this->db->query($sql3)->result_array();
+        $sql3 = "SELECT
+                    dm.tempat_lahir as kab,
+                    dm.kecamatan as kec,
+                    dm.`kel/desa` as kel,
+                    COUNT(*) as jumlah
+            
+                FROM data_jabar_dummy dm
+                WHERE
+                    ".$wherefinal."
+                GROUP BY
+                    dm.tempat_lahir, dm.kecamatan, dm.`kel/desa`";
+        $kel = $this->db->query($sql3)->result_array();
 
         $data = array(
-            "kota/kab" => $data1,
-            "kel/desa" => $data2,
-            "kecamatan" => $data3
+            "kab" => $kab,
+            "kel" => $kec,
+            "kec" => $kel
         );
 
         return $data;
     }
 
-    public function getprovinsi()
+    public function getdaerah($kel, $kec)
     {
-        $sql = "SELECT 
-                    p.name as provinsi,
-                    r.id as idkab,
-                    r.name as `kota/kab`
-                FROM provinces p
-                JOIN regencies r
-                    ON p.id = r.province_id
-                WHERE p.name = 'JAWA BARAT'";
+        $sql ="SELECT 
+                r.id as idkab,
+                r.name as kab,
+                d.id as idkec,
+                d.name as kec,
+                v.id as idkel,
+                v.name as kel
+            FROM regencies r
+            JOIN districts d 
+                ON r.id = d.regency_id
+            JOIN villages v
+                ON d.id = v.district_id
+            WHERE
+                d.name = '$kec'
+                AND
+                v.name = '$kel'";
 
-        // $sql = "SELECT 
-        //             p.name as provinsi,
-        //             r.name as `kota/kab`,
-        //             d.name as `kel/desa`,
-        //             v.name as kecamatan
-        //         FROM provinces p
-        //         JOIN regencies r
-        //             ON p.id = r.province_id
-        //         JOIN districts d
-        //             ON r.id = d.regency_id
-        //         JOIN villages v
-        //         	ON d.id = v.district_id
-        //         WHERE p.name = 'JAWA BARAT'";
-
-//         SELECT
-// 	df.tempat_lahir as `kota/kab`,
-//     COUNT(df.tempat_lahir) as jumlah,
-//     d.name
-// FROM data_jabar2 df
-// JOIN districts d
-// 	ON df.kecamatan = d.name
-// JOIN
-// WHERE 
-// 	df.jenis_kelamin LIKE '%laki - laki%'
-// GROUP BY d.name
-
-        $wilayah = $this->db->query($sql)->result_array();
-
-        return $wilayah;
+        return $this->db->query($sql)->result();
     }
 
-    public function getkeldes($kotakab)
+    public function getkelkec($kab, $kec)
     {
-        $sql = "SELECT 
-                    d.id as idkel,
-                    d.name as `kel/desa`
-                FROM provinces p
-                WHERE p.name = 'JAWA BARAT'";
+        $kab = str_replace("-"," ",$kab);
+        $kec = str_replace("-"," ",$kec);
+
+        $sql ="SELECT 
+                r.id as idkab,
+                r.name as kab,
+                d.id as idkec,
+                d.name as kec,
+                v.id as idkel,
+                v.name as kel
+            FROM regencies r
+            JOIN districts d 
+                ON r.id = d.regency_id
+            JOIN villages v
+                ON d.id = v.district_id ";
+
+        if($kab != '' && $kec !== ''){
+            $sql .= " WHERE
+                r.name = '$kab'
+                AND
+                d.name = '$kec'";
+        }else if($kab == ''){
+            $sql .= " WHERE
+            d.name = '$kec'";
+        }else if($kec == ''){
+            $sql .= " WHERE
+            r.name = '$kab' GROUP BY d.name";
+        }
+
+        return $this->db->query($sql)->result();
+        // return $sql;
     }
 }
 ?>

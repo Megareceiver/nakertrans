@@ -161,30 +161,30 @@
                 
                 <div class="uk-width-expand@m">
                     <h5>Legenda</h5>
-                    <div class="uk-grid-small uk-grid-match uk-child-width-1-5@s uk-flex-center uk-text-center" uk-grid style="color:black; font-size:12px;">
+                    <div class="uk-grid-small uk-grid-match uk-child-width-1-5@s uk-flex-center uk-text-center" uk-grid style="color:black; font-size:10px;">
                         <div>
                             <div class="uk-card naker-legend1">
-                                <span id="legend1">< 22000</span>
+                                <span id="legend1">< 10.000</span>
                             </div>
                         </div>
                         <div>
                             <div class="uk-card naker-legend2">
-                                <span id="legend2">22000 - 44000</span>
+                                <span id="legend2">10.000 - 20.000</span>
                             </div>
                         </div>
                         <div>
                             <div class="uk-card naker-legend3">
-                                <span id="legend3">44000 - 66000</span>
+                                <span id="legend3">20.000 - 40.000</span>
                             </div>
                         </div>
                         <div>
                             <div class="uk-card naker-legend4">
-                                <span id="legend4">66000 - 88000</span>
+                                <span id="legend4">40.000 - 80.000</span>
                             </div>
                         </div>
                         <div>
                             <div class="uk-card naker-legend5">
-                                <span id="legend5">> 88000</span>
+                                <span id="legend5">> 80.000</span>
                             </div>
                         </div>
                     </div>
@@ -209,17 +209,18 @@
                     <tbody id="valuedata">
                         
                     </tbody>
-                    <tfoot>
+                    <!-- <tfoot>
                         <tr>
                             <th style="text-align: right;"><b>Jumlah</b></th>
                             <th style="text-align: right;"><b>Hasil jumlah</b></th>
                         </tr>
-                    </tfoot>
+                    </tfoot> -->
                 </table>
             </div>
         </div>
     </div>
 </div>
+<input type="hidden" id="base" value="<?php echo site_url(); ?>">
 
 <script rel="javascript" type="text/javascript" src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
 
@@ -454,73 +455,130 @@
     function readsvg_first() { //read data svg from maps 
         headerdata = JSON.parse(getCookie('headerdata'));
         valuedata = JSON.parse(getCookie('valuedata'));
+        kab = [];
+        kec2 = [];
+        kel2 = [];
 
-        console.log(valuedata);
-
-        for (let j = 0; j < valuedata['kel/desa'].length; j++) {
+        for (let j = 0; j < valuedata['kab'].length; j++) { //cari id kabupaten/kota
+            kel = valuedata['kab'][j]['kel'];
+            kec = valuedata['kab'][j]['kec'];
             $.ajax({
-                url: "<?php echo site_url('Query/getkab/');?>",
+                url: "<?php echo site_url('Query/getdaerah/');?>",
                 dataType: "json",
+                data : {kel : kel, kec : kec},
                 success: function( data ) {
                     
+                    if(kab.indexOf(data[0]['kab']) == -1){
+                        kab.push({ idkab : data[0]['idkab'],
+                                kab : data[0]['kab'],
+                                jumlah : valuedata['kab'][j]['jumlah'],
+                            });
+                    }
                 }
             });
         }
 
-        $('#valuedata').replaceWith('<tbody id="valuedata"></tbody>');
-        $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;'); // load tabel
-        $.ajax({
-            url: "<?php echo site_url('Query/getprovinsi/');?>",
-            dataType: "json",
-            success: function( data ) {
+        for (let k = 0; k < valuedata['kec'].length; k++) { //cari id kecamatan
+            kel = valuedata['kec'][k]['kel'];
+            kec = valuedata['kec'][k]['kec'];
 
-                for (let i = 0; i < data.length; i++) {
-                    $('#32_id_kab__'+data[i]['idkab']+'_0').find('g').attr('fill', '#000');
+            $.ajax({
+                url: "<?php echo site_url('Query/getdaerah/');?>",
+                dataType: "json",
+                data : {kel : kel, kec : kec},
+                success: function( data ) {
+                    // console.log(data[0]['kec']);
+                    if(kec2.indexOf(data[0]['kec']) == -1){
+                        kec2.push({ idkec : data[0]['idkec'],
+                                kec : data[0]['kec'],
+                                jumlah : valuedata['kec'][k]['jumlah'],
+                            });
+                    }
                 }
+            });
+        }
 
-                data.sort();
-                for (let j = 0; j < data.length; j++) {
-                    $('#valuedata').append('<tr>'+
-                        '<td>'+data[j]['kota/kab']+'</td><td style="text-align: right;">1</td>'+
-                    '</tr>');
+        for (let l = 0; l < valuedata['kel'].length; l++) { //cari id kelurahan/desa
+            kel = valuedata['kel'][l]['kel'];
+            kec = valuedata['kel'][l]['kec'];
+
+            $.ajax({
+                url: "<?php echo site_url('Query/getdaerah/');?>",
+                dataType: "json",
+                data : {kel : kel, kec : kec},
+                success: function( data ) {
+                    // console.log(data[0]['kec']);
+                    if(kel2.indexOf(data[0]['kel']) == -1){
+                        kel2.push({ idkel : data[0]['idkel'],
+                                kel : data[0]['kel'],
+                                jumlah : valuedata['kel'][l]['jumlah'],
+                            });
+                    }
                 }
+            });
+        }
 
-            }
-
-        });
-        
-        // $('#valuedata').replaceWith('<tbody id="valuedata"></tbody>');
-
-        // var svgpath = $('svg').find('path');
-        // daerah = [];
-        // for (let i = 0; i < svgpath.length; i++) { 
+        setTimeout(() => {
+            $('#valuedata').replaceWith('<tbody id="valuedata"></tbody>');
+            $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;'); // load tabel
             
-        //     if(daerah.indexOf(svgpath.eq(i).attr('data-original-title')) == -1){
+            $.ajax({
+                url: "<?php echo site_url('Query/getprovinsi/');?>",
+                dataType: "json",
+                success: function( data ) {
 
-        //         svg = svgpath.eq(i).attr('data-original-title');
-        //         if(svg != undefined){ // replacing value
+                    for (let i = 0; i < data.length; i++) {
+                        $('#32_id_kab__'+data[i]['idkab']+'_0').find('g').attr('fill', '#808080');
 
-        //             svg0 = svg.replace(/\<[^>]*>/g, '');
-        //             svg1 = svg0.trim();
-        //             svg2 = svg1.replace(/[0-9]/g, '');
-        //             svg3 = svg2.replace(" ", ' ');
-        //             svg4 = svg3.replace(".", '');
-        //             svgf = svg4.trim();
+                        for (let j = 0; j < kab.length; j++) {
 
-        //             if (daerah.indexOf(svgf) == -1) { // delete duplicate data
-        //                 daerah.push(svgf);
-        //             }
-        //         }
-        //     }
-        // }
-        // daerah.sort();
+                            if(data[i]['idkab'] == kab[j]['idkab']){
+                                jum = parseInt(kab[j]['jumlah']);
 
-        // $('#resultmaps').attr('style','display:block;margin-top:50px;padding:20px;'); // load tabel
+                                if( jum < 100){
+                                    $('#32_id_kab__'+data[i]['idkab']+'_0').find('g').attr('fill', '#e2ee1c');
+                                }else if(jum >= 100 || jum <= 200){
+                                    $('#32_id_kab__'+data[i]['idkab']+'_0').find('g').attr('fill', '#dfb122');
+                                }else if(jum >= 200 || jum <= 400){
+                                    $('#32_id_kab__'+data[i]['idkab']+'_0').find('g').attr('fill', '#d6681e');
+                                }else if(jum >= 400 || jum <= 800){
+                                    $('#32_id_kab__'+data[i]['idkab']+'_0').find('g').attr('fill', '#ce4b1f');
+                                }else if(jum > 800){
+                                    $('#32_id_kab__'+data[i]['idkab']+'_0').find('g').attr('fill', '#cc3333');
+                                }
+                                
+                            }
 
-        // for (let j = 0; j < daerah.length; j++) {
-        //     $('#valuedata').append('<tr>'+
-        //         '<td>'+daerah[j]+'</td><td style="text-align: right;">1</td>'+
-        //     '</tr>');
-        // }
+                        }
+
+                    }
+
+                    
+                    for (let l = 0; l < data.length; l++) {
+
+                        $('#valuedata').append('<tr id="tbl'+data[l]['idkab']+'">'+
+                            '<td>'+data[l]['kota/kab']+'</td><td style="text-align: right;">0</td>'+
+                        '</tr>');
+                        
+                        for (let m = 0; m < kab.length; m++) {
+
+                            if(data[l]['idkab'] == kab[m]['idkab']){
+
+                                $('#tbl'+data[l]['idkab']).replaceWith('<tr id="tbl'+data[l]['idkab']+'">'+
+                                    '<td>'+data[l]['kota/kab']+'</td><td style="text-align: right;">'+kab[m]['jumlah']+'</td>'+
+                                '</tr>');
+                                
+                            }
+
+                        }
+
+
+                    }
+
+                }
+
+            });
+
+        }, 1000);
     }
 </script>

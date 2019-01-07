@@ -68,9 +68,20 @@ class Query extends CI_Controller {
 		echo json_encode($provinsi);
 	}
 
-	public function getkab()
+	public function getdaerah()
 	{
+		$kel = $_REQUEST['kel'];
+		$kec = $_REQUEST['kec'];
+		$daerah = $this->Model_query->getdaerah($kel, $kec);
+		echo json_encode($daerah);
+	}
 
+	public function getkelkec()
+	{
+		$kab = $_REQUEST['kab'];
+		$kec = $_REQUEST['kec'];
+		$daerah = $this->Model_query->getkelkec($kab, $kec);
+		echo json_encode($daerah);
 	}
 }
 ?>

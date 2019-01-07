@@ -107,7 +107,7 @@
 }
 
 .svg-range1, .svg-range2, .svg-range3, .svg-range4, .svg-range5 {
-    stroke: whitesmoke;
+    stroke: white;
     stroke-width: 1px;
 }
 
@@ -119,7 +119,7 @@ svg path{
 .heyo:hover{
     transition: 0.3s;
     fill: #943030;
-    stroke: grey;
+    stroke: white;
     stroke-width: 1px;
 }
 
@@ -165,11 +165,11 @@ svg path{
 }
 
 .naker-legend1{
-    background-color: 	#cc3333;
+    background-color: 	#e2ee1c;
 }
 
 .naker-legend2{
-    background-color: 	#ce4b1f;
+    background-color: 	#dfb122;
 }
 
 .naker-legend3{
@@ -177,11 +177,11 @@ svg path{
 }
 
 .naker-legend4{
-    background-color: 	#dfb122;
+    background-color: 	#ce4b1f;
 }
 
 .naker-legend5{
-    background-color: 	#e2ee1c;
+    background-color: 	#cc3333;
 }
 
 /* responsive */
