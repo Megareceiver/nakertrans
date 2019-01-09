@@ -195,9 +195,10 @@
                         
         <div id="resultmaps" class="uk-card uk-card-default uk-animation-fade" style="display:none;">
             <div>
-                <button class="uk-button-small uk-button-default">Export Data</button>
+                <button class="uk-button-small uk-button-default" onclick="fnExcelReport();">Export Data</button>
             </div>
-            <h5>Peta Rekap - Data Spasial</h5>
+            <h5 style="margin: 10px 0px 0px;">Peta Hasil - Data Spasial</h5>
+            <p id="dasardata" style="margin: 0px 0px 10px;font-size: 10px;color: #af2323;"></p>
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped uk-table-hover" style="font-size:12px;" id="detail">
                     <thead style="border-bottom: 1px solid; background-color:lightgrey">
@@ -221,6 +222,7 @@
     </div>
 </div>
 <input type="hidden" id="base" value="<?php echo site_url(); ?>">
+<iframe id="txtArea1" style="display:none"></iframe>
 
 <script rel="javascript" type="text/javascript" src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
 
@@ -407,6 +409,8 @@
             return $(elem).val();
         }).get();
 
+        setCookie('valuefield', valquery, 365);
+
         var sumberdata = $("input[name='radio2']:checked").val();
         if(valquery != ''){
             $.ajax({
@@ -429,7 +433,7 @@
                     $('#section-maps').attr('style','display:block'); // show map
                     $('#buttonmap').attr('style','display:block'); // show button navigation map
 
-                    $('#mapsjabar').load(url+'/../mapjabar/JABAR.html', function(){
+                    $('#mapsjabar').load(url+'/../mapjabar/JABAR.HTML', function(){
                         setTimeout(() => {
                             readsvg_first();
                         }, 1000);
@@ -445,7 +449,7 @@
     function currentmap() // for navigation maps
     {
         $.getScript('<?php echo base_url("assets/js/mapsspasial.js");?>');
-        $('#mapsjabar').load(url+'/../mapjabar/JABAR.html', function(){
+        $('#mapsjabar').load(url+'/../mapjabar/JABAR.HTML', function(){
             setTimeout(() => {
                 readsvg_first();
             }, 1000);
@@ -454,10 +458,14 @@
 
     function readsvg_first() { //read data svg from maps 
         headerdata = JSON.parse(getCookie('headerdata'));
+        valuefield = getCookie('valuefield');
         valuedata = JSON.parse(getCookie('valuedata'));
         kab = [];
         kec2 = [];
         kel2 = [];
+
+        $('#dasardata').replaceWith('<p id="dasardata" style="margin: 0px 0px 10px;font-size: 10px;color: #af2323;"></p>');
+        $('#dasardata').append('data yang dihasilkan, berdasarkan [ '+headerdata+' ] dengan nilai/value [ '+valuefield+' ]');
 
         for (let j = 0; j < valuedata['kab'].length; j++) { //cari id kabupaten/kota
             kel = valuedata['kab'][j]['kel'];
@@ -487,7 +495,7 @@
                 dataType: "json",
                 data : {kel : kel, kec : kec},
                 success: function( data ) {
-                    // console.log(data[0]['kec']);
+                    // console.log(data);
                     if(kec2.indexOf(data[0]['kec']) == -1){
                         kec2.push({ idkec : data[0]['idkec'],
                                 kec : data[0]['kec'],
@@ -580,5 +588,39 @@
             });
 
         }, 1000);
+    }
+
+    function fnExcelReport()
+    {
+        var tab_text="<table border='2px'><tr>";
+        var textRange; var j=0;
+        tab = document.getElementById('detail'); // id of table
+
+        for(j = 0 ; j < tab.rows.length ; j++) 
+        {     
+            tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+            //tab_text=tab_text+"</tr>";
+        }
+
+        tab_text=tab_text+"</table>";
+        tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+        tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+        tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE "); 
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+        {
+            txtArea1.document.open("txt/html","replace");
+            txtArea1.document.write(tab_text);
+            txtArea1.document.close();
+            txtArea1.focus(); 
+            sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+        }  
+        else                 //other browser not tested on IE 11
+            sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+        return (sa);
     }
 </script>

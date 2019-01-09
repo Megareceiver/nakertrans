@@ -82,7 +82,7 @@ class Model_query extends CI_Model
                     dm.`kel/desa` as kel,
                     COUNT(*) as jumlah
             
-                FROM data_jabar_dummy dm
+                FROM ".$sumberdata." dm
                 WHERE
                     ".$wherefinal."
                 GROUP BY
@@ -96,7 +96,7 @@ class Model_query extends CI_Model
                     dm.`kel/desa` as kel,
                     COUNT(*) as jumlah
             
-                FROM data_jabar_dummy dm
+                FROM ".$sumberdata." dm
                 WHERE
                     ".$wherefinal."
                 GROUP BY
@@ -109,7 +109,7 @@ class Model_query extends CI_Model
                     dm.`kel/desa` as kel,
                     COUNT(*) as jumlah
             
-                FROM data_jabar_dummy dm
+                FROM ".$sumberdata." dm
                 WHERE
                     ".$wherefinal."
                 GROUP BY

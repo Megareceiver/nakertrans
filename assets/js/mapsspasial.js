@@ -20,7 +20,7 @@ $(document).ready(function()
 
         if(svgf.match(/KOTA/g) || svgf.match(/KAB/g)){
             setCookie('first', svgf, 365);
-            $('#mapsjabar').load(url+'/../mapjabar/'+svgf+'/'+svgf+'.html', function(){
+            $('#mapsjabar').load(url+'/../mapjabar/'+svgf+'/'+svgf+'.HTML', function(){
                 setTimeout(() => {
                     readsvg(svgf,'');
                 }, 500);
@@ -28,7 +28,7 @@ $(document).ready(function()
 
         }else{
             first = getCookie('first');
-            $('#mapsjabar').load(url+'/../mapjabar/'+first+'/kec/'+svgf+'.html', function(){
+            $('#mapsjabar').load(url+'/../mapjabar/'+first+'/KEC/'+svgf+'.HTML', function(){
                 setTimeout(() => {
                     readsvg(first, svgf);
                 }, 500);
@@ -81,14 +81,15 @@ $(document).on('mousemove', function(e){
 function readsvg(param1, param2) { //read data svg from maps 
     var site_url = $('#base').val();
     headerdata = JSON.parse(getCookie('headerdata'));
+    valuefield = getCookie('valuefield');
     valuedata = JSON.parse(getCookie('valuedata'));
-
-    // console.log(valuedata);
-    console.log(param1+'---'+param2);
 
     kab = [];
     kec2 = [];
     kel2 = [];
+
+    $('#dasardata').replaceWith('<p id="dasardata" style="margin: 0px 0px 10px;font-size: 10px;color: #af2323;"></p>');
+    $('#dasardata').append('data yang dihasilkan, berdasarkan [ '+headerdata+' ] dengan nilai/value [ '+valuefield+' ]');
 
     for (let j = 0; j < valuedata['kab'].length; j++) { //cari id kabupaten/kota
         kel = valuedata['kab'][j]['kel'];
