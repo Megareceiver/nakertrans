@@ -57,7 +57,7 @@ class Model_sumberdata extends CI_Model
 		$sql1 = "CREATE TABLE data_".$nametable." (
 		id INT (11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 		`".implode('` TEXT ,`', $headexcel_t)."` TEXT
-		)";
+		,`validasi` VARCHAR(255) NOT NULL DEFAULT 'belum', `tercapai` VARCHAR(255) NOT NULL, `referensi` VARCHAR(255) NOT NULL)";
 
 		$this->db->query($sql1);
 
@@ -75,15 +75,16 @@ class Model_sumberdata extends CI_Model
 
 			}
 
-			$sql2 = 'INSERT INTO data_'.$nametable.' VALUES (NULL,'.'"'.implode('","', $tes).'"'.')';
+			$sql2 = 'INSERT INTO data_'.$nametable.' VALUES (NULL,'.'"'.implode('","', $tes).'"'.',"","","")';
 			$this->db->query($sql2);
 			
 			unset($tes);
 			$tes = array();
 		}
 
-		$sql3 = "ALTER TABLE data_".$nametable." ADD `validasi` VARCHAR(255) NOT NULL DEFAULT 'belum', ADD `tercapai` VARCHAR(255) NOT NULL,  ADD `referensi` VARCHAR(255) NOT NULL";
-		return $this->db->query($sql3);
+		// $sql3 = "ALTER TABLE data_".$nametable." ADD `validasi` VARCHAR(255) NOT NULL DEFAULT 'belum', ADD `tercapai` VARCHAR(255) NOT NULL,  ADD `referensi` VARCHAR(255) NOT NULL";
+		// return $this->db->query($sql3);
+		return true;
 	}
 
 	public function publikasi($data_publikasi)

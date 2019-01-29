@@ -177,10 +177,15 @@ class Sumberdata extends CI_Controller {
 			"dibuat" => date('Y-m-d'),
 		);
 
-		$this->Model_sumberdata->importdata($nametable, $data);
-		$this->Model_sumberdata->publikasi($data_publikasi);
-
-		echo json_encode('true');
+		$first = $this->Model_sumberdata->importdata($nametable, $data);
+		echo json_encode($first);
+		die;
+		if($first == true){
+			$second = $this->Model_sumberdata->publikasi($data_publikasi);
+			echo json_encode($second);
+		}else{
+			redirect(site_url('Sumberdata'));
+		}
 	}
 
 	public function import_fapi($nametable)

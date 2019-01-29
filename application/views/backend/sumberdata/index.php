@@ -41,7 +41,7 @@
                 
 		    	<fieldset class="uk-fieldset">
 					<div class="uk-margin">
-			            <input class="uk-input" type="text" placeholder="Nama Folder" id="nametable_api" name="nametable_api">
+			            <input class="uk-input" type="text" placeholder="Nama Folder" id="nametable_api" name="nametable_api" maxlength="20">
 			        </div>
 		    		<div class="uk-margin">
 			            <input class="uk-input" type="text" placeholder="url API..." id="url_api" name="url_api">
@@ -63,7 +63,7 @@
                 <?php //echo form_open_multipart(site_url("Sumberdata/importdata/"), array("class" => "formValidate")) ?>
 		    	<fieldset class="uk-fieldset">
 		    		<div class="uk-margin">
-			            <input class="uk-input" type="text" placeholder="Nama Folder" id="nametable">
+			            <input class="uk-input" type="text" placeholder="Nama Folder" id="nametable" maxlength="20">
 			        </div>
 			        <div class="uk-margin">
 			        	<div uk-form-custom="target: true" style="width: 100%">
@@ -256,7 +256,7 @@
 		datasend.append('file', $("#file")[0].files[0]);
 		datasend.append('publikasi', $("input[name='radio2']:checked").val());
 		$.ajax({
-          url: "<?php echo site_url()?>" + "Sumberdata/importdata",
+          url: "<?php echo site_url()?>" + "/Sumberdata/importdata",
           type: "POST",
 		  dataType: 'json',
           data: datasend,
@@ -293,7 +293,7 @@
 		datasend.append('publikasi', $("input[name='radio2']:checked").val());
 
 		$.ajax({
-          url: "<?php echo site_url()?>" + "Sumberdata/submitimport",
+          url: "<?php echo site_url()?>" + "/Sumberdata/submitimport",
           type: "POST",
 		  dataType: 'json',
           data: datasend,
@@ -302,7 +302,7 @@
           cache:false,
 		}).done(function (data) {
 			console.log(data);
-			if (data == 'true'){
+			if (data == true){
 				location.reload();
 			}else{
 				alert('file gagal di upload, silahkan cek kembali file yang anda upload');
