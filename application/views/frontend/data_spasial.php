@@ -155,8 +155,15 @@
         <hr>
             <div class="uk-grid-small uk-flex-left uk-text-left uk-grid-divider" uk-grid>
                 <div class="uk-width-1-4@m">
-                    <a class="uk-link" uk-icon="icon: arrow-left; ratio: 2;" onclick="currentmap()"></a>
-                    kembali
+                    <div style="margin-bottom:5px">
+                        <a class="uk-link" uk-icon="icon: refresh; ratio: 1;" onclick="resetPage()"></a>
+                            reset query
+                    </div>
+                    
+                    <div>
+                        <a class="uk-link" uk-icon="icon: arrow-left; ratio: 1;" onclick="currentmap()"></a>
+                            kembali
+                    </div>
                 </div>
                 
                 <div class="uk-width-expand@m">
@@ -221,9 +228,20 @@
         </div>
     </div>
 </div>
+
+<div id="modal-center" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body" style="width:fit-content">
+
+        <div class="uk-flex">
+            <div><span class="uk-margin-small-right" uk-spinner="ratio: 1"></span></div>
+            <div>Tunggu...</div>
+        </div>
+
+    </div>
+</div>
+
 <input type="hidden" id="base" value="<?php echo site_url(); ?>">
 <iframe id="txtArea1" style="display:none"></iframe>
-
 <script rel="javascript" type="text/javascript" src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
 
 <script>
@@ -231,6 +249,7 @@
     let valuefield = [];
     $(document).ready(function()
     {
+
         $("input[name='radio2']").on("change", function(){
             // remove and disable attr field
                 valuefield = [];
@@ -371,7 +390,7 @@
             }
         }else if(params == 5){
             if($('#agama').val() != ""){
-            	
+                
                 $('#result').append('<div>'+
                     '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
                         '<p>Agama > '+$('#agama').val()+'</p>'+
@@ -386,7 +405,7 @@
             }
         }else {
             if($('#pekerjaan').val() != ""){
-            	
+                
                 $('#result').append('<div>'+
                     '<div class="uk-alert-danger" uk-alert style="border-radius: 40px;">'+
                         '<p>Pekerjaan > '+$('#pekerjaan').val()+'</p>'+
@@ -456,6 +475,11 @@
         }); //load map
     }
 
+    function resetPage()
+    {
+        window.location.reload();
+    }
+
     function readsvg_first() { //read data svg from maps 
         headerdata = JSON.parse(getCookie('headerdata'));
         valuefield = getCookie('valuefield');
@@ -463,6 +487,11 @@
         kab = [];
         kec2 = [];
         kel2 = [];
+
+        $('html').scrollTop(0);
+
+        $('#modal-center').attr('class', 'uk-modal uk-open');
+        $('#modal-center').attr('style', 'display:block');
 
         $('#dasardata').replaceWith('<p id="dasardata" style="margin: 0px 0px 10px;font-size: 10px;color: #af2323;"></p>');
         $('#dasardata').append('data yang dihasilkan, berdasarkan [ '+headerdata+' ] dengan nilai/value [ '+valuefield+' ]');
@@ -586,7 +615,8 @@
                 }
 
             });
-
+            $('#modal-center').attr('class', 'uk-modal');
+            $('#modal-center').attr('style', 'display:none');
         }, 1000);
     }
 

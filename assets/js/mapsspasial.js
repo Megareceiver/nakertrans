@@ -88,6 +88,9 @@ function readsvg(param1, param2) { //read data svg from maps
     kec2 = [];
     kel2 = [];
 
+    $('html').scrollTop(0);
+    $('#modal-center').attr('class', 'uk-modal uk-open');
+    $('#modal-center').attr('style', 'display:block');
     $('#dasardata').replaceWith('<p id="dasardata" style="margin: 0px 0px 10px;font-size: 10px;color: #af2323;"></p>');
     $('#dasardata').append('data yang dihasilkan, berdasarkan [ '+headerdata+' ] dengan nilai/value [ '+valuefield+' ]');
 
@@ -266,6 +269,7 @@ function readsvg(param1, param2) { //read data svg from maps
             }
 
         });
-
+        $('#modal-center').attr('class', 'uk-modal');
+        $('#modal-center').attr('style', 'display:none');
     }, 1000);
 }

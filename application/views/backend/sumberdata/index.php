@@ -300,6 +300,14 @@
           processData: false,
           contentType: false,
           cache:false,
+		  statusCode: {
+				503: function() {
+					window.location.reload();
+				},
+				500: function() {
+					window.location.reload();
+				}
+			}
 		}).done(function (data) {
 			console.log(data);
 			if (data == true){

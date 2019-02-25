@@ -12,7 +12,7 @@ class Model_sumberdata extends CI_Model
 
 	public function datasource()
 	{
-		$tables = $this->db->query("SELECT t.TABLE_NAME FROM INFORMATION_SCHEMA.TABLES AS t WHERE t.TABLE_SCHEMA = 'nakertrans' AND t.TABLE_NAME LIKE 'data%' ")->result_array();
+		$tables = $this->db->query("SELECT t.TABLE_NAME FROM INFORMATION_SCHEMA.TABLES AS t WHERE t.TABLE_SCHEMA = 'db_nakertrans' AND t.TABLE_NAME LIKE 'data%' ")->result_array();
 		// foreach($tables as $key => $val) {
 		// 	echo $val['myTables']."<br>";// myTables is the alias used in query.
 		// }
@@ -23,7 +23,7 @@ class Model_sumberdata extends CI_Model
 	{
 		$sortir = "ORDER BY t.TABLE_NAME ".$sort;
 
-			$tables = $this->db->query("SELECT t.TABLE_NAME FROM INFORMATION_SCHEMA.TABLES AS t WHERE t.TABLE_SCHEMA = 'nakertrans' AND t.TABLE_NAME LIKE 'data%' ".$sortir)->result_array();
+			$tables = $this->db->query("SELECT t.TABLE_NAME FROM INFORMATION_SCHEMA.TABLES AS t WHERE t.TABLE_SCHEMA = 'db_nakertrans' AND t.TABLE_NAME LIKE 'data%' ".$sortir)->result_array();
 			
 			for ($i=0; $i < count($tables); $i++) { 
 				$sum[] = $this->db->query("SELECT MAX(".$tables[$i]['TABLE_NAME'].".id) AS sumdata FROM ".$tables[$i]['TABLE_NAME'])->result_array();
@@ -119,7 +119,7 @@ class Model_sumberdata extends CI_Model
 
 	public function headerdata($nametable)
 	{
-		$sql1 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'nakertrans' AND TABLE_NAME = '".$nametable."'";
+		$sql1 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'db_nakertrans' AND TABLE_NAME = '".$nametable."'";
 		$data = $this->db->query($sql1)->result_array();
 		return $data;
 	}
@@ -161,7 +161,7 @@ class Model_sumberdata extends CI_Model
 		$sql1 = "SELECT * FROM ".$nametable." WHERE ";
 		for ($i=0; $i <= count($header); $i++) { 
 			if (isset($header[$i])){
-				$sql1 .=" ".$header[$i]['COLUMN_NAME']." LIKE '%".$search."%' OR ";
+				$sql1 .=" `".$header[$i]['COLUMN_NAME']."` LIKE '%".$search."%' OR ";
 			}
 		}
 		$newarraynama=substr_replace($sql1 ,"", -3);

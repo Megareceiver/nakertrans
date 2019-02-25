@@ -178,8 +178,7 @@ class Sumberdata extends CI_Controller {
 		);
 
 		$first = $this->Model_sumberdata->importdata($nametable, $data);
-		echo json_encode($first);
-		die;
+
 		if($first == true){
 			$second = $this->Model_sumberdata->publikasi($data_publikasi);
 			echo json_encode($second);

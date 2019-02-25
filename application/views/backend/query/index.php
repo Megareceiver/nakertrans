@@ -122,6 +122,21 @@
             </div>
         </div>
 
+        <div id="section7" class="">
+            <div class="uk-card">
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-width-1-2@m" style="width:70%">
+                        <input class="uk-input" type="text" name="alamat" id="alamat" placeholder="Ketik alamat..." disabled>
+                    </div>
+                    <div class="uk-width-1-4@s">
+                        <div style="border:1px solid grey; border-radius:100%; width: 40px;">
+                            <a uk-icon="icon: arrow-right; ratio: 2" href="#" id="1" onclick="section(7)"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <hr>
@@ -134,6 +149,7 @@
 
     <hr>
     <button class="uk-button uk-button-default" onclick="hasil_query()">Jalankan query</button>
+    <button class="uk-button uk-button-default" onclick="location.reload()">Reset</button>
     <br>
     <br>
     <div id="hasil" class="">
@@ -189,6 +205,9 @@
 
                         }else if(value[i].indexOf('Peker') != -1 || value[i].indexOf('jaan') != -1 || value[i].indexOf('kerja') != -1 || value[i].indexOf('kerjaan') != -1){
                             $('#pekerjaan').removeAttr('disabled');
+                            
+                        }else if(value[i].indexOf('alamat') != -1 || value[i].indexOf('Alamat') != -1){
+                            $('#alamat').removeAttr('disabled');
                             
                         }
                     }
@@ -262,6 +281,18 @@
                                         '<div hidden="hidden"><input name="valquery[]" value="'+$('#agama').val()+'" /></div>'+
                                     '</div>');
                 $('#agama').val('');
+            }
+        }else if(params == 7){
+            if($('#alamat').val() != ""){
+            	
+                $('#result').append('<div>'+
+                                        '<div class="uk-alert-success" uk-alert style="border-radius: 40px;">'+
+                                            '<p>Alamat > '+$('#alamat').val()+'</p>'+
+                                            
+                                        '</div>'+
+                                        '<div hidden="hidden"><input name="valquery[]" value="'+$('#alamat').val()+'" /></div>'+
+                                    '</div>');
+                $('#alamat').val('');
             }
         }else {
             if($('#pekerjaan').val() != ""){

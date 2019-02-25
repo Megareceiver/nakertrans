@@ -14,7 +14,7 @@ class Model_query extends CI_Model
     // sementara sebelum ada api
     public function headerdata($sumberdata)
     {
-        $sql1 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'nakertrans' AND TABLE_NAME = '$sumberdata'";
+        $sql1 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'db_nakertrans' AND TABLE_NAME = '$sumberdata'";
         $dataheader = $this->db->query($sql1)->result_array();
 
         return $dataheader;
@@ -25,9 +25,15 @@ class Model_query extends CI_Model
         $where = '';
         $val = '';
         
-		for ($j=0; $j < count($valquery); $j++) { 
-			$val .= "'".$valquery[$j]."',";
-		}
+		if(count($valquery) == 1){
+            for ($j=0; $j < count($valquery); $j++) { 
+                $val .= "'%".$valquery[$j]."%',";
+            }
+        }else{
+            for ($j=0; $j < count($valquery); $j++) { 
+                $val .= "'".$valquery[$j]."',";
+            }
+        }
 		$varfinal =substr_replace($val ,"", -1);
 
         if(count($valquery) > 1){
@@ -36,7 +42,7 @@ class Model_query extends CI_Model
             }
         }else{
             for ($i=0; $i < count($dataheader); $i++) { 
-                $where .= "`".$dataheader[$i]['COLUMN_NAME']."` = ".$varfinal." OR ";
+                $where .= "`".$dataheader[$i]['COLUMN_NAME']."` LIKE ".$varfinal." OR ";
             }
         }
 
