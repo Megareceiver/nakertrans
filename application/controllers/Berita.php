@@ -55,9 +55,6 @@ class Berita extends CI_Controller {
         $data['menuaction'] ='
             <li class="naker-action">
                 <a href="'.site_url('Berita').'" uk-toggle>Kembali</a></li>
-            
-            <li class="naker-action">
-                <a>Hapus</a></li>
             ';
 		$data['breadcumbs'] ='
 		<li class="naker-breadcumbs"><a href='. site_url("Berita/tambah").'>Form berita</a></li>';

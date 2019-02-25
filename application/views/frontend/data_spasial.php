@@ -1,5 +1,5 @@
 <div class="uk-flex-center uk-animation-fade" uk-grid>
-    <div class="uk-width-xxlarge@m uk-padding">
+    <div class="uk-container uk-container-xsmall uk-padding">
         <div class="uk-inline">
             <h3 class="uk-margin-remove">
                 <a class="uk-link btn-back-floated" uk-icon="icon: arrow-left; ratio: 2;" href="<?php echo base_url();?>"></a>
@@ -7,21 +7,20 @@
             </h3>
         </div>
         <hr>
-        <div id="pagequery" class="uk-card uk-card-default uk-card-body">
-            <h5 style="margin:0;">List Sumber Data</h5>
+        <div id="pagequery" class="uk-card uk-card-body">
+            <h5>Sumber Data</h5>
             <div class="naker-listdata">
-                <ul class="uk-list uk-list-striped">
+                <div class="uk-child-width-1-3@m" uk-grid>
                     <?php foreach ($sumberdata as $sdata) { ?>
-                        <li> <label><input class="uk-radio" type="radio" name="radio2" value="<?php echo $sdata->data_source; ?>"> <?php echo str_replace("_", " ", $sdata->data_source); ?> </label> </li>        
+                        <div> <label class="uk-text-capitalize uk-text-truncate"><input class="uk-radio" type="radio" name="radio2" value="<?php echo $sdata->data_source; ?>"> <?php echo str_replace("_", " ", $sdata->data_source); ?> </label> </div>        
                     <?php } ?>
-                </ul>
+                </div>
             </div>
 
             <hr>
 
-            <h5 style="margin:0;">Query</h5>
-            <hr>
-            <div class="uk-grid-small uk-child-width-1-3@s uk-flex-left uk-text-center" uk-grid>
+            <h5>Query</h5>
+            <div class="uk-grid-small uk-child-width-1-2@m uk-flex-left uk-text-center" uk-grid>
 
                 <div id="section1" class="">
                     <div class="uk-card">
@@ -141,29 +140,28 @@
 
             <hr>
 
-            
             <button class="uk-button uk-button-default" onclick="hasil_query()">Jalankan query</button>
         </div>
         <div class="description"></div>
-        <div id="section-maps" class="uk-card uk-card-default uk-animation-fade uk-text-center" style="display:none;">
+        <div id="section-maps" class="uk-card uk-animation-fade uk-text-center" style="display:none;">
             <h5 style="padding:20px">Peta Rekap - Data Spasial</h5>
             <div id="mapsjabar">
 
             </div>
         </div>
-        <div class="uk-card uk-card-default uk-animation-fade uk-padding-small" id="buttonmap" style="display:none;">
+        <div class="uk-card uk-animation-fade uk-padding-small" id="buttonmap" style="display:none;">
         <hr>
             <div class="uk-grid-small uk-flex-left uk-text-left uk-grid-divider" uk-grid>
                 <div class="uk-width-1-4@m">
-                    <div style="margin-bottom:5px">
-                        <a class="uk-link" uk-icon="icon: refresh; ratio: 1;" onclick="resetPage()"></a>
-                            reset query
-                    </div>
                     
-                    <div>
-                        <a class="uk-link" uk-icon="icon: arrow-left; ratio: 1;" onclick="currentmap()"></a>
-                            kembali
-                    </div>
+                        <a class="uk-link" onclick="resetPage()">
+                            <span class="fa fa-refresh uk-margin-small-right"></span> Reset query
+                        </a>
+                   
+                        <a class="uk-link" onclick="currentmap()">
+                            <span class="fa fa-arrow-left uk-margin-small-right"></span> Kembali
+                        </a>
+                    
                 </div>
                 
                 <div class="uk-width-expand@m">
@@ -210,8 +208,8 @@
                 <table class="uk-table uk-table-striped uk-table-hover" style="font-size:12px;" id="detail">
                     <thead style="border-bottom: 1px solid; background-color:lightgrey">
                         <tr id="headertable">
-                            <th><center><b>Nama Daerah</b></center></th>
-                            <th><center><b>Jumlah</b></center></th>
+                            <th><b>Nama Daerah</b></th>
+                            <th class="uk-text-right"><b>Jumlah</b></th>
                         </tr>
                     </thead>
                     <tbody id="valuedata">
@@ -234,7 +232,7 @@
 
         <div class="uk-flex">
             <div><span class="uk-margin-small-right" uk-spinner="ratio: 1"></span></div>
-            <div>Tunggu...</div>
+            <div>Memuat data...</div>
         </div>
 
     </div>

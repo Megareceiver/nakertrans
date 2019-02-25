@@ -1,34 +1,39 @@
-<table id="detail" class="stripe row-border order-column uk-table uk-table-hover uk-table-divider" style="width:100%;">
-    <thead>
-    <tr>
-        <?php foreach ($header as $h) { ?>
+<div uk-scrollspy="cls: uk-animation-slide-bottom-small">
+    <p id="loader" class="uk-text-center uk-padding">Memuat data ...</p>
+    <div id="data-frame" hidden>  
+        <table id="detail" class="stripe row-border order-column uk-table uk-table-hover uk-table-divider" style="width:100%;">
+            <thead>
+            <tr>
+                <?php foreach ($header as $h) { ?>
 
-            <?php if ( $h['COLUMN_NAME'] != 'validasi'){?>
-                <th><?php echo str_replace("_", " ", $h['COLUMN_NAME'])?></th>
-            <?php } ?>
+                    <?php if ( $h['COLUMN_NAME'] != 'validasi'){?>
+                        <th><?php echo str_replace("_", " ", $h['COLUMN_NAME'])?></th>
+                    <?php } ?>
 
-        <?php } ?>
-        </tr>
-    </thead>
-    <tbody>
-		<?php foreach ($values as $v) { ?>
-			<tr>
-            <?php foreach ($header as $h) { ?>
-                <?php if ( $h['COLUMN_NAME'] != 'validasi'){?>
-                    <td><?php echo $v[$h['COLUMN_NAME']]?></td>
                 <?php } ?>
-            <?php } ?>
-			</tr>	
-		<?php } ?>
-        
-    </tbody>
-</table>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($values as $v) { ?>
+                    <tr>
+                    <?php foreach ($header as $h) { ?>
+                        <?php if ( $h['COLUMN_NAME'] != 'validasi'){?>
+                            <td><?php echo $v[$h['COLUMN_NAME']]?></td>
+                        <?php } ?>
+                    <?php } ?>
+                    </tr>	
+                <?php } ?>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <div id="modal-sortir" class="uk-flex-top" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-width-1-2">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
+        <div class="uk-modal-header uk-padding-remove-horizontal">
             <h4 class="uk-modal-title">Sortir</h4>
         </div>
 		<?php echo form_open_multipart(site_url("Program/"), array("class" => "formValidate")) ?>
@@ -67,24 +72,36 @@ $(document).ready(function() {
 
     var w = window.innerWidth;
     if (w > 1000){
-        $('#detail').DataTable( {
+        $('#detail').on( 'draw.dt', function () {
+           $('#loader').remove();
+           $('#data-frame').removeAttr('hidden');
+        }).DataTable( {
             scrollY:        false,
             scrollX:        true,
             scrollCollapse: true,
             paging:         true,
-            lengthMenu: [[25, 50, -1], [25, 50, "All"]],
+            searching: 		false,
+            ordering:  		false,
+            lengthChange: false,
+            pageLength: 20,
             fixedColumns:   {
                 leftColumns: 0,
                 rightColumns: 2,
             }
         } );
     }else{
-        $('#detail').DataTable( {
+        $('#detail').on( 'draw.dt', function () {
+           $('#loader').remove();
+           $('#data-frame').removeAttr('hidden');
+        }).DataTable( {
             scrollY:        false,
             scrollX:        true,
             scrollCollapse: true,
             paging:         true,
-            lengthMenu: [[25, 50, -1], [25, 50, "All"]],
+            searching: 		false,
+            ordering:  		false,
+            lengthChange: false,
+            pageLength: 20,
         } );
     }
 } );

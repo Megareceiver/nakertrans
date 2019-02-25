@@ -1,38 +1,37 @@
-<table id="detail" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column " style="width:100%;">
-    <thead>
-    <tr>
-        <th></th>
-        <th>Nama program (<?php echo count($program);?>)</th>
-        <th>Sumber data</th>
-        <th>Pelaksanaan</th>
-        <th>pencapaian</th>
-        <th></th>
-        </tr>
-    </thead>
-    <tbody>
-		<?php foreach ($program as $d) { ?>
-			<tr>
-                <td><input class="uk-checkbox" type="checkbox" name="check_[]" value="<?php echo $d->id?>"></td>
-                <td style="text-transform:capitalize"><?php echo $d->nama_program?></td>
-                <td style="text-transform:capitalize"><?php echo str_replace("_"," ", $d->sumber_data)?></td>
-                <td><?php echo $d->tanggal_mulai." s.d ".$d->tanggal_selesai?></td>
-                <td><?php echo $d->pencapaian."%";?></td>
-                <td>
-                    <a class="btn-act" href="<?php echo site_url('Program/detail_data/'.$d->sumber_data.'/'.$d->nama_program.'/'.$d->kriteria.'/'.$d->kriteria_value)?>" uk-icon="icon: search" title="lihat" ></a>
-                    <a class="btn-act" href="#modal-edit" onclick="modaledit(<?php echo $d->id;?>)" uk-icon="icon: file-edit" title="ubah" uk-toggle></a>
-                    <a class="btn-act" href="<?php echo site_url('Program/hapus_/'.$d->id)?>" uk-icon="icon: trash" title="hapus"></a>
-                </td>
-			</tr>	
-		<?php } ?>
-        
-    </tbody>
-</table>
-
+ <div uk-scrollspy="cls: uk-animation-slide-bottom-small">   
+    <table id="detail" class="uk-table uk-table-divider stripe row-border order-column " style="width:100%;">
+        <thead>
+        <tr>
+            <th>Nama program (<?php echo count($program);?>)</th>
+            <th>Sumber data</th>
+            <th>Pelaksanaan</th>
+            <th>pencapaian</th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($program as $d) { ?>
+                <tr>
+                    <td style="text-transform:capitalize"><input class="uk-checkbox uk-margin-small-right" type="checkbox" name="check_[]" value="<?php echo $d->id?>"> <?php echo $d->nama_program?></td>
+                    <td style="text-transform:capitalize"><?php echo str_replace("_"," ", $d->sumber_data)?></td>
+                    <td><?php echo $d->tanggal_mulai." s.d ".$d->tanggal_selesai?></td>
+                    <td><?php echo $d->pencapaian."%";?></td>
+                    <td class="uk-text-right">
+                        <a class="btn-act fa fa-eye" href="<?php echo site_url('Program/detail_data/'.$d->sumber_data.'/'.$d->nama_program.'/'.$d->kriteria.'/'.$d->kriteria_value)?>" uk-tooltip="title: lihat data; pos: bottom-left"></a>
+                        <a class="btn-act fa fa-pencil" href="#modal-edit" onclick="modaledit(<?php echo $d->id;?>)" uk-tooltip="title: ubah; pos: bottom-left" uk-toggle></a>
+                        <a class="btn-act fa fa-trash" href="<?php echo site_url('Program/hapus_/'.$d->id)?>" uk-tooltip="title: hapus; pos: bottom-left"></a>
+                    </td>
+                </tr>	
+            <?php } ?>
+            
+        </tbody>
+    </table>
+</div>
 <div id="modal-tambah" class="uk-flex-top" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-width-1-3">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
+        <div class="uk-modal-header uk-padding-remove-horizontal">
             <h4 class="uk-modal-title">Tambah</h4>
         </div>
 		<?php echo form_open_multipart(site_url("Program/add_/"), array("class" => "formValidate")) ?>
@@ -81,7 +80,7 @@
     <div class="uk-modal-dialog uk-modal-body uk-width-1-3">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
+        <div class="uk-modal-header uk-padding-remove-horizontal">
             <h4 class="uk-modal-title">Tambah</h4>
         </div>
 		<?php echo form_open_multipart(site_url("Program/edit_/"), array("class" => "formValidate")) ?>
@@ -158,12 +157,6 @@ function hapus() {
     }, 1000);
 }
 $(document).ready(function() {
-    setTimeout(() => {
-        $('#detail_info').hide();
-        $('#detail_length').hide();
-        $('#detail_filter').hide();
-        $('#detail_paginate').attr('style', 'font-size:12px; margin-top:15px');
-    }, 500);
 
     $('#tanggal_mulai').datepicker(
         { minDate: 0, dateFormat: 'yy-mm-dd' }
@@ -178,15 +171,13 @@ $(document).ready(function() {
     $('#tanggal_selesai2').datepicker(
         { minDate: 0, dateFormat: 'yy-mm-dd' }
     );
-    // setTimeout(() => {
-    //     $('#detail_length').hide();
-    //     console.log('aaa');
-    // }, 500);
+  
     $('#detail').DataTable( {
-        scrollY:        "420px",
-        scrollX:        true,
-        scrollCollapse: true,
         paging:         true,
+        searching: 		false,
+    	ordering:  		false,
+		lengthChange: false,
+		pageLength: 20
     });
 
     // ---------------------
@@ -197,7 +188,6 @@ $(document).ready(function() {
             url: "<?php echo site_url('Program/get_cloumn_data_source/');?>"+sumberdata,
             dataType: "json",
             success: function( data ) {
-                console.log(data);
                 for (i = 0; i < data.length; i++) {
                     $('#grouping').append('<option value="'+data[i]['COLUMN_NAME']+'">'+data[i]['COLUMN_NAME']+'</option>');
                 }

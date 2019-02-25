@@ -1,40 +1,55 @@
-<div class="">
-    <p style="margin:0;color:grey;font-size:12px;"><b> Slider (<?php echo count($slide)?>)</b></p>
-    <hr>
-    <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
+<div uk-scrollspy="cls: uk-animation-slide-bottom-small">
+    <p class="uk-margin-top"><b> Slider (<?php echo count($slide)?>)</b></p>
 
-        <ul class="uk-slider-items uk-grid">
+     <!-- <div class="uk-position-relative uk-visible-toggle uk-light uk-margin-large-bottom" uk-slider="finite: true">
+
+      <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m uk-grid">
+          <li>
+              <div class="uk-panel">
+                  <div class="uk-background-cover uk-height-small uk-border-rounded" style="background-image: url(<?=base_url()?>assets/images/rk.jpg);"></div>
+                  <div class="uk-position-bottom uk-position-small">
+                      <h4 class="uk-margin-remove" uk-slider-parallax="x: 100,-100">Heading</h4>
+                      <p class="uk-margin-remove" uk-slider-parallax="x: 200,-200">Lorem ipsum dolor sit amet.</p>
+                  </div>
+                  <div class="uk-position-top-right uk-overlay uk-overlay-primary uk-padding-small uk-border-rounded">
+                    <a href="#" class="uk-margin-right" uk-icon="pencil"></a>
+                    <a href="#" uk-icon="trash"></a>
+                  </div>
+              </div>
+          </li> -->
+
+    <div class="uk-position-relative uk-visible-toggle uk-light uk-margin-large-bottom" uk-slider="finite: true">
+
+        <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m uk-grid">
             <?php foreach ($slide as $s) { ?>
                 
-            <li class="uk-width-1-3">
-            <div class="uk-inline uk-margin">
+            <li>
+                <div class="uk-panel">
 
-                <img class="uk-border-rounded" src="<?php echo base_url('upload/slide/'.$s->slide)?>" alt="">
-
-                
-                <div class="uk-position uk-position-top-right uk-overlay-primary uk-border-rounded">
-                    <a style="padding: 10px;" href="<?php echo site_url("Pengaturan/hapus_slide/".$s->id);?>" uk-icon="trash"></a>
-                </div>
-                <div class="uk-position uk-position-bottom-left uk-overlay-primary uk-border-rounded" style="    width: -webkit-fill-available;">
-                    <div style="padding:10px">
-                        <div class="uk-panel uk-panel-box uk-text-truncate"><?php echo $s->caption_slide?></div>
+                    <div class="uk-background-cover uk-height-small uk-border-rounded" style="background-image: url(<?php echo base_url('upload/slide/'.$s->slide)?>);"></div>
+                    
+                    <div class="uk-position uk-position-top-right uk-overlay-primary uk-border-rounded">
+                        <a style="padding: 10px;" href="<?php echo site_url("Pengaturan/hapus_slide/".$s->id);?>" uk-icon="trash"></a>
                     </div>
-                </div>
+                    <div class="uk-position uk-position-bottom-left uk-overlay-primary uk-border-rounded" style="    width: -webkit-fill-available;">
+                        <p class="uk-panel uk-panel-box uk-text-truncate"><?php echo $s->caption_slide?></p>
+                    </div>
 
-            </div>
+                </div>
+            </li>
             <?php } ?>
             
         </ul>
 
-        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+        <a class="uk-position-center-left uk-position-small" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+        <a class="uk-position-center-right uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
     </div>
     <hr>
-    <p style="margin:0;color:grey;font-size:12px"><b> User akses (<?php echo count($user)?>) </b><br>
-    Aplikasi memiliki 2 (dua) tipe akses yaitu “Admin” dan “External” dengan maksud Admin sebagai pengelola aplikasi sedangkan External adalah pihak luar yang terkait dengan program tertentu.</p>
+    <p><b> User akses (<?php echo count($user)?>) </b></p>
+    <p class="uk-text-meta">Aplikasi memiliki 2 (dua) tipe akses yaitu “Admin” dan “External” dengan maksud Admin sebagai pengelola aplikasi sedangkan External adalah pihak luar yang terkait dengan program tertentu.</p>
 
-    <table id="detail" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column " style="width:100%;">
+    <table id="detail" class="uk-table uk-table-divider stripe row-border order-column " style="width:100%;">
         <thead>
             
                 <th>Nama</th>
@@ -51,10 +66,10 @@
                 <td><?php echo $u->username;?></td>
                 <td><?php if($u->role == "1"){ echo "admin";}else{echo "external";}?></td>
                 <td><?php echo $u->program;?></td>
-                <td>
-                    <a class="btn-act" href="#modal-edit_user" onclick="modaledit(<?php echo $u->id?>)" uk-icon="icon: file-edit" title="ubah" uk-toggle></a>
+                <td class="uk-text-right">
+                    <a class="btn-act fa fa-pencil" href="#modal-edit_user" onclick="modaledit(<?php echo $u->id?>)" uk-tooltip="title: ubah; pos: bottom-left" uk-toggle></a>
                     <?php if($u->role != "1"){?>
-                        <a class="btn-act" href="<?php echo site_url('Pengaturan/hapus_/'.$u->id)?>" uk-icon="icon: trash" title="hapus"></a>
+                        <a class="btn-act fa fa-trash" href="<?php echo site_url('Pengaturan/hapus_/'.$u->id)?>" uk-tooltip="title: hapus; pos: bottom-left"></a>
                     <?php } ?>
                 </td>
                 </tr>
@@ -67,8 +82,8 @@
     <div class="uk-modal-dialog uk-modal-body uk-width-1-3">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
-            <p>Tambah Slide</p>
+        <div class="uk-modal-header uk-padding-remove-horizontal">
+            <h3>Slide baru</h3>
         </div>
 		<?php echo form_open_multipart(site_url("Pengaturan/tambah_slide/"), array("class" => "formValidate")) ?>
         <fieldset class="uk-fieldset">
@@ -96,8 +111,8 @@
     <div class="uk-modal-dialog uk-modal-body uk-width-1-3">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
-            <p>Tambah user</p>
+        <div class="uk-modal-header uk-padding-remove-horizontal">
+            <h3>User baru</h3>
         </div>
 		<?php echo form_open_multipart(site_url("Pengaturan/tambah_user/"), array("class" => "formValidate")) ?>
         <fieldset class="uk-fieldset">
@@ -152,8 +167,8 @@
     <div class="uk-modal-dialog uk-modal-body uk-width-1-3">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
-            <p>Edit user</p>
+        <div class="uk-modal-header uk-padding-remove-horizontal">
+            <h3>Edit user</h3>
         </div>
 		<?php echo form_open_multipart(site_url("Pengaturan/edit_user/"), array("class" => "formValidate")) ?>
         <fieldset class="uk-fieldset">
@@ -211,18 +226,12 @@
 <script rel="javascript" type="text/javascript" src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
 <script>
 $(document).ready(function() {
-	setTimeout(() => {
-        $('#detail_info').hide();
-        $('#detail_length').hide();
-        $('#detail_filter').hide();
-		$('#detail_paginate').attr('style', 'font-size:12px; margin-top:15px');
-    }, 500);
-
 	$('#detail').DataTable( {
-		scrollY:        "420px",
-		scrollX:        true,
-		scrollCollapse: true,
 		paging:         true,
+        searching: 		false,
+    	ordering:  		false,
+		lengthChange: false,
+		pageLength: 20
 	} );
 
     check_password();

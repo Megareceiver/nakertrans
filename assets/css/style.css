@@ -24,6 +24,19 @@
     margin: 0 50px 40px;
 }
 
+.border {
+    border: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* ui kit replace */
+.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle {
+    min-height: 42px;
+}
+
 
 /* responsive */
 @media (max-width: 330px){

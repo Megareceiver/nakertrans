@@ -24,9 +24,6 @@
 }
 
 .naker-title2-3{
-    position: relative;
-    text-align: center;
-    top: 26%;
     height: fit-content;
     margin-top: 0
 }
@@ -98,12 +95,6 @@
 
 .text-main {
     color: #ed3c6d;
-}
-
-.naker-listdata{
-    bottom: 0;
-    overflow: auto;
-    height: 200px;
 }
 
 .svg-range1, .svg-range2, .svg-range3, .svg-range4, .svg-range5 {
@@ -183,6 +174,8 @@ svg path{
 .naker-legend5{
     background-color: 	#cc3333;
 }
+
+pre { border: none; }
 
 /* responsive */
 @media (max-width: 500px) {

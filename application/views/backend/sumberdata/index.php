@@ -1,64 +1,42 @@
-<table id="detail" class="uk-table uk-table-divider stripe row-border order-column" style="width:100%;">
-    <thead>
-        <tr>
-        	<th class="uk-table-shrink"></th>
-            <th class="uk-table-expand">Nama Folder</th>
-            <th class="uk-width-small"></th>
-        </tr>
-    </thead>
-    <tbody>
-		<?php foreach ($datasource as $data) { ?>
+<div uk-scrollspy="cls: uk-animation-slide-bottom-small">
+	<table id="detail" class="uk-table uk-table-divider stripe row-border order-column" style="width:100%;">
+		<thead>
 			<tr>
-				<td><input class="uk-checkbox" type="checkbox" name="check_[]" value="<?php echo $data['TABLE_NAME']?>"></td>
-				<td><?php echo str_replace("_"," ",$data['TABLE_NAME']);?> <?php echo !empty($data['SUMDATA']) ? "- ( ".$data['SUMDATA']." )" : ''; ?></td>
-				<td class="uk-text-center">
-					<a class="btn-act" href="<?php echo site_url('Sumberdata/detail_data/'.$data['TABLE_NAME'])?>" uk-icon="icon: search" title="lihat"></a>
-					<a class="btn-act" href="<?php echo site_url('Sumberdata/exportdata/'.$data['TABLE_NAME'])?>" uk-icon="icon: download" title="export"></a>
-					<a class="btn-act" href="#modal-full" uk-toggle uk-icon="icon: refresh" title="validasi" onclick="validasidata('<?php echo $data['TABLE_NAME']?>')"></a>
-					<a class="btn-act" href="<?php echo site_url('Sumberdata/droptable/'.$data['TABLE_NAME'])?>" uk-icon="icon: trash" title="hapus"></a>
-				</td>
-			</tr>	
-		<?php } ?>
-        
-    </tbody>
-</table>
+				<th class="uk-table-expand">Nama Folder</th>
+				<th class="uk-width-small"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($datasource as $data) { ?>
+				<tr>
+					<td><input class="uk-checkbox uk-margin-small-right" type="checkbox" name="check_[]" value="<?php echo $data['TABLE_NAME']?>"> <?php echo str_replace("_"," ",$data['TABLE_NAME']);?> <?php echo !empty($data['SUMDATA']) ? "- ( ".$data['SUMDATA']." )" : ''; ?></td>
+					<td class="uk-text-center">
+						<a class="btn-act fa fa-eye" href="<?php echo site_url('Sumberdata/detail_data/'.$data['TABLE_NAME'])?>" uk-tooltip="title: lihat data; pos: bottom-left"></a>
+						<a class="btn-act fa fa-file-excel-o" href="<?php echo site_url('Sumberdata/exportdata/'.$data['TABLE_NAME'])?>" uk-tooltip="title: export; pos: bottom-left"></a>
+						<a class="btn-act fa fa-compress" href="#modal-full" uk-toggle uk-tooltip="title: validasi; pos: bottom-left" onclick="validasidata('<?php echo $data['TABLE_NAME']?>')"></a>
+						<a class="btn-act fa fa-trash" href="<?php echo site_url('Sumberdata/droptable/'.$data['TABLE_NAME'])?>"  uk-tooltip="title: hapus; pos: bottom-left"></a>
+					</td>
+				</tr>	
+			<?php } ?>
+			
+		</tbody>
+	</table>
+</div>
 
 <div id="modal-import" class="uk-flex-top" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-width-1-4">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
+        <div class="uk-modal-header uk-padding-remove-horizontal">
             <h4 class="uk-modal-title">Import</h4>
         </div>
         <ul class="uk-subnav uk-subnav-pill" uk-switcher="animation: uk-animation-slide-bottom-small , uk-animation-slide-bottom-small">
-		    <li><a href="#">API</a></li>
 		    <li><a href="#">File</a></li>
+		    <li><a href="#">API</a></li>
 		</ul>
 
 		<ul class="uk-switcher uk-margin">
-
-		    <li>
-                
-		    	<fieldset class="uk-fieldset">
-					<div class="uk-margin">
-			            <input class="uk-input" type="text" placeholder="Nama Folder" id="nametable_api" name="nametable_api" maxlength="20">
-			        </div>
-		    		<div class="uk-margin">
-			            <input class="uk-input" type="text" placeholder="url API..." id="url_api" name="url_api">
-			        </div>
-					<div class="uk-margin">
-						<div class="uk-form-label">Publikasi data</div>
-						<div class="uk-form-controls uk-form-controls-text">
-							<label><input class="uk-radio" type="radio" name="radio1"> Ya</label><br>
-							<label><input class="uk-radio" type="radio" name="radio1"> Tidak</label>
-						</div>
-					</div>
-			        <div class="uk-margin">
-			        	<button type="submit" class="uk-button uk-button-default" onclick="requestapi()">Request</button>
-			        </div>
-		    	</fieldset>
-                
-		    </li>
+		    
 		    <li>
                 <?php //echo form_open_multipart(site_url("Sumberdata/importdata/"), array("class" => "formValidate")) ?>
 		    	<fieldset class="uk-fieldset">
@@ -73,7 +51,7 @@
 			        </div>	
 					<div class="uk-margin">
 						<div class="uk-form-label">Publikasi data</div>
-						<div class="uk-form-controls uk-form-controls-text">
+						<div class="uk-form-controls uk-form-controls-text uk-grid-small uk-child-width-auto uk-grid">
 							<label><input class="uk-radio" type="radio" name="radio2" value="Ya"> Ya</label><br>
 							<label><input class="uk-radio" type="radio" name="radio2" value="Tidak"> Tidak</label>
 						</div>
@@ -85,6 +63,28 @@
 		    	</fieldset>
                 <?php //echo form_close() ?>
 		    </li>
+			<li>
+                
+		    	<fieldset class="uk-fieldset">
+					<div class="uk-margin">
+			            <input class="uk-input" type="text" placeholder="Nama Folder" id="nametable_api" name="nametable_api" maxlength="20">
+			        </div>
+		    		<div class="uk-margin">
+			            <input class="uk-input" type="text" placeholder="url API..." id="url_api" name="url_api">
+			        </div>
+					<div class="uk-margin">
+						<div class="uk-form-label">Publikasi data</div>
+						<div class="uk-form-controls uk-form-controls-text uk-grid-small uk-child-width-auto uk-grid">
+							<label><input class="uk-radio" type="radio" name="radio1"> Ya</label><br>
+							<label><input class="uk-radio" type="radio" name="radio1"> Tidak</label>
+						</div>
+					</div>
+			        <div class="uk-margin">
+			        	<button type="submit" class="uk-button uk-button-default" onclick="requestapi()">Request</button>
+			        </div>
+		    	</fieldset>
+                
+		    </li>
 		</ul>
 
     </div>
@@ -94,7 +94,7 @@
     <div class="uk-modal-dialog uk-modal-body uk-width-1-3">
 
 		<!-- <button class="uk-modal-close-default" type="button" uk-close></button> -->
-        <div class="uk-modal-header">
+        <div class="uk-modal-header uk-padding-remove-horizontal">
             <h5 class="uk-modal-title">Import <br>
 			(Header Field)</h5>
         </div>
@@ -115,7 +115,7 @@
     <div class="uk-modal-dialog uk-modal-body uk-width-1-4">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
+        <div class="uk-modal-header uk-padding-remove-horizontal">
             <h4 class="uk-modal-title">Sortir</h4>
         </div>
 		<?php echo form_open_multipart(site_url("Sumberdata/sortir_datasource/"), array("class" => "formValidate")) ?>
@@ -147,7 +147,7 @@
     <div class="uk-modal-dialog uk-modal-body uk-width-1-4">
 
 		<button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
+        <div class="uk-modal-header uk-padding-remove-horizontal">
             <h4 class="uk-modal-title">Export</h4>
         </div>
 		<?php echo form_open_multipart(site_url("Sumberdata/exportdata_multiple/"), array("class" => "formValidate")) ?>
@@ -156,7 +156,7 @@
 			<div class="uk-margin" id="table_"></div>
 
 	        <div class="uk-margin">
-				<button class="uk-button uk-button-default" id="export">Export</button>
+				<button class="uk-button uk-button-text" id="export"><span class="fa fa-file-excel-o uk-margin-small-right"></span> Excel (xlsx)</button>
 	        </div>
     	</fieldset>
 		<?php echo form_close() ?>
@@ -372,18 +372,12 @@
 <script>
 $(document).ready(function()
 {
-	setTimeout(() => {
-        $('#detail_info').hide();
-        $('#detail_length').hide();
-        $('#detail_filter').hide();
-		$('#detail_paginate').attr('style', 'font-size:12px; margin-top:15px');
-    }, 500);
-
 	$('#detail').DataTable( {
-		scrollY:        "420px",
-		scrollX:        true,
-		scrollCollapse: true,
 		paging:         true,
+		searching: 		false,
+    	ordering:  		false,
+		lengthChange: false,
+		pageLength: 20
 	} );
 });
 

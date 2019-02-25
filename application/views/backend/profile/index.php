@@ -1,4 +1,4 @@
-<div class="uk-grid-small uk-child-width-expand@s uk-flex-center" uk-grid>
+<div class="uk-margin-top uk-grid-small uk-child-width-expand@s uk-flex-center" uk-scrollspy="cls: uk-animation-slide-bottom-small" uk-grid>
     <div uk-grid>
         
         <div class="uk-width-1-5@m">
@@ -43,8 +43,8 @@
                                         <td>
                                             <?php echo $sj->text?>
                                         </td>
-                                        <td>
-                                            <a class="btn-act" href="<?php echo site_url('Profile/hapus_sejarah/'.$sj->id)?>" uk-icon="icon: trash;" title="hapus"></a>
+                                        <td class="uk-text-right">
+                                            <a class="btn-act fa fa-trash" href="<?php echo site_url('Profile/hapus_sejarah/'.$sj->id)?>" uk-tooltip="title: hapus; pos: bottom-left"></a>
                                         </td>
                                         
                                     </tr>
@@ -99,8 +99,8 @@
                                         <td>
                                             <?php echo $vis->text?>
                                         </td>
-                                        <td>
-                                            <a class="btn-act" href="<?php echo site_url('Profile/hapus_visi/'.$vis->id)?>" uk-icon="icon: trash;" title="hapus"></a>
+                                        <td class="uk-text-right">
+                                            <a class="btn-act fa fa-trash" href="<?php echo site_url('Profile/hapus_visi/'.$vis->id)?>" uk-tooltip="title: hapus; pos: bottom-left"></a>
                                         </td>
                                         
                                     </tr>
@@ -123,8 +123,8 @@
                                         <td>
                                             <?php echo $mis->text?>
                                         </td>
-                                        <td>
-                                            <a class="btn-act" href="<?php echo site_url('Profile/hapus_misi/'.$mis->id)?>" uk-icon="icon: trash;" title="hapus"></a>
+                                        <td class="uk-text-right">
+                                            <a class="btn-act fa fa-trash" href="<?php echo site_url('Profile/hapus_misi/'.$mis->id)?>" uk-tooltip="title: hapus; pos: bottom-left"></a>
                                         </td>
                                         
                                     </tr>
@@ -177,8 +177,8 @@
                                         <td>
                                             <?php echo $kbag->text?>
                                         </td>
-                                        <td>
-                                            <a class="btn-act" href="<?php echo site_url('Profile/hapus_tupoksi/'.$kbag->kategori.'/'.$kbag->id)?>" uk-icon="icon: trash;" title="hapus"></a>
+                                        <td class="uk-text-right">
+                                            <a class="btn-act fa fa-trash" href="<?php echo site_url('Profile/hapus_tupoksi/'.$kbag->kategori.'/'.$kbag->id)?>"  uk-tooltip="title: hapus; pos: bottom-left"></a>
                                         </td>
                                         
                                     </tr>
@@ -201,8 +201,8 @@
                                         <td>
                                             <?php echo $sbag->text?>
                                         </td>
-                                        <td>
-                                            <a class="btn-act" href="<?php echo site_url('Profile/hapus_tupoksi/'.$sbag->kategori.'/'.$sbag->id)?>" uk-icon="icon: trash;" title="hapus"></a>
+                                        <td class="uk-text-right">
+                                            <a class="btn-act fa fa-trash" href="<?php echo site_url('Profile/hapus_tupoksi/'.$sbag->kategori.'/'.$sbag->id)?>" uk-tooltip="title: hapus; pos: bottom-left"></a>
                                         </td>
                                         
                                     </tr>
@@ -225,8 +225,8 @@
                                         <td>
                                             <?php echo $sk->text?>
                                         </td>
-                                        <td>
-                                            <a class="btn-act" href="<?php echo site_url('Profile/hapus_tupoksi/'.$sk->kategori.'/'.$sk->id)?>" uk-icon="icon: trash;" title="hapus"></a>
+                                        <td class="uk-text-right">
+                                            <a class="btn-act fa fa-trash" href="<?php echo site_url('Profile/hapus_tupoksi/'.$sk->kategori.'/'.$sk->id)?>" uk-tooltip="title: hapus; pos: bottom-left"></a>
                                         </td>
                                         
                                     </tr>
@@ -285,8 +285,8 @@
                                                 <?php echo $dpub->text; ?>
                                             </a>
                                         </td>
-                                        <td>
-                                            <a class="btn-act" href="<?php echo site_url('Profile/hapus_dapub/'.$dpub->kategori.'/'.$dpub->id)?>" uk-icon="icon: trash;" title="hapus"></a>
+                                        <td class="uk-text-right">
+                                            <a class="btn-act fa fa-trash" href="<?php echo site_url('Profile/hapus_dapub/'.$dpub->kategori.'/'.$dpub->id)?>" uk-tooltip="title: hapus; pos: bottom-left"></a>
                                         </td>
                                         
                                     </tr>
@@ -335,8 +335,8 @@
                             <div class="uk-card uk-card-default uk-inline">
                                 <img class="uk-height-small uk-width-auto@m" src="<?php echo base_url('upload/profile/galeri/'.$galer->file)?>" alt="">
 
-                                <div class="uk-position uk-position-top-right uk-overlay-primary uk-border-rounded">
-                                    <a style="padding: 10px;" href="<?php echo site_url('Profile/hapus_galeri/'.$galer->kategori.'/'.$galer->id);?>" uk-icon="trash"></a>
+                                <div class="uk-position uk-position-top-right uk-position-small">
+                                    <a class="fa fa-trash" href="<?php echo site_url('Profile/hapus_galeri/'.$galer->kategori.'/'.$galer->id);?>" uk-tooltip="title: hapus; pos: bottom-left"></a>
                                 </div>
                             </div>
                             <div class="uk-panel uk-panel-box uk-text-truncate">

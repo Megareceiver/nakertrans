@@ -1,15 +1,19 @@
-<div class="">
-    <h5 style="margin:0;">List Sumber Data</h5>
+<div class="uk-margin-top" uk-scrollspy="cls: uk-animation-slide-bottom-small">
+    <h5>Sumber Data</h5>
     <div class="naker-listdata">
-        <ul class="uk-list uk-list-striped">
+        <div class="uk-child-width-1-4@m  uk-child-width-1-2@s" uk-grid>
             <?php foreach ($sumberdata as $sdata) { ?>
-                <li> <label><input class="uk-radio" type="radio" name="radio2" value="<?php echo $sdata['TABLE_NAME']?>"> <?php echo str_replace("_", " ", $sdata['TABLE_NAME']); ?> </label> </li>        
+                <div> 
+                    <label class="uk-text-capitalize uk-text-truncate">
+                        <input class="uk-radio uk-margin-small-right" type="radio" name="radio2" value="<?php echo $sdata['TABLE_NAME']?>"> 
+                        <?php echo str_replace("_", " ", $sdata['TABLE_NAME']); ?> 
+                    </label> 
+                </div>        
             <?php } ?>
-        </ul>
+        </div>
     </div>
-
-    <h5 style="margin:0;">Agregat</h5>
     <hr>
+    <h5>Agregat</h5>
     <div class="uk-grid-small uk-child-width-1-3@s uk-flex-left uk-text-center" uk-grid>
 
         <div id="section1" class="">
@@ -140,22 +144,21 @@
     </div>
 
     <hr>
+    <h5>Kriteria</h5>
     <div id="kriteria" class="">
-        <h5 style="margin:0;">Kriteria</h5>
         <div class="uk-grid-small uk-child-width-1-6@s uk-flex-left uk-text-center" uk-grid id="result" style="font-size:10px; margin-bottom:5px;">
             
         </div>
     </div>
 
-    <hr>
+    
     <button class="uk-button uk-button-default" onclick="hasil_query()">Jalankan query</button>
     <button class="uk-button uk-button-default" onclick="location.reload()">Reset</button>
-    <br>
-    <br>
-    <div id="hasil" class="">
-        <h5 style="margin:0;">Hasil query</h5>
-        <br>
-        <div class="naker-listdata">
+ 
+    <hr>
+    <h5>Hasil query</h5>
+    <div id="hasil" class="border">
+        <div class="naker-listdata uk-height-medium uk-overflow-auto" >
             <pre id="hasil_query"></pre>
         </div>
     </div>

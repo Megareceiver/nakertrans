@@ -1,36 +1,37 @@
-<table id="detail" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column " style="width:100%;">
-    <thead>
-        <tr>
-            <th class="uk-table-expand">Judul (<?php echo json_encode($sum_spasial);?>)</th>
-            <th class="">Tipe</th>
-            <th class="uk-width-small">Sumber Data</th>
-            <th class="uk-widt">Group</th>
-            <th class="uk-table-shrink"></th>
-        </tr>
-    </thead>
-    <tbody>
-		<?php foreach ($data_spasial as $d) { ?>
-			<tr>
-                <td><?php echo $d->judul?></td>
-                <td><?php echo $d->tipe?></td>
-                <td style="text-transform: capitalize;"><?php echo str_replace("_"," ",$d->data_source)?></td>
-                <td><?php echo $d->grouping?></td>
-                <td>
-                    <a class="btn-act" href="#modal-edit" onclick="modaledit(<?php echo $d->id?>)" uk-icon="icon: file-edit" title="ubah" uk-toggle></a>
-                    <a class="btn-act" href="<?php echo site_url('Data_spasial/hapus_/'.$d->id)?>" uk-icon="icon: trash" title="hapus"></a>
-                </td>
-			</tr>	
-		<?php } ?>
-        
-    </tbody>
-</table>
-
+<div uk-scrollspy="cls: uk-animation-slide-bottom-small">
+    <table id="detail" class="uk-table uk-table-divider stripe row-border order-column " style="width:100%;">
+        <thead>
+            <tr>
+                <th class="uk-table-expand">Judul (<?php echo json_encode($sum_spasial);?>)</th>
+                <th class="">Tipe</th>
+                <th class="uk-width-small">Sumber Data</th>
+                <th class="uk-widt">Group</th>
+                <th class=""></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($data_spasial as $d) { ?>
+                <tr>
+                    <td><?php echo $d->judul?></td>
+                    <td><?php echo $d->tipe?></td>
+                    <td style="text-transform: capitalize;"><?php echo str_replace("_"," ",$d->data_source)?></td>
+                    <td><?php echo $d->grouping?></td>
+                    <td class="uk-text-right">
+                        <a class="btn-act fa fa-pencil" href="#modal-edit" onclick="modaledit(<?php echo $d->id?>)" uk-tooltip="title: ubah; pos: bottom-left" uk-toggle></a>
+                        <a class="btn-act fa fa-trash" href="<?php echo site_url('Data_spasial/hapus_/'.$d->id)?>"  uk-tooltip="title: hapus; pos: bottom-left"></a>
+                    </td>
+                </tr>	
+            <?php } ?>
+            
+        </tbody>
+    </table>
+</div>
 <div id="modal-tambah" class="uk-flex-top" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-width-1-3">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
-            <h4 class="uk-modal-title">Ketik Judul Data</h4>
+        <div class="uk-modal-header uk-padding-remove-horizontal">
+            <h4 class="uk-modal-title">Diagram baru</h4>
         </div>
 		<?php echo form_open_multipart(site_url("Data_spasial/add_/"), array("class" => "formValidate")) ?>
        	<fieldset class="uk-fieldset">
@@ -72,8 +73,8 @@
     <div class="uk-modal-dialog uk-modal-body uk-width-1-3">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
-            <h4 class="uk-modal-title">Ubah Judul Data</h4>
+        <div class="uk-modal-header uk-padding-remove-horizontal">
+            <h4 class="uk-modal-title">Ubah Diagram</h4>
         </div>
 		<?php echo form_open_multipart(site_url("Data_spasial/edit_/"), array("class" => "formValidate")) ?>
        	<fieldset class="uk-fieldset">
@@ -117,18 +118,12 @@
 <script rel="javascript" type="text/javascript" src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
 <script>
 $(document).ready(function() {
-    setTimeout(() => {
-        $('#detail_info').hide();
-        $('#detail_length').hide();
-        $('#detail_filter').hide();
-        $('#detail_paginate').attr('style', 'font-size:12px');
-    }, 500);
-
     $('#detail').DataTable( {
-        scrollY:        "420px",
-        scrollX:        true,
-        scrollCollapse: true,
         paging:         true,
+        searching: 		false,
+    	ordering:  		false,
+		lengthChange: false,
+		pageLength: 20
     } );
 
     $('select[name=data_source]').change(function(){

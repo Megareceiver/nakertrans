@@ -32,7 +32,7 @@ table.dataTable tfoot th {
 }
 table.dataTable thead th,
 table.dataTable thead td {
-  padding: 10px 18px;
+  padding: 10px 8px;
   border-bottom: 1px solid #999;
   white-space: nowrap;
 }
@@ -299,18 +299,20 @@ table.dataTable td {
 .dataTables_wrapper .dataTables_info {
   clear: both;
   float: left;
-  padding-top: 0.755em;
+  padding-top: 1.25em;
+  font-size: 12px;
 }
 .dataTables_wrapper .dataTables_paginate {
   float: right;
   text-align: right;
-  padding-top: 0.25em;
+  padding-top: 1.25em;
+  font-size: 12px;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {
   box-sizing: border-box;
   display: inline-block;
   min-width: 1.5em;
-  padding: 0.5em 1em;
+  padding: 0 6px;
   margin-left: 2px;
   text-align: center;
   text-decoration: none !important;
@@ -322,6 +324,7 @@ table.dataTable td {
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
   color: white !important;
+  border-radius: 50%;
   /* border: 1px solid #979797; */
   background-color: deeppink;
   /* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #dcdcdc)); */
@@ -339,15 +342,14 @@ table.dataTable td {
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
   cursor: default;
-  color: #666 !important;
+  color: #999 !important;
   border: 1px solid transparent;
   background: transparent;
   box-shadow: none;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-  color: white !important;
   border: 1px solid #999;
-  background-color: deeppink;
+  border-radius: 50%;
   /* background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #585858), color-stop(100%, #999)); */
   /* Chrome,Safari4+ */
   /* background: -webkit-linear-gradient(top, #585858 0%, #999 100%); */
@@ -405,7 +407,7 @@ table.dataTable td {
 .dataTables_wrapper .dataTables_info,
 .dataTables_wrapper .dataTables_processing,
 .dataTables_wrapper .dataTables_paginate {
-  color: #333;
+  color: #999;
 }
 .dataTables_wrapper .dataTables_scroll {
   clear: both;
@@ -1240,6 +1242,12 @@ table.dataTable tr.selected th.select-checkbox:after {
 div.dataTables_wrapper span.select-info,
 div.dataTables_wrapper span.select-item {
   margin-left: 0.5em;
+}
+
+/* custom */
+.DTFC_RightHeadWrapper,
+.DTFC_RightBodyWrapper {
+  border-left: 1px solid grey;
 }
 
 @media screen and (max-width: 640px) {

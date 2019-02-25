@@ -1,58 +1,36 @@
-<div class="uk-text-center uk-flex-center" uk-grid>
-    
-    <div style="width: 60%;">
-        <div class="uk-card uk-text-left">
-        <h3>
-            <?php echo $berita_utama[0]->judul_berita;?>
-            <p style="font-size:12px; color:grey;">
-                <?php 
-                    $create = new DateTime($berita_utama[0]->tanggal);
-                    $now = new DateTime();
-                    $interval = $now->diff($create);
-                    // %a will output the total number of days.
-                    echo $interval->format('%d Hari, %h Jam yang lalu');
-                ?>
-            </p>
-        </h3>
-        </div>
+<div class="uk-container uk-container-xsmall" uk-scrollspy="cls: uk-animation-slide-bottom-small">
+    <div class="uk-margin-top">
+        <h3><?php echo $berita_utama[0]->judul_berita;?></h3>
+        <p class="uk-meta-text">
+            <?php 
+                $create = new DateTime($berita_utama[0]->tanggal);
+                $now = new DateTime();
+                $interval = $now->diff($create);
+                // %a will output the total number of days.
+                echo $interval->format('%d Hari, %h Jam yang lalu');
+            ?>
+        </p>
     </div>
-</div>
-<hr>
 
-<div class="uk-text-center uk-flex-center" uk-grid>
-    
-    <div style="width: 60%;">
-        <div class="uk-card uk-text-left">
-            <img src="<?php echo base_url('upload/berita/'.$berita_utama[0]->gambar_utama)?>" uk-img>
-        </div>
-    </div>
-    <?php if (count($berita_detail) > 0) { ?>
+    <div class="uk-margin-top">
+        <img class="uk-width-1-1 uk-margin-bottom uk-align-center" src="<?php echo base_url('upload/berita/'.$berita_utama[0]->gambar_utama)?>" uk-img>
+        
+        <?php if (count($berita_detail) > 0) { ?>
 
-        <?php foreach ($berita_detail as $detail) { ?>
-            <div style="width: 60%;">
-
+            <?php foreach ($berita_detail as $detail) { ?>
+            
                 <?php if ($detail->tipe == 'text') { ?>
-                    <div class="uk-card uk-text-left">
-                        <p><?php echo $detail->isi_berita ?></p>
-                    </div>
+                    <p><?php echo $detail->isi_berita ?></p>
                 <?php }else{ ?>
-                    <div class="uk-card uk-text-center">
-                        <img src="<?php echo base_url('upload/berita/'.$detail->isi_berita)?>" uk-img>
-                    </div>
+                    <img class="uk-width-1-1 uk-margin-bottom uk-align-center" src="<?php echo base_url('upload/berita/'.$detail->isi_berita)?>" uk-img>
                 <?php } ?>
 
-            </div>
+            <?php } ?>
+
         <?php } ?>
-
-    <?php } ?>
-</div>
-<hr>
-
-<div class="uk-text-center uk-flex-center" uk-grid>
-    
-    <div style="width: 60%;">
-        <div class="uk-card">
-        <p>akhir berita</p>
-        </div>
     </div>
+    <hr>
+
+    <p class="uk-text-center">akhir berita</p>
+  
 </div>

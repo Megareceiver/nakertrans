@@ -33,8 +33,6 @@ class Data_spasial extends CI_Controller {
             $data['menuaction'] ='
             <li class="naker-action">
                 <a href="#modal-tambah" uk-toggle>Tambah</a></li>
-            <li class="naker-action">
-                <a onclick="hapus()">Hapus</a></li>
             ';
             $data['breadcumbs'] ='<li class="naker-breadcumbs"><a href='. site_url("Data_spasial").'>Diagram</a></li>';
             $data['data_spasial'] = $this->Model_data_spasial->all_data();

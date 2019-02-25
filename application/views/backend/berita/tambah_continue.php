@@ -1,90 +1,80 @@
-<div class="uk-grid-small uk-child-width-1-2@s uk-flex-center uk-text-left" uk-grid>
-    <div>
-        <h5 style="color:grey">Header</h5>
-        <div hidden>
-        <input class="uk-input" type="text" id="id_berita" value="<?php echo $berita->id?>">
-        </div>
-        
+<div class="uk-container uk-container-xsmall" uk-scrollspy="cls: uk-animation-slide-bottom-small">
+    <div class="uk-margin-top">
+        <h5>Header</h5>
+        <input class="uk-input" type="hidden" id="id_berita" value="<?php echo $berita->id?>">
     </div>
-</div>
-<hr>
 
-<div class="uk-grid-small uk-child-width-1-2@s uk-flex-center uk-text-left" uk-grid>
-    <div>
-        <div class="uk-card">
-            <?php echo form_open_multipart(site_url("Berita/edit_/".$berita->id), array("class" => "formValidate")) ?>
-            <fieldset class="uk-fieldset uk-width-1-2@m">
-                <div class="uk-margin">
-                    <input class="uk-input" type="text" name="judul_berita" placeholder="Ketik judul berita..." value="<?php echo $berita->judul_berita?>">
+    <hr>
+
+    <div class="uk-card">
+        <?php echo form_open_multipart(site_url("Berita/edit_/".$berita->id), array("class" => "formValidate")) ?>
+        <fieldset class="uk-fieldset uk-width-1-1">
+            <div class="uk-margin">
+                <input class="uk-input" type="text" name="judul_berita" placeholder="Ketik judul berita..." value="<?php echo $berita->judul_berita?>">
+            </div>
+
+            
+            <div class="uk-margin">
+                <div uk-form-custom="target: true">
+                    <input type="file" name="gambar_utama">
+                    <input class="uk-input" type="text" placeholder="Pilih gambar utama" name="gambar_utama">
                 </div>
+                <p><?php echo $berita->gambar_utama?></p>
+            </div>
+            
 
+            <div class="uk-margin">
+                <button type="submit" class="uk-button uk-button-default">Ubah</button>
+            </div>
+        </fieldset>
+        <?php echo form_close() ?>
+    </div>
+    
+    <hr>
+    <div class="uk-card">
+        <h5 style="color:grey">Body</h5>
+        <ul class="uk-subnav uk-tab" uk-switcher="animation: uk-animation-slide-bottom-small , uk-animation-slide-bottom-small">
+            <li><a href="#">Teks</a></li>
+            <li><a href="#">Gambar</a></li>
+        </ul>
+
+        <ul class="uk-switcher uk-margin">
+
+            <li>
                 
-                <div class="uk-margin">
-                    <div uk-form-custom="target: true" style="width: 100%">
-                        <input type="file" name="gambar_utama">
-                        <input class="uk-input" type="text" placeholder="Pilih gambar utama" name="gambar_utama">
+                <fieldset class="uk-fieldset">
+                    <div class="uk-margin">
+                        <textarea class="uk-textarea" placeholder="Ketik isi berita..." rows="5" id="isi_berita"></textarea>
                     </div>
-                    <p><?php echo $berita->gambar_utama?></p>
-                </div>
+                    <div class="uk-margin">
+                        <button type="submit" class="uk-button uk-button-default" onclick="tambah_1(<?php echo $berita->id?>)">Submit</button>
+                    </div>
+                </fieldset>
                 
-
-                <div class="uk-margin">
-                    <button type="submit" class="uk-button uk-button-default">Ubah</button>
-                </div>
-            </fieldset>
-            <?php echo form_close() ?>
-        </div>
-    </div>
-</div>
-<hr>
-<div class="uk-grid-small uk-child-width-1-2@s uk-flex-center uk-text-left" uk-grid>
-    <div>
-        <div class="uk-card">
-            <h5 style="color:grey">Body</h5>
-            <ul class="uk-subnav uk-tab uk-subnav-pill" uk-switcher="animation: uk-animation-slide-bottom-small , uk-animation-slide-bottom-small">
-                <li><a href="#">Teks</a></li>
-                <li><a href="#">Gambar</a></li>
-            </ul>
-
-            <ul class="uk-switcher uk-margin">
-
-                <li>
-                    
-                    <fieldset class="uk-fieldset">
-                        <div class="uk-margin">
-                            <textarea class="uk-textarea" placeholder="Ketik isi berita..." rows="5" id="isi_berita"></textarea>
+            </li>
+            <li>
+                
+                <fieldset class="uk-fieldset uk-width-1-2@m">
+                    <div class="uk-margin">
+                        <div uk-form-custom="target: true" style="width: 100%">
+                            <input type="file" id="file">
+                            <input class="uk-input" type="text" placeholder="Pilih gambar" id="file">
                         </div>
-                        <div class="uk-margin">
-                            <button type="submit" class="uk-button uk-button-default" onclick="tambah_1(<?php echo $berita->id?>)">Submit</button>
-                        </div>
-                    </fieldset>
+                    </div>	
+                    <div class="uk-margin">
+                        <button class="uk-button uk-button-default" onclick="tambah_2(<?php echo $berita->id?>)">Submit</button>
+                    </div>
                     
-                </li>
-                <li>
-                    
-                    <fieldset class="uk-fieldset uk-width-1-2@m">
-                        <div class="uk-margin">
-                            <div uk-form-custom="target: true" style="width: 100%">
-                                <input type="file" id="file">
-                                <input class="uk-input" type="text" placeholder="Pilih gambar" id="file">
-                            </div>
-                        </div>	
-                        <div class="uk-margin">
-                            <button class="uk-button uk-button-default" onclick="tambah_2(<?php echo $berita->id?>)">Submit</button>
-                        </div>
-                        
-                    </fieldset>
-                </li>
-            </ul>
+                </fieldset>
+            </li>
+        </ul>
 
-            <table id="detail1" class="uk-table uk-table-hover uk-table-divider stripe row-border order-column" style="width:100%;">
-                <thead>
-                    <th style="width: 20px;"></th>
-                    <th></th>
-                </thead>
-                <tbody id="isi_detail1"></tbody>
-            </table>
-        </div>
+        <table id="detail1" class="uk-table uk-table-divider stripe row-border order-column" style="width:100%;">
+            <thead>
+                <th colspan="2">Konten berita</th>
+            </thead>
+            <tbody id="isi_detail1"></tbody>
+        </table>
     </div>
 </div>
 
@@ -99,9 +89,9 @@ $(document).ready(function () {
             console.log(data);
             for (i = 0; i < data.length; i++) {
                 if(data[i]['tipe'] != 'gambar'){
-                    $('#isi_detail1').append('<tr><td><input class="uk-checkbox" type="checkbox" name="check_[]" value="'+data[i]['id']+'"></td> <td style="white-space: normal;">'+data[i]['isi_berita']+'</td></tr>');
+                    $('#isi_detail1').append('<tr><td class="uk-table-shrink"><input class="uk-checkbox" type="checkbox" name="check_[]" value="'+data[i]['id']+'"></td> <td style="white-space: normal;">'+data[i]['isi_berita']+'</td></tr>');
                 }else{
-                    $('#isi_detail1').append('<tr><td><input class="uk-checkbox" type="checkbox" name="check_[]" value="'+data[i]['id']+'"></td> <td style="white-space: normal;"><img src="<?php echo base_url('upload/berita/')?>'+data[i]['isi_berita']+'" uk-img class="uk-border-rounded"></td></tr>');
+                    $('#isi_detail1').append('<tr><td class="uk-table-shrink"><input class="uk-checkbox" type="checkbox" name="check_[]" value="'+data[i]['id']+'"></td> <td style="white-space: normal;"><img src="<?php echo base_url('upload/berita/')?>'+data[i]['isi_berita']+'" uk-img class="uk-border-rounded"></td></tr>');
                 }
             }
         }
