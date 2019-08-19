@@ -28,7 +28,7 @@ date_default_timezone_set('Asia/Jakarta');
 // $config['base_url'] = '';
 $http = 'http' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']== 'on') ? 's' : '') . '://';
 $fo = str_replace("index.php","", $_SERVER['SCRIPT_NAME']);
-$config['base_url']	= "$http" . $_SERVER['SERVER_NAME'] ."/nakertrans_git/";
+$config['base_url']	= "$http" . $_SERVER['SERVER_NAME'] ."/nakertrans/";
 
 /*
 |--------------------------------------------------------------------------
